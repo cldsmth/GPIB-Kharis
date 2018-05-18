@@ -6,7 +6,7 @@
 <html lang="en">
 	<head>
 		<title><?=$title['login'];?></title>
-		<?php include ("packages/head.php");?>
+		<?php include("packages/head.php");?>
 	</head>
 	<body class="simple-page">
 		<div class="simple-page-wrap">
@@ -16,6 +16,7 @@
 					<span><?=$seo['company-name'];?></span>
 				</a>
 			</div><!-- logo -->
+
 			<div class="simple-page-form animated flipInY" id="login-form">
 				<h4 class="form-title m-b-xl text-center">Sign In With Your Account</h4>
 				<form action="index.php?action=login" method="post" onsubmit="return validateForm();">
@@ -36,12 +37,27 @@
 					<input type="submit" class="btn btn-primary" value="SIGN IN">
 				</form>
 			</div><!-- #login-form -->
+
 			<div class="simple-page-footer">
 				<p><a href="#">FORGOT YOUR PASSWORD ?</a></p>
 			</div><!-- .simple-page-footer -->
+
 		</div><!-- .simple-page-wrap -->
-		<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+
+		<?php include("packages/footer-js.php");?>
 		<script type="text/javascript">
+			<?php if($message != ""){?>
+				//use session here for alert success/failed
+				var alertText = "<?=$message;?>"; //text for alert
+				<?php if($alert != "success"){?>
+					//error alert
+					errorAlert(alertText);
+				<?php } else { ?>
+					//success alert
+					successAlert(alertText);
+				<?php } ?>
+			<?php } ?>
+
 			function validateForm(){
 				var email = $("#input-email").val();
 				var password = $("#input-password").val();

@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="<?=$global['absolute-url-admin'];?>assets/css/bootstrap.css">
 <link rel="stylesheet" href="<?=$global['absolute-url-admin'];?>assets/css/core.css">
 <link rel="stylesheet" href="<?=$global['absolute-url-admin'];?>assets/css/misc-pages.css">
+<link rel="stylesheet" href="<?=$global['absolute-url-admin'];?>assets/plugins/toastr/toastr.min.css">
 <link rel="stylesheet" href="<?=$global['absolute-url-admin'];?>assets/stylesheets/global-style.css?<?=mt_rand();?>">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900,300">
 <link rel="shortcut icon" sizes="196x196" href="<?=$global['favicon']."?".mt_rand();?>">
