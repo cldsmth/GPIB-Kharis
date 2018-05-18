@@ -1,0 +1,6 @@
+.is-error{
+    font-size: 13px;
+    display: none;
+    margin: 5px 0;
+    color: #a94442;
+}

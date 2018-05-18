@@ -7,4 +7,8 @@ $global['favicon'] = $global['absolute-url-admin']."/assets/images/logo.png";
 /*$global['logo-mobile'] = $global['absolute-url']."img/logo-header.png";
 $global['logo-desktop'] = $global['absolute-url']."img/logo-header.png";*/
 $seo['company-name'] = "GPIB Kharis";
+
+//login page
+$title['login'] = $seo['company-name']." | Login";
+$path['login'] = $global['absolute-url-admin'];
 ?>
