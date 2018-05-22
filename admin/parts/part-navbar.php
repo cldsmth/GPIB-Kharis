@@ -33,7 +33,7 @@
           <ul class="dropdown-menu animated flipInY">
             <li><a href="<?=$path['home'];?>"><i class="m-r-md fa fa-home"></i>Home</a></li>
             <li><a href="#"><i class="m-r-md fa fa-user"></i>My Profile</a></li>
-            <li><a href="#"><i class="m-r-md fa fa-power-off"></i>Sign Out</a></li>
+            <li><a href="<?=$path['logout'];?>"><i class="m-r-md fa fa-power-off"></i>Sign Out</a></li>
           </ul>
         </li>
       </ul>

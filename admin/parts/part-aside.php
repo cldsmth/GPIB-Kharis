@@ -31,7 +31,7 @@
                 </li>
                 <li role="separator" class="divider"></li>
                 <li>
-                  <a class="text-color" href="#">
+                  <a class="text-color" href="<?=$path['logout'];?>">
                     <span class="m-r-xs"><i class="fa fa-power-off"></i></span>
                     <span>Sign Out</span>
                   </a>
@@ -55,7 +55,7 @@
         </li>
         <li class="menu-separator"><hr></li>
         <li>
-          <a href="#">
+          <a href="<?=$path['logout'];?>">
             <i class="menu-icon fa fa-power-off"></i>
             <span class="menu-text">Sign Out</span>
           </a>

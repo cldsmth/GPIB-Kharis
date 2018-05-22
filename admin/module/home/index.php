@@ -1,5 +1,6 @@
 <?php
   include("../../packages/require.php");
+  include("../../packages/check_login.php");
   $curpage = "home";
   $navpage = "Home";
 ?>
