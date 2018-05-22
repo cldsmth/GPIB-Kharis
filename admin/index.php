@@ -1,5 +1,5 @@
 <?php
-	require("packages/require.php");
+	include("packages/require.php");
 	include("controller_index.php");
 ?>
 <!DOCTYPE html>
@@ -13,7 +13,7 @@
 			<div class="simple-page-logo animated swing">
 				<a href="#">
 					<span><i class="fa fa-gg"></i></span>
-					<span><?=$seo['company-name'];?></span>
+					<span><?=$seo['company-name']." Administrator";?></span>
 				</a>
 			</div><!-- logo -->
 
@@ -44,7 +44,11 @@
 
 		</div><!-- .simple-page-wrap -->
 
-		<?php include("packages/footer-js.php");?>
+		<script src="<?=$global['absolute-url-admin'];?>assets/plugins/jQuery/jquery-1.11.1.min.js"></script>
+		<script src="<?=$global['absolute-url-admin'];?>assets/plugins/toastr/toastr.js"></script>
+		<!-- start: CORE JAVASCRIPTS -->
+		<script src="<?=$global['absolute-url-admin'];?>assets/js/global-function.js<?="?".mt_rand();?>"></script>
+		<!-- end: CORE JAVASCRIPTS -->
 		<script type="text/javascript">
 			<?php if($message != ""){?>
 				//use session here for alert success/failed
