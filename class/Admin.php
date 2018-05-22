@@ -7,7 +7,7 @@ class Admin{
     public function login($email, $password){
         $result = 0;
 
-        $text = "SELECT id, name, email, img FROM $this->table 
+        $text = "SELECT id, name, email, img, auth_code FROM $this->table 
             WHERE email = '$email' AND password = '$password' AND status = 1";
         $query = mysql_query($text);
         if(mysql_num_rows($query) >= 1){
