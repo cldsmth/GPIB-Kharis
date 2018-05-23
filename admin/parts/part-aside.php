@@ -55,15 +55,15 @@
           </a>
         </li>
 
-        <?php /*
         <!-- Master !-->
-        <li class="has-submenu">
+        <li class="has-submenu <?=(in_array_any(array($curpage), array("admin")) ? "active open" : "");?>">
           <a href="javascript:void(0)" class="submenu-toggle">
             <i class="menu-icon fa fa-tasks"></i>
             <span class="menu-text">Master</span>
             <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
           </a>
-          <ul class="submenu">
+          <ul class="submenu" style="<?=(in_array_any(array($curpage), array("admin")) ? "display: block;" : "");?>">
+            <?php /*
             <!-- Module Kepala Keluarga !-->
             <li>
               <a href="#">
@@ -77,16 +77,18 @@
                 <span class="menu-text">Jemaat</span>
               </a>
             </li>
+            */?>
 
             <!-- Module Admin !-->
-            <li>
-              <a href="#">
+            <li class="<?=($curpage == "admin" ? "active" : "");?>">
+              <a href="<?=$path['admin'];?>">
                 <span class="menu-text">Admin</span>
               </a>
             </li>
           </ul>
         </li>
 
+        <?php /*
         <!-- Article !-->
         <li class="has-submenu">
           <a href="javascript:void(0)" class="submenu-toggle">

@@ -16,4 +16,8 @@ $path['login'] = $global['absolute-url-admin'];
 //home page
 $title['home'] = $seo['company-name']." | Home";
 $path['home'] = $global['absolute-url-admin']."module/home/index.php";
+
+//admin page
+$title['admin'] = $seo['company-name']." | Admin";
+$path['admin'] = $global['absolute-url-admin']."module/admin/index.php";
 ?>
