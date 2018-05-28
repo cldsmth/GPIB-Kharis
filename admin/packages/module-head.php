@@ -8,11 +8,16 @@
 <link rel="stylesheet" href="<?=$global['absolute-url-admin'];?>libs/bower/animate.css/animate.min.css">
 <link rel="stylesheet" href="<?=$global['absolute-url-admin'];?>libs/bower/fullcalendar/dist/fullcalendar.min.css">
 <link rel="stylesheet" href="<?=$global['absolute-url-admin'];?>libs/bower/perfect-scrollbar/css/perfect-scrollbar.css">
+<link rel="stylesheet" type="text/css" href="<?=$global['absolute-url-admin'];?>libs/misc/datatables/datatables.min.css">
+<link rel="stylesheet" type="text/css" href="<?=$global['absolute-url-admin'];?>libs/bower/switchery/dist/switchery.min.css">
+<link rel="stylesheet" type="text/css" href="<?=$global['absolute-url-admin'];?>libs/bower/lightbox2/dist/css/lightbox.min.css">
 <link rel="stylesheet" href="<?=$global['absolute-url-admin'];?>assets/css/bootstrap.css">
 <link rel="stylesheet" href="<?=$global['absolute-url-admin'];?>assets/css/core.css">
 <link rel="stylesheet" href="<?=$global['absolute-url-admin'];?>assets/css/app.css">
 <!-- endbuild -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900,300">
+<link rel="stylesheet" href="<?=$global['absolute-url-admin'];?>assets/stylesheets/global-style.css?<?=mt_rand();?>">
+<link rel="stylesheet" href="<?=$global['absolute-url-admin'];?>assets/stylesheets/libcvm.css?<?=mt_rand();?>">
 <script src="<?=$global['absolute-url-admin'];?>libs/bower/breakpoints.js/dist/breakpoints.min.js"></script>
 <link rel="shortcut icon" sizes="196x196" href="<?=$global['favicon']."?".mt_rand();?>">
 <script>
