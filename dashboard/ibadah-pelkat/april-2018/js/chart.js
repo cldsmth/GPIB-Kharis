@@ -53,53 +53,53 @@ Highcharts.chart('container', {
 	series: [{
 	    name: 'PA',
 	    color: '#F44336',
-	    data: [50, 71, 106, 129]
+	    data: [0, 0, 0, 0]
 	}, {
 	    name: 'PT',
 	    color: '#009688',
-	    data: [83, 78, 98, 93]
+	    data: [0, 0, 0, 0]
 	}, {
 	    name: 'GP',
 	    color: '#2196F3',
-	    data: [42, 33, 34, 39]
+	    data: [0, 0, 8, 0]
 	}, {
 	    name: 'PKP',
 	    color: '#9C27B0',
-	    data: [42, 33, 34, 39]
+	    data: [23, 33, 25, 32]
 	}, {
 	    name: 'PKB',
 	    color: '#795548',
-	    data: [42, 33, 34, 39]
+	    data: [0, 15, 11, 0]
 	}, {
 	    name: 'PKLU',
 	    color: '#FF9800',
-	    data: [42, 33, 34, 39]
+	    data: [0, 20, 0, 23]
 	}, {
         type: 'pie',
         name: 'Total',
         data: [{
             name: 'PA',
-            y: 500,
+            y: 0,
             color: '#F44336'
         }, {
             name: 'PT',
-            y: 458,
+            y: 0,
             color: '#009688'
         }, {
             name: 'GP',
-            y: 200,
+            y: 8,
             color: '#2196F3'
         }, {
             name: 'PKP',
-            y: 200,
+            y: 113,
             color: '#9C27B0'
         }, {
             name: 'PKB',
-            y: 200,
+            y: 26,
             color: '#795548'
         }, {
             name: 'PKLU',
-            y: 200,
+            y: 43,
             color: '#FF9800'
         }],
         center: [100, 80],
