@@ -70,11 +70,11 @@ Highcharts.chart('container', {
 	}, {
 	    name: 'PKB',
 	    color: '#795548',
-	    data: [0, 11, 0, 16, 0]
+	    data: [0, 11, 0, 14, 0]
 	}, {
 	    name: 'PKLU',
 	    color: '#FF9800',
-	    data: [0, 0, 25, 0, 0]
+	    data: [0, 0, 25, 0, 26]
 	}, {
         type: 'pie',
         name: 'Total',
