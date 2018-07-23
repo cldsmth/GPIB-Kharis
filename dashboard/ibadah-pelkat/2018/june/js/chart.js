@@ -62,7 +62,7 @@ Highcharts.chart('container', {
 	}, {
 	    name: 'GP',
 	    color: '#2196F3',
-	    data: [5, 10, 8, 8, 0]
+	    data: [5, 10, 7, 8, 0]
 	}, {
 	    name: 'PKP',
 	    color: '#9C27B0',
