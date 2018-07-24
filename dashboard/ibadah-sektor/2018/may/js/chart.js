@@ -3,7 +3,7 @@ Highcharts.chart('container', {
 	    type: 'column'
 	},
 	title: {
-	    text: 'Jumlah Kehadiran Ibadah Sektor<br>Periode: April 2018'
+	    text: 'Jumlah Kehadiran Ibadah Sektor<br>Periode: Mei 2018'
 	},
 	subtitle: {
 	    text: 'Source: GPIB Kharis Pulo Gebang'
@@ -13,7 +13,8 @@ Highcharts.chart('container', {
 	        'Minggu Pertama',
 	        'Minggu Kedua',
 	        'Minggu Ketiga',
-	        'Minggu Keempat'
+	        'Minggu Keempat',
+	        'Minggu Kelima'
 	    ],
 	    crosshair: true
 	},
@@ -53,37 +54,37 @@ Highcharts.chart('container', {
 	series: [{
 	    name: 'Sektor 1',
 	    color: '#9C27B0',
-	    data: [32, 22, 17, 19]
+	    data: [17, 20, 15, 30, 0]
 	}, {
 	    name: 'Sektor 2',
 	    color: '#FF9800',
-	    data: [23, 18, 29, 25]
+	    data: [21, 10, 18, 16, 0]
 	}, {
 	    name: 'Sektor 3',
 	    color: '#4CAF50',
-	    data: [11, 19, 13, 22]
+	    data: [17, 22, 25, 22, 0]
 	}, {
 	    name: 'Sektor 4',
 	    color: '#2196F3',
-	    data: [16, 32, 15, 17]
+	    data: [20, 19, 20, 20, 0]
 	}, {
         type: 'pie',
         name: 'Total',
         data: [{
             name: 'Sektor 1',
-            y: 90,
+            y: 82,
             color: '#9C27B0'
         }, {
             name: 'Sektor 2',
-            y: 95,
+            y: 65,
             color: '#FF9800'
         }, {
             name: 'Sektor 3',
-            y: 65,
+            y: 86,
             color: '#4CAF50'
         }, {
             name: 'Sektor 4',
-            y: 80,
+            y: 79,
             color: '#2196F3'
         }],
         center: [100, 80],
