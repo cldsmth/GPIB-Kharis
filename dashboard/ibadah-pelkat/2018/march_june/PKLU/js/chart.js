@@ -53,6 +53,6 @@ Highcharts.chart('container', {
 	series: [{
 	    name: 'PKLU',
 	    color: '#FF9800',
-	    data: [35, 0, 20, 0, 23, 0, 28, 0, 25, 0, 0, 25, 0, 0]
+	    data: [35, 0, 20, 0, 23, 0, 28, 0, 25, 0, 0, 25, 0, 26]
 	}]
 });
