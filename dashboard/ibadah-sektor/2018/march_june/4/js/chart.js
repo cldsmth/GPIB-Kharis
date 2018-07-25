@@ -3,15 +3,25 @@ Highcharts.chart('container', {
 	    type: 'column'
 	},
 	title: {
-	    text: 'Jumlah Kehadiran Ibadah Sektor Gabungan<br>Tahun 2018'
+	    text: 'Jumlah Kehadiran Ibadah Sektor 4<br>Periode: Maret - Juni 2018'
 	},
 	subtitle: {
 	    text: 'Source: GPIB Kharis Pulo Gebang'
 	},
 	xAxis: {
 	    categories: [
-	        '30-May-2018',
-	        '27-Jul-2018'
+	        '21-Mar-2018',
+	        '28-Mar-2018',
+	        '4-Apr-2018',
+	        '11-Apr-2018',
+	        '18-Apr-2018',
+	        '25-Apr-2018',
+	        '2-May-2018',
+	        '9-May-2018',
+	        '16-May-2018',
+	        '23-May-2018',
+	        '13-Jun-2018',
+	        '20-Jun-2018'
 	    ],
 	    crosshair: true
 	},
@@ -39,7 +49,8 @@ Highcharts.chart('container', {
 	    }
 	},
 	series: [{
-	    name: 'Gabungan',
-	    data: [45, 43]
+	    name: 'Sektor 4',
+	    color: '#2196F3',
+	    data: [0, 16, 16, 32, 15, 17, 20, 19, 20, 20, 0, 22]
 	}]
 });
