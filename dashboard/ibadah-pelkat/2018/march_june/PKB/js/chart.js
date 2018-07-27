@@ -6,7 +6,7 @@ Highcharts.chart('container', {
 	    text: 'Jumlah Kehadiran Ibadah Pelkat PKB<br>Periode: Maret - Juni 2018'
 	},
 	subtitle: {
-	    text: 'Source: GPIB Kharis Pulo Gebang'
+	    text: 'Source: Database dari April 2017 - Maret 2018'
 	},
 	xAxis: {
 	    categories: [
@@ -31,11 +31,15 @@ Highcharts.chart('container', {
 	    crosshair: true
 	},
 	yAxis: {
-	    min: 0,
-	    title: {
+		min : 0,
+        max : 127,
+        tickPositions: [0, 25, 50, 75, 100, 127],
+        startOnTick: false,
+        endOnTick: false,
+        title: {
 	        text: 'Jumlah Kehadiran'
 	    }
-	},
+    },
 	tooltip: {
 	    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
 	    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
