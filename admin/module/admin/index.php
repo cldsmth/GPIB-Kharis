@@ -9,6 +9,8 @@
   <head>
     <title><?=$title['admin'];?></title>
     <?php include("../../packages/module-head.php");?>
+    <!-- Add fancyBox -->
+    <link rel="stylesheet" href="<?=$global['absolute-url-admin'];?>packages/fancybox/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen">
   </head>
   <body class="menubar-left menubar-unfold menubar-light theme-primary">
 
@@ -59,7 +61,8 @@
                       <tbody>
                         <tr>
                           <th class="text-left">#</th>
-                          <th class="text-center">Action</th>
+                          <th class="text-center" style="width: 10%;">Action</th>
+                          <th class="text-center">Image</th>
                           <th>First Name</th>
                           <th>Last Name</th>
                           <th>Username</th>
@@ -70,6 +73,11 @@
                           <td class="text-center">
                             <button type="button" class="btn btn-xs btn-outline btn-success"><i class="fa fa-edit"></i> Edit</button>
                             <button type="button" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> Delete</button>
+                          </td>
+                          <td class="text-center">
+                            <a class="fancybox" href="http://www.tamara.id/dev/gpib/admin//assets/images/221.jpg">
+                              <img style="width: 40px;" class="img-circle" src="http://www.tamara.id/dev/gpib/admin//assets/images/221.jpg">
+                            </a>
                           </td>
                           <td>Mark <?=$i;?></td>
                           <td>Otto <?=$i;?></td>
@@ -130,5 +138,13 @@
 
     </main>
   	<?php include("../../packages/footer-js.php");?>
+    <script type="text/javascript" src="<?=$global['absolute-url-admin'];?>packages/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $(".fancybox").fancybox({
+          padding : 0
+        });
+      });
+    </script>
   </body>
 </html>
