@@ -1,3 +1,17 @@
+function sizeFile(file){
+  return file.value != "" ? file.files[0].size : "";
+}
+
+function checkFormatImage(value){
+  var val = value.toLowerCase();
+  var regex = new RegExp("(.*?)\.(jpg|jpeg|png)$");
+  if(!(regex.test(val))){
+    return false;
+  }else{
+    return true;
+  }
+}
+
 //success alert
 function successAlert(text){
   Command: toastr["success"](text)
