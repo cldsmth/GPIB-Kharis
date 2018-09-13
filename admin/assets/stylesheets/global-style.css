@@ -4,3 +4,7 @@
     margin: 5px 0;
     color: #a94442;
 }
+.table-horizontal-scroll{
+	white-space: nowrap;
+	overflow-x: auto;
+}

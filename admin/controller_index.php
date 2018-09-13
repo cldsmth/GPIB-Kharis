@@ -43,7 +43,7 @@ if(!isset($_GET['action'])){
         	$result = $obj_admin->login($O_email, $password);
 	        //var_dump($result);
 	        if(is_array($result)){
-	        	create_session($obj_encrypt, $result);
+	        	create_session($result);
 	        	if(isset($_SESSION['GpibKharis']) && $O_remember_me == "yes"){
 	        		create_cookie(json_encode($_SESSION['GpibKharis']));
 	        	}
