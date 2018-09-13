@@ -42,12 +42,12 @@
                     </div>
                     <div class="hidden-xs">
                       <div class="col-sm-6 text-right">
-                        <button type="button" class="btn btn-xs btn-outline btn-primary"><i class="fa fa-plus"></i> Create New Admin</button>
+                        <a href="<?=$path['admin-add'];?>" class="btn btn-xs btn-outline btn-primary"><i class='fa fa-plus'></i> Create New Admin</a>
                       </div>
                     </div>
                     <div class="visible-xs">
                       <div class="col-sm-6 text-left up1">
-                        <button type="button" class="btn btn-xs btn-outline btn-primary"><i class="fa fa-plus"></i> Create New Admin</button>
+                        <a href="<?=$path['admin-add'];?>" class="btn btn-xs btn-outline btn-primary"><i class='fa fa-plus'></i> Create New Admin</a>
                       </div>
                     </div>
                   </div>

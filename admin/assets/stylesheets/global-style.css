@@ -1,10 +1,42 @@
-.is-error{
+.form-body {
+    padding: 5px 15px;
+}
+.table-horizontal-scroll {
+	white-space: nowrap;
+	overflow-x: auto;
+}
+.is-error {
     font-size: 13px;
     display: none;
     margin: 5px 0;
     color: #a94442;
 }
-.table-horizontal-scroll{
-	white-space: nowrap;
-	overflow-x: auto;
+.input-style::-webkit-input-placeholder {
+    font-style:italic;
+    font-size:13px;
+    color:#a7a7a7;
+}
+.input-style::-moz-placeholder {
+    font-style:italic;
+    font-size:13px;
+    color:#a7a7a7;
+}
+.input-style:-ms-input-placeholder {
+    font-style:italic;
+    font-size:13px;
+    color:#a7a7a7;
+}
+.input-style:-moz-placeholder {
+    font-style:italic;
+    font-size:13px;
+    color:#a7a7a7;
+}
+.symbol-required {
+    color: #E6674A;
+    font-size: 17px;
+}
+.note-input {
+    font-size: 12px;
+    font-style: italic;
+    color: #E6674A;
 }
