@@ -4,6 +4,7 @@
   include("controller/controller_admin.php");
   $curpage = "admin";
   $navpage = "Master";
+  $page_name = "index.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -71,14 +72,14 @@
                         </tr>
                         <?php $num=1; if(is_array($datas)){ foreach($datas as $data){?>
                         <tr class="<?=colorStatus($data['status']);?>">
-                          <td class="text-left"><?=$num;?>.</td>
+                          <td class="text-left"><?=($O_page-1)*20+$num;?>.</td>
                           <td class="text-center">
-                            <a href="#" class="btn btn-xs btn-outline btn-success"><i class='fa fa-plus'></i> Edit</a>
+                            <a href="#" class="btn btn-xs btn-outline btn-success"><i class='fa fa-edit'></i> Edit</a>
                             <a href="javascript:void(0)" onclick="alert('delete')" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> Delete</a>
                           </td>
                           <td class="text-center">
-                            <a class="fancybox" href="http://www.tamara.id/dev/gpib/admin//assets/images/221.jpg">
-                              <img style="width: 40px;" class="img-circle" src="http://www.tamara.id/dev/gpib/admin//assets/images/221.jpg">
+                            <a class="fancybox" href="<?=getUploadFile($global['absolute-url'], "admin", "", $data['img']);?>">
+                              <img style="width: 40px;" class="img-circle" src="<?=getUploadFile($global['absolute-url'], "admin", "thmb/", $data['img']);?>">
                             </a>
                           </td>
                           <td><?=$data['name'];?></td>
@@ -87,8 +88,8 @@
                           <td><?=date("d M Y, H:i:s", strtotime($data['create_date']));?></td>
                         </tr>
                         <?php $num++;}}else{?>
-                        <tr class="warning">
-                          <td colspan="7" class="bold">There is no data!</td>
+                        <tr>
+                          <td colspan="7">There is no data!</td>
                         </tr>
                         <?php }?>
                       </tbody>
@@ -97,35 +98,34 @@
                   <div id="default-datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap up2">
                     <div class="row">
                       <div class="col-sm-5">
-                        <div class="dataTables_info" id="default-datatable_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
+                        <div class="dataTables_info" id="default-datatable_info" role="status" aria-live="polite"><?="Showing ".(($O_page-1)*20+1)." to ".(count($datas)+(($O_page-1)*20))." of ".$total_data." entries";?></div>
                       </div>
                       <div class="col-sm-7">
                         <div class="dataTables_paginate paging_simple_numbers" id="default-datatable_paginate">
                           <ul class="pagination">
-                            <li class="paginate_button previous disabled" id="default-datatable_previous">
-                              <a href="#" aria-controls="default-datatable" data-dt-idx="0" tabindex="0">Previous</a>
-                            </li>
-                            <li class="paginate_button active">
-                              <a href="#" aria-controls="default-datatable" data-dt-idx="1" tabindex="0">1</a>
-                            </li>
-                            <li class="paginate_button">
-                              <a href="#" aria-controls="default-datatable" data-dt-idx="2" tabindex="0">2</a>
-                            </li>
-                            <li class="paginate_button">
-                              <a href="#" aria-controls="default-datatable" data-dt-idx="3" tabindex="0">3</a>
-                            </li>
-                            <li class="paginate_button">
-                              <a href="#" aria-controls="default-datatable" data-dt-idx="4" tabindex="0">4</a>
-                            </li>
-                            <li class="paginate_button">
-                              <a href="#" aria-controls="default-datatable" data-dt-idx="5" tabindex="0">5</a>
-                            </li>
-                            <li class="paginate_button">
-                              <a href="#" aria-controls="default-datatable" data-dt-idx="6" tabindex="0">6</a>
-                            </li>
-                            <li class="paginate_button next" id="default-datatable_next">
-                              <a href="#" aria-controls="default-datatable" data-dt-idx="7" tabindex="0">Next</a>
-                            </li>
+                            <?php
+                            $batch = getBatch($O_page);
+                            if($batch < 1){$batch = 1;}
+                            $prevLimit = 1 +(5*($batch-1));
+                            $nextLimit = 5 * $batch;
+
+                            if($nextLimit > $total_page){
+                              $nextLimit = $total_page;
+                            }
+                            if($O_page > 1){
+                              echo "<li id='default-datatable_previous' class='paginate_button previous'>";
+                              echo "<a href='".$page_name."?page=".($O_page-1)."' aria-controls='default-datatable' data-dt-idx='0' tabindex='0'><i class='fa fa-chevron-left'></i> Previous</a>";
+                              echo "</li>";
+                            }
+                            for($mon = $prevLimit; $mon <= $nextLimit;$mon++){?>
+                              <li class="paginate_button <?php if($mon == $O_page){echo 'active';}?>">
+                                <a href="<?=$page_name."?page=".$mon;?>" aria-controls="default-datatable" data-dt-idx="<?=$mon;?>" tabindex="0"><?=$mon;?></a>
+                              </li>
+                            <?php } if($total_page > 1 && $O_page != $total_page){
+                              echo "<li id='default-datatable_next' class='paginate_button next'>";
+                              echo "<a href='".$page_name."?page=".($O_page+1)."' aria-controls='default-datatable' data-dt-idx='".($O_page+1)."' tabindex='0'><i class='fa fa-chevron-right'></i> Next</a>";
+                              echo "</li>";
+                            } ?>
                           </ul>
                         </div>
                       </div>

@@ -4,7 +4,7 @@
     <div class="media">
       <div class="media-left">
         <div class="avatar avatar-md avatar-circle">
-          <a href="javascript:void(0)"><img class="img-responsive" src="<?=$global['absolute-url-admin'];?>/assets/images/221.jpg" alt="avatar"/></a>
+          <a href="javascript:void(0)"><img class="img-responsive" src="<?=getUploadFile($global['absolute-url'], "admin", "", $_SESSION['GpibKharis']['admin']['img']);?>" alt="avatar"/></a>
         </div><!-- .avatar -->
       </div>
       <div class="media-body">

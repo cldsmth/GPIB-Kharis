@@ -1,4 +1,28 @@
 <?php
+if(!function_exists('getUploadFile'))
+{
+    function getUploadFile($url, $module, $thmb, $data){
+        $data = trim($data);
+        if($data != ""){
+            switch ($module) {
+                case "admin":
+                $result = $url."uploads/admin/".$thmb.$data;
+                break;
+                default:
+                $result = $url."img/placeholder-image.png";
+                break;
+            }
+        }else{
+            if($module == "admin"){
+                $result = $url."img/placeholder-anonymous.jpg";
+            }else{
+                $result = $url."img/placeholder-image.png";
+            }
+        }
+        return $result;
+    }
+}
+
 if(!function_exists('colorStatus'))
 {
     function colorStatus($status){
@@ -55,6 +79,7 @@ if(!function_exists('create_session'))
         $_SESSION['GpibKharis']['admin']['id'] = $datas['id'];
         $_SESSION['GpibKharis']['admin']['name'] = $datas['name'];
         $_SESSION['GpibKharis']['admin']['email'] = $datas['email'];
+        $_SESSION['GpibKharis']['admin']['img'] = $datas['img'];
         $_SESSION['GpibKharis']['admin']['auth_code'] = $datas['auth_code'];
     }
 }
