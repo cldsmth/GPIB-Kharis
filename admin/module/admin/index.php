@@ -1,6 +1,7 @@
 <?php
   include("../../packages/require.php");
   include("../../packages/check_login.php");
+  include("controller/controller_admin.php");
   $curpage = "admin";
   $navpage = "Master";
 ?>
@@ -63,25 +64,31 @@
                           <th class="text-left">#</th>
                           <th class="text-center" style="width: 10%;">Action</th>
                           <th class="text-center">Image</th>
-                          <th>First Name</th>
-                          <th>Last Name</th>
-                          <th>Username</th>
+                          <th>Name</th>
+                          <th>E-mail</th>
+                          <th>Status</th>
+                          <th>Create Date</th>
                         </tr>
-                        <?php for($i=1; $i<=20; $i++){?>
-                        <tr>
-                          <td class="text-left"><?=$i;?>.</td>
+                        <?php $num=1; if(is_array($datas)){ foreach($datas as $data){?>
+                        <tr class="<?=colorStatus($data['status']);?>">
+                          <td class="text-left"><?=$num;?>.</td>
                           <td class="text-center">
-                            <button type="button" class="btn btn-xs btn-outline btn-success"><i class="fa fa-edit"></i> Edit</button>
-                            <button type="button" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> Delete</button>
+                            <a href="#" class="btn btn-xs btn-outline btn-success"><i class='fa fa-plus'></i> Edit</a>
+                            <a href="javascript:void(0)" onclick="alert('delete')" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> Delete</a>
                           </td>
                           <td class="text-center">
                             <a class="fancybox" href="http://www.tamara.id/dev/gpib/admin//assets/images/221.jpg">
                               <img style="width: 40px;" class="img-circle" src="http://www.tamara.id/dev/gpib/admin//assets/images/221.jpg">
                             </a>
                           </td>
-                          <td>Mark <?=$i;?></td>
-                          <td>Otto <?=$i;?></td>
-                          <td>@mdo <?=$i;?></td>
+                          <td><?=$data['name'];?></td>
+                          <td><?=$data['email'];?></td>
+                          <td><?=checkStatus($data['status']);?></td>
+                          <td><?=date("d M Y, H:i:s", strtotime($data['create_date']));?></td>
+                        </tr>
+                        <?php $num++;}}else{?>
+                        <tr class="warning">
+                          <td colspan="7" class="bold">There is no data!</td>
                         </tr>
                         <?php }?>
                       </tbody>

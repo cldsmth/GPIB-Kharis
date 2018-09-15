@@ -1,4 +1,25 @@
 <?php
+if(!function_exists('colorStatus'))
+{
+    function colorStatus($status){
+        return $status == 1 ? "" : "danger";
+    }
+}
+
+if(!function_exists('checkStatus'))
+{
+    function checkStatus($status){
+        return $status == 1 ? "Active" : "Inactive";
+    }
+}
+
+if(!function_exists('PHPFilename'))
+{
+    function PHPFilename(){
+        return basename($_SERVER['SCRIPT_FILENAME'], ".php");
+    }
+}
+
 if(!function_exists('in_array_any'))
 {
     function in_array_any($needles, $haystack){
