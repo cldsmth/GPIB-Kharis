@@ -5,9 +5,6 @@ $obj_connect = new Connection();
 require_once($global['root-url-class']."Admin.php");
 $obj_admin = new Admin();
 
-require_once($global['root-url-class']."Encryption.php");
-$obj_encrypt = new Encryption();
-
 if(!isset($_GET['action'])){
 
 	if(isset($_COOKIE['cookie_datas'])){
@@ -38,7 +35,8 @@ if(!isset($_GET['action'])){
 	        $O_email = mysql_real_escape_string(check_input($_POST['email']));
         	$O_password = mysql_real_escape_string(check_input($_POST['password']));
         	$O_remember_me = isset($_POST['remember_me']) ? $_POST['remember_me'] : "no";
-        	$password = $obj_encrypt->encode($O_password);
+        	$salt = $obj_admin->get_salt($O_email);
+        	$password = substr(doHash($O_password, $salt), 0, 64);
 
         	$result = $obj_admin->login($O_email, $password);
 	        //var_dump($result);
