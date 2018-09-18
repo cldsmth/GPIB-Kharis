@@ -45,7 +45,7 @@ if(!isset($_GET['action'])){
 	    if($_GET['action'] == 'add' && issetVar(array('email'))){
 	    	$obj_connect->up();
 
-			print_r($_POST);	        
+			print_r($_POST);
 
 	        $obj_connect->down();
 	        /*$_SESSION['status'] = $message;
@@ -55,13 +55,13 @@ if(!isset($_GET['action'])){
 	    } else {
 	    	$_SESSION['status'] = "Action Not Found.";
 	        $_SESSION['alert'] = "failed";
-	        header("Location:".$path['login']);
+	        header("Location:".$path['home']);
 	    }
 
 	} else {
 		$_SESSION['status'] = "Not Found.";
         $_SESSION['alert'] = "failed";
-        header("Location:".$path['login']);
+        header("Location:".$path['home']);
 	}
 	
 }

@@ -55,7 +55,15 @@ if(!isset($_GET['action'])){
 	        $obj_connect->down();
 	        header("Location:".$page);
 	    
-	    } else {
+	    } else if($_GET['action'] == 'logout'){
+		    //set end data session
+		    end_cookie();
+			end_session();
+			if(!isset($_SESSION['GpibKharis'])){
+				header("Location:".$path['login']."?logout");
+			}
+
+		} else {
 	    	$_SESSION['status'] = "Action Not Found.";
 	        $_SESSION['alert'] = "failed";
 	        header("Location:".$path['login']);
