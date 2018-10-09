@@ -14,8 +14,7 @@ if(!isset($_SESSION['GpibKharis'])){
 }else{
 	$obj_connect->up();
 	if(isset($_COOKIE['cookie_datas']) && !isset($_SESSION['GpibKharis']['admin']['id'])){ //if login check me out
-		//set cookie in session
-		create_session($obj_encrypt, json_decode($_COOKIE['cookie_datas'], true));
+		create_session($obj_encrypt, json_decode($_COOKIE['cookie_datas'], true)); //set cookie in session
 	}
 	$obj_connect->down();
 }

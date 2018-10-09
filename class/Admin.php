@@ -5,6 +5,17 @@ class Admin{
     private $itemPerPageAdmin = 20;
 
 //START FUNCTION FOR ADMIN PAGE
+    public function check_email($email){
+        $result = 0;
+
+        $text = "SELECT email FROM $this->table WHERE email = '$email'";
+        $query = mysql_query($text);
+        if(mysql_num_rows($query) >= 1){
+            $result = 1;
+        }
+        return $result;
+    }
+
     public function get_salt($email){
         $result = 0;
 
@@ -57,6 +68,20 @@ class Admin{
             $result[0]['total_page'] = $total_page;
             $result[0]['total_data_all'] = $total_data;
             $result[0]['total_data'] = count($result);
+        }
+        return $result;
+    }
+
+    public function insert_data($id, $name, $email, $password, $salt_hash, $auth_code, $status, $img){
+        $result = 0;
+        date_default_timezone_set('Asia/Jakarta');
+        $now = date("Y-m-d H:i:s");
+
+        $text = "INSERT INTO $this->table (id, name, email, password, salt_hash, auth_code, status, img, create_date)
+            VALUES ('$id', '$name', '$email', '$password', '$salt_hash', '$auth_code', '$status', '$img', '$now')";
+        $query = mysql_query($text);
+        if($query){
+            $result = 1;
         }
         return $result;
     }

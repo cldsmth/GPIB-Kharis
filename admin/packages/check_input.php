@@ -1,4 +1,49 @@
 <?php
+if(!function_exists('save_image'))
+{
+    function save_image($param, $upload_link){
+        $result = array("status" => "400", "message" => "No data");
+        if(isset($_FILES[$param]['name'])){
+            if(!empty($_FILES[$param]['name'])){
+                $allowed_ext = array('jpg', 'jpeg', 'png');
+                $file_name = time().rand().cleanSpace($_FILES[$param]['name']);
+                $file_ext_tmp = explode('.', $file_name);
+                $file_ext = strtolower(end($file_ext_tmp));
+                $file_type = $_FILES[$param]['type'];
+                $file_size = $_FILES[$param]['size'];
+                $file_tmp = $_FILES[$param]['tmp_name'];
+
+                if(in_array($file_ext, $allowed_ext) === true){
+                    if($file_size < 9097152){
+                        $file_loc = $upload_link.$file_name;
+                        $file_locThmb = $upload_link."thmb/".$file_name;
+                        //Resizing images
+                        if(move_uploaded_file($file_tmp, $file_loc)){
+                            $image = new SimpleImage();
+                            $image->load($file_loc);
+                            $image->resize(200, 200);
+                            $image->save($file_locThmb);
+                            $result = array("status" => "200", "message" => "Upload image success");
+                            $result['data']['filename'] = $file_name;
+                        }else{
+                            $result = array("status" => "400", "message" => "Upload image failed");
+                        }
+                    }else{
+                        $result = array("status" => "413", "message" => "ERROR: file size max 9 MB!");
+                    }
+                }else{
+                    $result = array("status" => "415", "message" => "ERROR: extension file invalid!");
+                }
+            }else{
+                $result = array("status" => "404", "message" => "Upload file is empty");
+            }
+        }else{
+            $result = array("status" => "404", "message" => "Upload file is empty");
+        }
+        return $result;
+    }
+}
+
 if(!function_exists('getUploadFile'))
 {
     function getUploadFile($url, $module, $thmb, $data){
@@ -6,10 +51,10 @@ if(!function_exists('getUploadFile'))
         if($data != ""){
             switch ($module) {
                 case "admin":
-                $result = $url."uploads/admin/".$thmb.$data;
+                    $result = $url."uploads/admin/".$thmb.$data;
                 break;
                 default:
-                $result = $url."img/placeholder-image.png";
+                    $result = $url."img/placeholder-image.png";
                 break;
             }
         }else{

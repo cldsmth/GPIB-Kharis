@@ -85,7 +85,7 @@
                           <td><?=$data['name'];?></td>
                           <td><?=$data['email'];?></td>
                           <td><?=checkStatus($data['status']);?></td>
-                          <td><?=date("d M Y, H:i:s", strtotime($data['create_date']));?></td>
+                          <td><?=date("d-M-Y, H:i:s", strtotime($data['create_date']));?></td>
                         </tr>
                         <?php $num++;}}else{?>
                         <tr>
@@ -152,6 +152,18 @@
           padding : 0
         });
       });
+
+      <?php if($message != ""){?>
+        //use session here for alert success/failed
+        var alertText = "<?=$message;?>"; //text for alert
+        <?php if($alert != "success"){?>
+          //error alert
+          errorAlert(alertText);
+        <?php } else { ?>
+          //success alert
+          successAlert(alertText);
+        <?php } ?>
+      <?php } ?>
     </script>
   </body>
 </html>
