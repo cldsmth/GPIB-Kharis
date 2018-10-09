@@ -94,20 +94,28 @@ if(!isset($_GET['action'])){
 
             $O_id = mysql_real_escape_string(check_input($_GET['id']));
             $O_name = mysql_real_escape_string(check_input($_GET['name']));
+            $O_admin_id = $_SESSION['GpibKharis']['admin']['id'];
 
-            $result = $obj_admin->delete_data($O_id, $global['root-url']."uploads/admin/");
-            if($result == 0){
-                $message = "Administrator '".$O_name."' failed to be deleted in system";
-                $alert = "failed";
-            }else if($result == 1){
-                $message = "Administrator '".$O_name."' success to be deleted in system";
-                $alert = "success";
+            if($O_admin_id != $O_id){
+            	$result = $obj_admin->delete_data($O_id, $global['root-url']."uploads/admin/");
+	            if($result == 0){
+	                $message = "Administrator '".$O_name."' failed to be deleted in system";
+	                $alert = "failed";
+	            }else if($result == 1){
+	                $message = "Administrator '".$O_name."' success to be deleted in system";
+	                $alert = "success";
+	            }
+	            $page = $path['admin'];
+            }else{
+            	$message = "You cannot delete '".$O_name."' when you're logged in";
+            	$alert = "failed";
+            	$page = $path['home'];
             }
 
             $obj_connect->down();
 	        $_SESSION['status'] = $message;
 	        $_SESSION['alert'] = $alert;
-	        header("Location: index.php");
+	        header("Location:".$page);
 
         } else {
 	    	$_SESSION['status'] = "Action Not Found.";

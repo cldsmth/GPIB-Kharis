@@ -1,6 +1,7 @@
 <?php
   include("../../packages/require.php");
   include("../../packages/check_login.php");
+  include("controller/controller_home.php");
   $curpage = "home";
   $navpage = "Home";
 ?>
@@ -254,5 +255,18 @@
 
     </main>
   	<?php include("../../packages/footer-js.php");?>
+    <script type="text/javascript">
+      <?php if($message != ""){?>
+        //use session here for alert success/failed
+        var alertText = "<?=$message;?>"; //text for alert
+        <?php if($alert != "success"){?>
+          //error alert
+          errorAlert(alertText);
+        <?php } else { ?>
+          //success alert
+          successAlert(alertText);
+        <?php } ?>
+      <?php } ?>
+    </script>
   </body>
 </html>

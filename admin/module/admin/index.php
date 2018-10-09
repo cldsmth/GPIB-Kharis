@@ -166,11 +166,16 @@
       <?php } ?>
 
       function confirmDelete(id, name){
-        var x = confirm("Are you sure want to delete \""+name+"\" in system ?");
-        if(x == true){
-          window.location.href = "index.php?action=delete&id="+id+"&name="+name;
+        var admin_id = "<?=$_SESSION['GpibKharis']['admin']['id'];?>";
+        if(admin_id != id){
+          var x = confirm("Are you sure want to delete \""+name+"\" in system ?");
+          if(x == true){
+            window.location.href = "index.php?action=delete&id="+id+"&name="+name;
+          }else{
+            //nothing
+          }
         }else{
-          //nothing
+          alert("You cannot delete \""+name+"\" when you're logged in")
         }
       }
     </script>
