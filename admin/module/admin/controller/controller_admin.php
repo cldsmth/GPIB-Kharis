@@ -45,7 +45,7 @@ if(!isset($_GET['action'])){
 
 	if(isset($_GET['action'])){
 
-	    if($_GET['action'] == 'add' && issetVar(array('name', 'email', 'password', 'repassword'))){
+	    if($_GET['action'] == "add" && issetVar(array('name', 'email', 'password', 'repassword'))){
 	    	$obj_connect->up();
 
 			$N_id = $obj_generator->generate(32);
@@ -89,7 +89,27 @@ if(!isset($_GET['action'])){
 	        $_SESSION['alert'] = $alert;
 	        header("Location: index.php");
 	    
-	    } else {
+	    } else if($_GET['action'] == "delete" && issetVar(array('id', 'name'))){
+            $obj_connect->up();
+
+            $O_id = mysql_real_escape_string(check_input($_GET['id']));
+            $O_name = mysql_real_escape_string(check_input($_GET['name']));
+
+            $result = $obj_admin->delete_data($O_id, $global['root-url']."uploads/admin/");
+            if($result == 0){
+                $message = "Administrator '".$O_name."' failed to be deleted in system";
+                $alert = "failed";
+            }else if($result == 1){
+                $message = "Administrator '".$O_name."' success to be deleted in system";
+                $alert = "success";
+            }
+
+            $obj_connect->down();
+	        $_SESSION['status'] = $message;
+	        $_SESSION['alert'] = $alert;
+	        header("Location: index.php");
+
+        } else {
 	    	$_SESSION['status'] = "Action Not Found.";
 	        $_SESSION['alert'] = "failed";
 	        header("Location:".$path['home']);

@@ -75,7 +75,7 @@
                           <td class="text-left"><?=($O_page-1)*20+$num;?>.</td>
                           <td class="text-center">
                             <a href="#" class="btn btn-xs btn-outline btn-success"><i class='fa fa-edit'></i> Edit</a>
-                            <a href="javascript:void(0)" onclick="alert('delete')" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> Delete</a>
+                            <a href="javascript:void(0)" onclick="confirmDelete('<?=$data['id'];?>', '<?=$data['name'];?>');" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> Delete</a>
                           </td>
                           <td class="text-center">
                             <a class="fancybox" href="<?=getUploadFile($global['absolute-url'], "admin", "", $data['img']);?>">
@@ -164,6 +164,15 @@
           successAlert(alertText);
         <?php } ?>
       <?php } ?>
+
+      function confirmDelete(id, name){
+        var x = confirm("Are you sure want to delete \""+name+"\" in system ?");
+        if(x == true){
+          window.location.href = "index.php?action=delete&id="+id+"&name="+name;
+        }else{
+          //nothing
+        }
+      }
     </script>
   </body>
 </html>

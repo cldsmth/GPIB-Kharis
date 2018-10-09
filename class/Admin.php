@@ -85,6 +85,42 @@ class Admin{
         }
         return $result;
     }
+
+    public function delete_data($id, $path){
+        $result = 0;
+        $this->remove_image($id, $path);
+
+        $text = "DELETE FROM $this->table WHERE id = '$id'";
+        $query = mysql_query($text);
+        if(mysql_affected_rows() == 1){
+            $result = 1;
+        }
+        return $result;
+    }
+
+    public function remove_image($id, $path){
+        $result = 0;
+
+        $text = "SELECT img FROM $this->table WHERE id = '$id'";
+        $query = mysql_query($text);
+        if(mysql_num_rows($query) >= 1){
+            $row = mysql_fetch_assoc($query);
+            if($row['img'] != ""){
+                $deleteImg = $path.$row['img'];
+                if (file_exists($deleteImg)) {
+                    unlink($deleteImg);
+                }
+
+                $deleteImgThmb = $path."thmb/".$row['img'];
+                if (file_exists($deleteImgThmb)) {
+                    unlink($deleteImgThmb);
+                }
+
+                $result = 1;
+            }
+        }
+        return $result;
+    }
 //END FUNCTION FOR ADMIN PAGE
 }
 ?>
