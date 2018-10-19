@@ -86,9 +86,9 @@ class Admin{
         return $result;
     }
 
-    public function delete_data($id, $path){
+    public function delete_data($id, $encrypt, $path){
         $result = 0;
-        $this->remove_image($id, $path);
+        $this->remove_image($id, $encrypt, $path);
 
         $text = "DELETE FROM $this->table WHERE id = '$id'";
         $query = mysql_query($text);
@@ -98,7 +98,7 @@ class Admin{
         return $result;
     }
 
-    public function remove_image($id, $path){
+    public function remove_image($id, $encrypt, $path){
         $result = 0;
 
         $text = "SELECT img FROM $this->table WHERE id = '$id'";
@@ -106,12 +106,12 @@ class Admin{
         if(mysql_num_rows($query) >= 1){
             $row = mysql_fetch_assoc($query);
             if($row['img'] != ""){
-                $deleteImg = $path.$row['img'];
+                $deleteImg = $path.$encrypt->decode($row['img']);
                 if (file_exists($deleteImg)) {
                     unlink($deleteImg);
                 }
 
-                $deleteImgThmb = $path."thmb/".$row['img'];
+                $deleteImgThmb = $path."thmb/".$encrypt->decode($row['img']);
                 if (file_exists($deleteImgThmb)) {
                     unlink($deleteImgThmb);
                 }

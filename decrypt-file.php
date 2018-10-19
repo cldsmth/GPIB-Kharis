@@ -17,7 +17,8 @@ if(isset($_GET['module']) && isset($_GET['type']) && isset($_GET['data'])){
 
 	if($N_module != "" && $N_type != "" && $N_data != ""){
 		$thmb = $N_type == "thmb" ? "thmb/" : "";
-		$image = getUploadFile($global['root-url'], $N_module, $thmb, $obj_encrypt->decode($N_data));
+		$data = $N_data == "null" ? "" : $obj_encrypt->decode($N_data);
+		$image = getUploadFile($global['root-url'], $N_module, $thmb, $data);
 	    $filesize = filesize($image); //Get the filesize of the image for headers
     	header( 'Content-Type: image' ); //Begin the header output
 	    //Now actually output the image requested, while disregarding if the database was affected

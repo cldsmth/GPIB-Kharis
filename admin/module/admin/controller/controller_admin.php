@@ -65,7 +65,7 @@ if(!isset($_GET['action'])){
 					//function uploading image
 					$images = save_image("image", $global['root-url']."uploads/admin/");
 					if($images['status'] == 200){
-						$file_name = $images['data']['filename'];
+						$file_name = $obj_encrypt->encode($images['data']['filename']);
 					}
 					$result = $obj_admin->insert_data($N_id, $N_name, $N_email, $password, $salt, $N_auth_code, $N_status, $file_name);
 	               	if($result == 1){
@@ -97,7 +97,7 @@ if(!isset($_GET['action'])){
             $O_admin_id = $_SESSION['GpibKharis']['admin']['id'];
 
             if($O_admin_id != $O_id){
-            	$result = $obj_admin->delete_data($O_id, $global['root-url']."uploads/admin/");
+            	$result = $obj_admin->delete_data($O_id, $obj_encrypt, $global['root-url']."uploads/admin/");
 	            if($result == 0){
 	                $message = "Administrator '".$O_name."' failed to be deleted in system";
 	                $alert = "failed";

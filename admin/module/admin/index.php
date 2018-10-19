@@ -78,8 +78,8 @@
                             <a href="javascript:void(0)" onclick="confirmDelete('<?=$data['id'];?>', '<?=$data['name'];?>');" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> Delete</a>
                           </td>
                           <td class="text-center">
-                            <a class="fancybox" href="<?=getUploadFile($global['absolute-url'], "admin", "", $data['img']);?>">
-                              <img style="width: 40px;" class="img-circle" src="<?=getUploadFile($global['absolute-url'], "admin", "thmb/", $data['img']);?>">
+                            <a class="fancybox" href="<?=getUploadFile($global['absolute-url'], "admin", "", $data['img'] != "" ? $obj_encrypt->decode($data['img']) : "");?>">
+                              <img style="width: 40px;" class="img-circle" src="<?=$path['decrypt-fie']."admin/thmb/".($data['img'] != "" ? $data['img'] : "null")."/";?>">
                             </a>
                           </td>
                           <td><?=$data['name'];?></td>

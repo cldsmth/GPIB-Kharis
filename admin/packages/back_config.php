@@ -7,7 +7,9 @@ $global['api'] = $global['absolute-url']."api/";
 $global['favicon'] = $global['absolute-url-admin']."/assets/images/logo.png";
 $seo['company-name'] = "GPIB Kharis";
 $seo['copyright'] = "Copyright ".$seo['company-name']." ".date('Y')." &copy;";
+
 $path['logout'] = $global['absolute-url-admin']."?action=logout";
+$path['decrypt-fie'] = $global['absolute-url']."file/";
 
 //login page
 $title['login'] = $seo['company-name']." | Login";
