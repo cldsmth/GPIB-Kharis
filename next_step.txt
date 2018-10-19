@@ -1,3 +1,5 @@
 next step
--connect module edit administrator
+-connect module edit administrator (without update password, check validate there is no change)
+-create action change password
+-encrypt/decrypt file image
 -connect forget password system
