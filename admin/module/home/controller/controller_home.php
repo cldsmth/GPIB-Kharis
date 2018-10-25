@@ -3,7 +3,7 @@ require_once($global['root-url-class']."Connection.php");
 $obj_connect = new Connection();
 
 if(!isset($_GET['action'])){
-	$obj_connect->up();
+	$conn = $obj_connect->setup();
 	
 	if(isset($_SESSION['status'])){
         $message = $_SESSION['status'];
@@ -19,6 +19,6 @@ if(!isset($_GET['action'])){
         $alert = "";
     }
 
-    $obj_connect->down();
+    $obj_connect->close();
 }
 ?>

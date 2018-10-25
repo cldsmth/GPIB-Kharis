@@ -2,22 +2,26 @@
 class Connection{
 	
 	//Include database connection settings
-	private $username = "tamara_dev";
-	private $password = "dev123";
-	private $hostname = "localhost";
-	private $database = "tamara_gpib";
+	const USERNAME = "root";
+	const PASSWORD = "";
+	const HOSTNAME = "localhost";
+	const DATABASE = "cldsmth_gpib";
     
-	public function up(){
-		$this->dbh_system = mysql_connect($this->hostname, $this->username, $this->password) or die("Unable to connect to MySQL");
-		//print "Connected to MySQL<br>";
-		$this->selected = mysql_select_db($this->database, $this->dbh_system) or die("Could not fetch database");
-		//print "Select ganiko_users Database<br>";
+	public function setup(){
+		$link = mysqli_connect(self::HOSTNAME, self::USERNAME, self::PASSWORD, self::DATABASE);
+		/* check connection */
+		if(mysqli_connect_errno()){
+		    printf("Connect failed: %s\n", mysqli_connect_error());
+		    exit();
+		}else{
+			return $link;
+		}
 	}
 
-	public function down(){
-		// $dbh_system = mysql_connect($this->hostname, $this->username, $this->password);
-		mysql_close($this->dbh_system);
+	public function close(){
+		$link = mysqli_connect(self::HOSTNAME, self::USERNAME, self::PASSWORD, self::DATABASE);
+		mysqli_close($link);
 	}
-	
+
 }
 ?>

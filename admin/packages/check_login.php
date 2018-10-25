@@ -12,10 +12,10 @@ if(!isset($_SESSION['GpibKharis'])){
     header("Location:".$path['login']."?notLogin");
 
 }else{
-	$obj_connect->up();
+	$conn = $obj_connect->setup();
 	if(isset($_COOKIE['cookie_datas']) && !isset($_SESSION['GpibKharis']['admin']['id'])){ //if login check me out
-		create_session($obj_encrypt, json_decode($_COOKIE['cookie_datas'], true)); //set cookie in session
+		create_session(json_decode($_COOKIE['cookie_datas'], true)); //set cookie in session
 	}
-	$obj_connect->down();
+	$obj_connect->close();
 }
 ?>

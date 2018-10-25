@@ -78,7 +78,7 @@
                             <a href="javascript:void(0)" onclick="confirmDelete('<?=$data['id'];?>', '<?=$data['name'];?>');" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> Delete</a>
                           </td>
                           <td class="text-center">
-                            <a class="fancybox" href="<?=getUploadFile($global['absolute-url'], "admin", "", $data['img'] != "" ? $obj_encrypt->decode($data['img']) : "");?>">
+                            <a class="fancybox" href="<?=getUploadFile($global['absolute-url'], "admin", "", $data['img'] != "" ? $obj_encrypt->encrypt_decrypt("decrypt", $data['img']) : "");?>">
                               <img style="width: 40px;" class="img-circle" src="<?=$path['decrypt-fie']."admin/thmb/".($data['img'] != "" ? $data['img'] : "null")."/";?>">
                             </a>
                           </td>
@@ -98,7 +98,7 @@
                   <div id="default-datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap up2">
                     <div class="row">
                       <div class="col-sm-5">
-                        <div class="dataTables_info" id="default-datatable_info" role="status" aria-live="polite"><?="Showing ".(($O_page-1)*20+1)." to ".(count($datas)+(($O_page-1)*20))." of ".$total_data." entries";?></div>
+                        <div class="dataTables_info" id="default-datatable_info" role="status" aria-live="polite"><?="Showing ".(($O_page-1)*20+1)." to ".((is_array($datas) ? count($datas) : 0)+(($O_page-1)*20))." of ".$total_data." entries";?></div>
                       </div>
                       <div class="col-sm-7">
                         <div class="dataTables_paginate paging_simple_numbers" id="default-datatable_paginate">

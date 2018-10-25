@@ -9,15 +9,15 @@ require_once($global['root-url-class']."Encryption.php");
 $obj_encrypt = new Encryption();
 
 if(isset($_GET['module']) && isset($_GET['type']) && isset($_GET['data'])){
-	$obj_connect->up();
+	$conn = $obj_connect->setup();
 
-	$N_module = mysql_real_escape_string(check_input($_GET['module']));
-	$N_type = mysql_real_escape_string(check_input($_GET['type']));
-	$N_data = mysql_real_escape_string(check_input($_GET['data']));
+	$N_module = mysqli_real_escape_string($conn, check_input($_GET['module']));
+	$N_type = mysqli_real_escape_string($conn, check_input($_GET['type']));
+	$N_data = mysqli_real_escape_string($conn, check_input($_GET['data']));
 
 	if($N_module != "" && $N_type != "" && $N_data != ""){
 		$thmb = $N_type == "thmb" ? "thmb/" : "";
-		$data = $N_data == "null" ? "" : $obj_encrypt->decode($N_data);
+		$data = $N_data == "null" ? "" : $obj_encrypt->encrypt_decrypt("decrypt", $N_data);
 		$image = getUploadFile($global['root-url'], $N_module, $thmb, $data);
 	    $filesize = filesize($image); //Get the filesize of the image for headers
     	header( 'Content-Type: image' ); //Begin the header output
@@ -34,7 +34,7 @@ if(isset($_GET['module']) && isset($_GET['type']) && isset($_GET['data'])){
 	}else{
 		echo "No data";
 	}
-	$obj_connect->down();
+	$obj_connect->close();
 }else{
 	echo "No data";
 }

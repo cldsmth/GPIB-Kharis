@@ -30,15 +30,15 @@ if(!isset($_GET['action'])){
 	if(isset($_GET['action'])){
 
 	    if($_GET['action'] == 'login' && issetVar(array('email', 'password'))){
-	    	$obj_connect->up();
+	    	$conn = $obj_connect->setup();
 
-	        $O_email = mysql_real_escape_string(check_input($_POST['email']));
-        	$O_password = mysql_real_escape_string(check_input($_POST['password']));
+	        $O_email = mysqli_real_escape_string($conn, check_input($_POST['email']));
+        	$O_password = mysqli_real_escape_string($conn, check_input($_POST['password']));
         	$O_remember_me = isset($_POST['remember_me']) ? $_POST['remember_me'] : "no";
-        	$salt = $obj_admin->get_salt($O_email);
+        	$salt = $obj_admin->get_salt($conn, $O_email);
         	$password = substr(doHash($O_password, $salt), 0, 64);
 
-        	$result = $obj_admin->login($O_email, $password);
+        	$result = $obj_admin->login($conn, $O_email, $password);
 	        //var_dump($result);
 	        if(is_array($result)){
 	        	create_session($result);
@@ -52,7 +52,7 @@ if(!isset($_GET['action'])){
 	        	$page = $path['login'];
 	        }
 
-	        $obj_connect->down();
+	        $obj_connect->close();
 	        header("Location:".$page);
 	    
 	    } else if($_GET['action'] == 'logout'){

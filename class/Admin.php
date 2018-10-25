@@ -5,50 +5,50 @@ class Admin{
     private $itemPerPageAdmin = 20;
 
 //START FUNCTION FOR ADMIN PAGE
-    public function check_email($email){
+    public function check_email($conn, $email){
         $result = 0;
 
         $text = "SELECT email FROM $this->table WHERE email = '$email'";
-        $query = mysql_query($text);
-        if(mysql_num_rows($query) >= 1){
+        $query = mysqli_query($conn, $text);
+        if(mysqli_num_rows($query) >= 1){
             $result = 1;
         }
         return $result;
     }
 
-    public function get_salt($email){
+    public function get_salt($conn, $email){
         $result = 0;
 
         $text = "SELECT salt_hash FROM $this->table WHERE email = '$email'";
-        $query = mysql_query($text);
-        if(mysql_num_rows($query) >= 1){//HAS TO BE EXACT 1 RESULT
-            $row = mysql_fetch_assoc($query);
+        $query = mysqli_query($conn, $text);
+        if(mysqli_num_rows($query) >= 1){
+            $row = mysqli_fetch_assoc($query);
             $result = $row['salt_hash'];
         }
         return $result;
     }
-    
-    public function login($email, $password){
-        $result = 0;
 
+    public function login($conn, $email, $password){
+        $result = 0;
+  
         $text = "SELECT id, name, email, img, auth_code FROM $this->table 
             WHERE email = '$email' AND password = '$password' AND status = 1";
-        $query = mysql_query($text);
-        if(mysql_num_rows($query) >= 1){
-            $row = mysql_fetch_assoc($query);
+        $query = mysqli_query($conn, $text);
+        if(mysqli_num_rows($query) >= 1){
+            $row = mysqli_fetch_assoc($query);
             $result = $row;
         }
         //$result = $text;
         return $result;
     }
 
-    public function get_all($page=1){
+    public function get_all($conn, $page=1){
         $result = 0;
 
         //get total data
         $text_total = "SELECT id FROM $this->table";
-        $query_total = mysql_query($text_total);
-        $total_data  = mysql_num_rows($query_total);
+        $query_total = mysqli_query($conn, $text_total);
+        $total_data  = mysqli_num_rows($query_total);
         if($total_data < 1){$total_data = 0;}
 
         //get total page
@@ -57,10 +57,10 @@ class Admin{
 
         $text = "SELECT id, name, email, img, status, create_date FROM $this->table
             ORDER BY create_date DESC LIMIT $limitBefore, $this->itemPerPageAdmin";
-        $query = mysql_query($text);
-        if(mysql_num_rows($query) >= 1){
+        $query = mysqli_query($conn, $text);
+        if(mysqli_num_rows($query) >= 1){
             $result = array();
-            while($row = mysql_fetch_assoc($query)){
+            while($row = mysqli_fetch_assoc($query)){
                 $result[] = $row;
             }
         }
@@ -72,46 +72,46 @@ class Admin{
         return $result;
     }
 
-    public function insert_data($id, $name, $email, $password, $salt_hash, $auth_code, $status, $img){
+    public function insert_data($conn, $id, $name, $email, $password, $salt_hash, $auth_code, $status, $img){
         $result = 0;
         date_default_timezone_set('Asia/Jakarta');
         $now = date("Y-m-d H:i:s");
 
         $text = "INSERT INTO $this->table (id, name, email, password, salt_hash, auth_code, status, img, create_date)
             VALUES ('$id', '$name', '$email', '$password', '$salt_hash', '$auth_code', '$status', '$img', '$now')";
-        $query = mysql_query($text);
+        $query = mysqli_query($conn, $text);
         if($query){
             $result = 1;
         }
         return $result;
     }
 
-    public function delete_data($id, $encrypt, $path){
+    public function delete_data($conn, $id, $encrypt, $path){
         $result = 0;
-        $this->remove_image($id, $encrypt, $path);
+        $this->remove_image($conn, $id, $encrypt, $path);
 
         $text = "DELETE FROM $this->table WHERE id = '$id'";
-        $query = mysql_query($text);
-        if(mysql_affected_rows() == 1){
+        $query = mysqli_query($conn, $text);
+        if(mysqli_affected_rows($conn) == 1){
             $result = 1;
         }
         return $result;
     }
 
-    public function remove_image($id, $encrypt, $path){
+    public function remove_image($conn, $id, $encrypt, $path){
         $result = 0;
 
         $text = "SELECT img FROM $this->table WHERE id = '$id'";
-        $query = mysql_query($text);
-        if(mysql_num_rows($query) >= 1){
-            $row = mysql_fetch_assoc($query);
+        $query = mysqli_query($conn, $text);
+        if(mysqli_num_rows($query) >= 1){
+            $row = mysqli_fetch_assoc($query);
             if($row['img'] != ""){
-                $deleteImg = $path.$encrypt->decode($row['img']);
+                $deleteImg = $path.$encrypt->encrypt_decrypt("decrypt", $row['img']);
                 if (file_exists($deleteImg)) {
                     unlink($deleteImg);
                 }
 
-                $deleteImgThmb = $path."thmb/".$encrypt->decode($row['img']);
+                $deleteImgThmb = $path."thmb/".$encrypt->encrypt_decrypt("decrypt", $row['img']);
                 if (file_exists($deleteImgThmb)) {
                     unlink($deleteImgThmb);
                 }
