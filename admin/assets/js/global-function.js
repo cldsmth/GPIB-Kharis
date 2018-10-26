@@ -1,3 +1,36 @@
+function previewImage(x){
+  var url = $(x).attr("data-url");
+  var module = $(x).attr("data-module");
+  var img = $(x).attr("data-img");
+  var link = getUploadFile(url, module, "", img);
+  x.href = link;
+  setTimeout(function() {
+      x.href = "javascript:void(0)";
+  }, 300);
+}
+
+function getUploadFile(url, module, thmb, data){
+  var result;
+  data = data.trim();
+  if(data != ""){
+    switch (module) {
+      case "admin":
+        result = url+"uploads/admin/"+thmb+data;
+      break;
+      default:
+        result = url+"img/placeholder-image.png";
+      break;
+    }
+  }else{
+    if(module == "admin"){
+      result = url+"img/placeholder-anonymous.jpg";
+    }else{
+      result = url+"img/placeholder-image.png";
+    }
+  }
+  return result;
+}
+
 function sizeFile(file){
   return file.value != "" ? file.files[0].size : "";
 }
