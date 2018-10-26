@@ -1,5 +1,5 @@
 <?php
-$global['absolute-url'] = "http://localhost/gpib/";
+$global['absolute-url'] = "http://".$_SERVER['HTTP_HOST']."/gpib/";
 $global['absolute-url-admin'] = $global['absolute-url']."admin/";
 $global['root-url'] = $_SERVER['DOCUMENT_ROOT']."/gpib/";
 $global['root-url-class'] = $global['root-url']."class/";

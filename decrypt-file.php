@@ -19,6 +19,13 @@ if(isset($_GET['module']) && isset($_GET['type']) && isset($_GET['data'])){
 		$thmb = $N_type == "thmb" ? "thmb/" : "";
 		$data = $N_data == "null" ? "" : $obj_encrypt->encrypt_decrypt("decrypt", $N_data);
 		$image = getUploadFile($global['root-url'], $N_module, $thmb, $data);
+		if($N_data != "null"){
+			$ext_tmp = explode('.', $data);
+	        $ext = strtolower(end($ext_tmp));
+			$image_name = $N_data.".".$ext;
+		}else{
+			$image_name = $image;
+		}
 	    $filesize = filesize($image); //Get the filesize of the image for headers
     	header( 'Content-Type: image' ); //Begin the header output
 	    //Now actually output the image requested, while disregarding if the database was affected
@@ -26,7 +33,7 @@ if(isset($_GET['module']) && isset($_GET['type']) && isset($_GET['data'])){
 	    header( 'Expires: 0' );
 	    header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
 	    header( 'Cache-Control: private',false );
-	    header( 'Content-Disposition: attachment; filename='.$image );
+	    header( 'Content-Disposition: attachment; filename='.$image_name );
 	    header( 'Content-Transfer-Encoding: binary' );
 	    header( 'Content-Length: '.$filesize );
 	    readfile($image);
