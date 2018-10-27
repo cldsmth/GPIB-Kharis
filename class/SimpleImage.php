@@ -1,6 +1,6 @@
 <?php
-class SimpleImage {
-  
+class SimpleImage
+{  
 	var $image; 
 	var $image_type; 
 
@@ -93,6 +93,5 @@ class SimpleImage {
 
 	  	$this->image = $new_image;
 	}
-
 }
 ?>

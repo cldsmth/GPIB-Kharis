@@ -8,6 +8,9 @@ $encrypt = new Encryption();
 require_once($global['root-url']."class/RandomStringGenerator.php");
 $generator = new RandomStringGenerator();
 
+require_once($global['root-url']."class/SimpleImage.php");
+$image = new SimpleImage();
+
 include_once($global['root-url']."model/Admin.php");
 $admin = new Admin();
 
@@ -59,7 +62,7 @@ if(!isset($_GET['action'])){
 			}else{
 				if($_password == $_repassword){
 					//function uploading image
-					$images = save_image("image", $global['root-url']."uploads/admin/");
+					$images = save_image($image, "image", $global['root-url']."uploads/admin/");
 					if($images['status'] == 200){
 						$file_name = $encrypt->encrypt_decrypt("encrypt", $images['data']['filename']);
 					}

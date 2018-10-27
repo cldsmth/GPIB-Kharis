@@ -1,7 +1,7 @@
 <?php
 if(!function_exists('save_image'))
 {
-    function save_image($param, $upload_link){
+    function save_image($image, $param, $upload_link){
         $result = array("status" => "400", "message" => "No data");
         if(isset($_FILES[$param]['name'])){
             if(!empty($_FILES[$param]['name'])){
@@ -19,7 +19,6 @@ if(!function_exists('save_image'))
                         $file_locThmb = $upload_link."thmb/".$file_name;
                         //Resizing images
                         if(move_uploaded_file($file_tmp, $file_loc)){
-                            $image = new SimpleImage();
                             $image->load($file_loc);
                             $image->resize(200, 200);
                             $image->save($file_locThmb);
