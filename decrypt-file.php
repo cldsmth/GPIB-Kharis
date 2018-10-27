@@ -1,6 +1,6 @@
 <?php
-include_once("packages/check_input.php");
-include_once("packages/front_config.php");
+include_once("packages/config.php");
+include_once("packages/functions.php");
 
 include_once($global['root-url']."class/Validation.php");
 $validation = new Validation();

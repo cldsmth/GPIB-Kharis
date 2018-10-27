@@ -1,6 +1,6 @@
 <?php
   include("../../packages/require.php");
-  include("../../packages/check_login.php");
+  include("../../packages/auth.php");
   include("controller/controller_admin.php");
   $curpage = "admin";
   $navpage = "Master";

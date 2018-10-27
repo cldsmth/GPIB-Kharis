@@ -2,13 +2,13 @@
 include_once($global['root-url']."class/Crud.php");
 $crud = new Crud();
 
-require_once($global['root-url']."class/Encryption.php");
+include_once($global['root-url']."class/Encryption.php");
 $encrypt = new Encryption();
 
-require_once($global['root-url']."class/RandomStringGenerator.php");
+include_once($global['root-url']."class/RandomStringGenerator.php");
 $generator = new RandomStringGenerator();
 
-require_once($global['root-url']."class/SimpleImage.php");
+include_once($global['root-url']."class/SimpleImage.php");
 $image = new SimpleImage();
 
 include_once($global['root-url']."model/Admin.php");
