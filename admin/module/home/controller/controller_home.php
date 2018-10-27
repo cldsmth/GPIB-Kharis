@@ -1,10 +1,5 @@
 <?php
-require_once($global['root-url-class']."Connection.php");
-$obj_connect = new Connection();
-
 if(!isset($_GET['action'])){
-	$conn = $obj_connect->setup();
-	
 	if(isset($_SESSION['status'])){
         $message = $_SESSION['status'];
         unset($_SESSION['status']);
@@ -18,7 +13,5 @@ if(!isset($_GET['action'])){
     } else {
         $alert = "";
     }
-
-    $obj_connect->close();
 }
 ?>

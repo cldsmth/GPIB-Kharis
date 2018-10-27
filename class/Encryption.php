@@ -8,8 +8,8 @@
  *
  * @return string
  */
-class Encryption {
-
+class Encryption
+{
     const ENCRYPT_METHOD = "AES-256-CBC";
     const SECRET_KEY = "gpibkharis.key";
     const SECRET_IV = "gpibkharis.iv";
@@ -27,6 +27,5 @@ class Encryption {
         }
         return $output;
     }
-
 }
 ?>

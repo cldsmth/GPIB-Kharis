@@ -90,5 +90,4 @@ class RandomStringGenerator
 
         return ($min + $rnd);
     }
-
 }

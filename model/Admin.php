@@ -1,11 +1,11 @@
 <?php
-class Admin{
-
-    private $table = "tbl_admin";
+class Admin
+{
+    private $table = "admin";
     private $itemPerPageAdmin = 20;
 
 //START FUNCTION FOR ADMIN PAGE
-    public function check_email($conn, $email){
+    /*public function check_email($conn, $email){
         $result = 0;
 
         $text = "SELECT email FROM $this->table WHERE email = '$email'";
@@ -14,35 +14,28 @@ class Admin{
             $result = 1;
         }
         return $result;
-    }
+    }*/
 
-    public function get_salt($conn, $email){
-        $result = 0;
-
-        $text = "SELECT salt_hash FROM $this->table WHERE email = '$email'";
-        $query = mysqli_query($conn, $text);
-        if(mysqli_num_rows($query) >= 1){
-            $row = mysqli_fetch_assoc($query);
-            $result = $row['salt_hash'];
+    public function get_salt($crud, $email){
+        $query = "SELECT salt_hash FROM $this->table WHERE email = '$email'";
+        $result = $crud->getData($query);
+        if(!$result){
+            return false;
         }
-        return $result;
+        return is_array($result) ? $result[0]['salt_hash'] : "";
     }
 
-    public function login($conn, $email, $password){
-        $result = 0;
-  
-        $text = "SELECT id, name, email, img, auth_code FROM $this->table 
+    public function login($crud, $email, $password){
+        $query = "SELECT id, name, email, img, auth_code FROM $this->table 
             WHERE email = '$email' AND password = '$password' AND status = 1";
-        $query = mysqli_query($conn, $text);
-        if(mysqli_num_rows($query) >= 1){
-            $row = mysqli_fetch_assoc($query);
-            $result = $row;
+        $result = $crud->getData($query);
+        if(!$result){
+            return false;
         }
-        //$result = $text;
-        return $result;
+        return is_array($result) ? $result[0] : "";
     }
 
-    public function get_all($conn, $page=1){
+    /*public function get_all($conn, $page=1){
         $result = 0;
 
         //get total data
@@ -120,7 +113,7 @@ class Admin{
             }
         }
         return $result;
-    }
+    }*/
 //END FUNCTION FOR ADMIN PAGE
 }
 ?>

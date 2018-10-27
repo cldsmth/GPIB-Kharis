@@ -1,28 +1,29 @@
 <?php
-require_once("packages/check_input.php");
-require_once("packages/front_config.php");
+include_once("packages/check_input.php");
+include_once("packages/front_config.php");
 
-require_once($global['root-url-class']."Connection.php");
-$obj_connect = new Connection();
+include_once($global['root-url']."class/Validation.php");
+$validation = new Validation();
 
-require_once($global['root-url-class']."Encryption.php");
-$obj_encrypt = new Encryption();
+include_once($global['root-url']."class/Encryption.php");
+$encrypt = new Encryption();
 
-if(isset($_GET['module']) && isset($_GET['type']) && isset($_GET['data'])){
-	$conn = $obj_connect->setup();
+if(issetVar(array('module', 'type', 'data'))){
+	$_module = $_GET['module'];
+	$_type = $_GET['type'];
+	$_data = $_GET['data'];
+	$msg = $validation->check_empty($_GET, array('module', 'type', 'data'));
 
-	$N_module = mysqli_real_escape_string($conn, check_input($_GET['module']));
-	$N_type = mysqli_real_escape_string($conn, check_input($_GET['type']));
-	$N_data = mysqli_real_escape_string($conn, check_input($_GET['data']));
-
-	if($N_module != "" && $N_type != "" && $N_data != ""){
-		$thmb = $N_type == "thmb" ? "thmb/" : "";
-		$data = $N_data == "null" ? "" : $obj_encrypt->encrypt_decrypt("decrypt", $N_data);
-		$image = getUploadFile($global['root-url'], $N_module, $thmb, $data);
-		if($N_data != "null"){
+	if($msg){
+		echo "Empty Data";
+	}else{
+		$thmb = $_type == "thmb" ? "thmb/" : "";
+		$data = $_data == "null" ? "" : $encrypt->encrypt_decrypt("decrypt", $_data);
+		$image = getUploadFile($global['root-url'], $_module, $thmb, $data);
+		if($_data != "null"){
 			$ext_tmp = explode('.', $data);
 	        $ext = strtolower(end($ext_tmp));
-			$image_name = $N_data.".".$ext;
+			$image_name = $_data.".".$ext;
 		}else{
 			$image_name = $image;
 		}
@@ -38,10 +39,7 @@ if(isset($_GET['module']) && isset($_GET['type']) && isset($_GET['data'])){
 	    header( 'Content-Length: '.$filesize );
 	    readfile($image);
 	    exit; //All done, get out!
-	}else{
-		echo "No data";
 	}
-	$obj_connect->close();
 }else{
 	echo "No data";
 }

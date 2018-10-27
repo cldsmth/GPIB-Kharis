@@ -1,9 +1,9 @@
 <?php
-require_once($global['root-url-class']."Connection.php");
-$obj_connect = new Connection();
+include_once($global['root-url']."class/Crud.php");
+$crud = new Crud();
 
-require_once($global['root-url-class']."Admin.php");
-$obj_admin = new Admin();
+include_once($global['root-url']."model/Admin.php");
+$admin = new Admin();
 
 if(!isset($_GET['action'])){
 
@@ -30,19 +30,17 @@ if(!isset($_GET['action'])){
 	if(isset($_GET['action'])){
 
 	    if($_GET['action'] == 'login' && issetVar(array('email', 'password'))){
-	    	$conn = $obj_connect->setup();
+	        $_email = $crud->escape_string(check_input($_POST['email']));
+	        $_password = $crud->escape_string(check_input($_POST['password']));
+        	$_remember_me = isset($_POST['remember_me']) ? $_POST['remember_me'] : "no";
+        	$salt = $admin->get_salt($crud, $_email);
+        	$password = substr(doHash($_password, $salt), 0, 64);
 
-	        $O_email = mysqli_real_escape_string($conn, check_input($_POST['email']));
-        	$O_password = mysqli_real_escape_string($conn, check_input($_POST['password']));
-        	$O_remember_me = isset($_POST['remember_me']) ? $_POST['remember_me'] : "no";
-        	$salt = $obj_admin->get_salt($conn, $O_email);
-        	$password = substr(doHash($O_password, $salt), 0, 64);
-
-        	$result = $obj_admin->login($conn, $O_email, $password);
+        	$result = $admin->login($crud, $_email, $password);
 	        //var_dump($result);
 	        if(is_array($result)){
 	        	create_session($result);
-	        	if(isset($_SESSION['GpibKharis']) && $O_remember_me == "yes"){
+	        	if(isset($_SESSION['GpibKharis']) && $_remember_me == "yes"){
 	        		create_cookie(json_encode($_SESSION['GpibKharis']));
 	        	}
 	        	$page = $path['home'];
@@ -51,8 +49,6 @@ if(!isset($_GET['action'])){
 	        	$_SESSION['alert'] = "failed";
 	        	$page = $path['login'];
 	        }
-
-	        $obj_connect->close();
 	        header("Location:".$page);
 	    
 	    } else if($_GET['action'] == 'logout'){
