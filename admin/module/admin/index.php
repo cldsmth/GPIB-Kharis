@@ -12,7 +12,7 @@
     <title><?=$title['admin'];?></title>
     <?php include("../../packages/module-head.php");?>
     <!-- Add fancyBox -->
-    <link rel="stylesheet" href="<?=$global['absolute-url-admin'];?>packages/fancybox/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen">
+    <link rel="stylesheet" href="<?=$global['absolute-url-admin'];?>libraries/fancybox/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen">
   </head>
   <body class="menubar-left menubar-unfold menubar-light theme-primary">
 
@@ -145,7 +145,7 @@
 
     </main>
   	<?php include("../../packages/footer-js.php");?>
-    <script type="text/javascript" src="<?=$global['absolute-url-admin'];?>packages/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+    <script type="text/javascript" src="<?=$global['absolute-url-admin'];?>libraries/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
     <script type="text/javascript">
       $(document).ready(function() {
         $(".fancybox").fancybox({
