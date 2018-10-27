@@ -73,7 +73,7 @@
                         <tr class="<?=colorStatus($data['status']);?>">
                           <td class="text-left"><?=($_page-1)*20+$num;?>.</td>
                           <td class="text-center">
-                            <a href="#" class="btn btn-xs btn-outline btn-success"><i class='fa fa-edit'></i> Edit</a>
+                            <a href="<?=$path['admin-edit']."?id=".$data['id'];?>" class="btn btn-xs btn-outline btn-success"><i class='fa fa-edit'></i> Edit</a>
                             <a href="javascript:void(0)" onclick="confirmDelete('<?=$data['id'];?>', '<?=$data['name'];?>');" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> Delete</a>
                           </td>
                           <td class="text-center">

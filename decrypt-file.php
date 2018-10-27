@@ -14,7 +14,7 @@ if(issetVar(array('module', 'type', 'data'))){
 	$_data = $_GET['data'];
 	$msg = $validation->check_empty($_GET, array('module', 'type', 'data'));
 
-	if($msg){
+	if($msg != null){
 		echo "Empty Data";
 	}else{
 		$thmb = $_type == "thmb" ? "thmb/" : "";

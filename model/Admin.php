@@ -117,7 +117,7 @@ class Admin
         if(!$result){
             return false;
         }
-        return is_array($result) ? $result[0] : "";
+        return is_array($result) ? $result[0] : false;
     }
 
     public function get_all($crud, $page=1){
@@ -143,6 +143,15 @@ class Admin
             }
         }
         return $result;
+    }
+
+    public function get_detail($crud, $id){
+        $query = "SELECT * FROM $this->table WHERE id = '$id'";
+        $result = $crud->getData($query);
+        if(!$result){
+            return false;
+        }
+        return is_array($result) ? $result[0] : false;
     }
 
     public function insert_data($crud, $admin){
