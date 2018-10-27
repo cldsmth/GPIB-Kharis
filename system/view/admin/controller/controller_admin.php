@@ -44,34 +44,33 @@ if(!isset($_GET['action'])){
 	if(isset($_GET['action'])){
 
 	    if($_GET['action'] == "add" && issetVar(array('name', 'email', 'password', 'repassword'))){
-	    	$_id = $generator->generate(32);
-			$_name = $crud->escape_string(check_input($_POST['name']));
-			$_email = $crud->escape_string(check_input($_POST['email']));
-			$_password = $crud->escape_string(check_input($_POST['password']));
-			$_repassword = $crud->escape_string(check_input($_POST['repassword']));
-			$_status = isset($_POST['status']) ? $_POST['status'] : 0;
-			$_auth_code = generate_code(32);
-			$salt = substr(md5(time()), 0, 5);
-            $password = substr(doHash($_password, $salt), 0, 64);
-            $file_name = "";
+	    	$admin->setId($generator->generate(32));
+			$admin->setName($crud->escape_string(check_input($_POST['name'])));
+			$admin->setEmail($crud->escape_string(check_input($_POST['email'])));
+			$admin->setPassword($crud->escape_string(check_input($_POST['password'])));
+			$admin->setRepassword($crud->escape_string(check_input($_POST['repassword'])));
+			$admin->setStatus(isset($_POST['status']) ? $_POST['status'] : 0);
+			$admin->setAuthCode(generate_code(32));
+			$admin->setSaltHash(substr(md5(time()), 0, 5));
+            $password = substr(doHash($admin->getPassword(), $admin->getSaltHash()), 0, 64);
 
-			$check_email = $admin->check_email($crud, $_email);
+			$check_email = $admin->check_email($crud, $admin->getEmail());
 			if($check_email){
-				$message = "E-mail '".$_email."' already exist";
+				$message = "E-mail '".$admin->getEmail()."' already exist";
 				$alert = "failed";
 			}else{
-				if($_password == $_repassword){
-					//function uploading image
+				if($admin->getPassword() == $admin->getRepassword()){
+					$admin->setPassword($password);
 					$images = save_image($image, "image", $global['root-url']."uploads/admin/");
 					if($images['status'] == 200){
-						$file_name = $encrypt->encrypt_decrypt("encrypt", $images['data']['filename']);
+						$admin->setImage($encrypt->encrypt_decrypt("encrypt", $images['data']['filename']));
 					}
-					$result = $admin->insert_data($crud, $_id, $_name, $_email, $password, $salt, $_auth_code, $_status, $file_name);
+					$result = $admin->insert_data($crud, $admin);
 	               	if($result){
-	                    $message = "Add New Administrator '".$_name."' success";
+	                    $message = "Add New Administrator '".$admin->getName()."' success";
 	                    $alert = "success";
 	                }else{
-	                    $message = "Add New Administrator '".$_name."' failed. Please try again";
+	                    $message = "Add New Administrator '".$admin->getName()."' failed. Please try again";
 	                    $alert = "failed";
 	                }
 				}else{

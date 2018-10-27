@@ -1,9 +1,96 @@
 <?php
 class Admin
 {
-    private $table = "admin";
-    private $itemPerPageAdmin = 20;
+    private $_id;
+    private $_name;
+    private $_email;
+    private $_password;
+    private $_repassword;
+    private $_salt_hash;
+    private $_auth_code;
+    private $_status;
+    private $_image;
+    private $table;
+    private $itemPerPageAdmin;
 
+    function __construct(){
+        $this->_image = "";
+        $this->table = "admin";
+        $this->itemPerPageAdmin = 20;
+    }
+
+    function setId($id){ 
+        $this->_id = $id;
+    }
+    
+    function getId(){ 
+        return $this->_id;
+    }
+    
+    function setName($name){ 
+        $this->_name = $name;
+    }
+    
+    function getName(){ 
+        return $this->_name;
+    }
+
+    function setEmail($email){ 
+        $this->_email = $email;
+    }
+    
+    function getEmail(){ 
+        return $this->_email;
+    }
+
+    function setPassword($password){ 
+        $this->_password = $password;
+    }
+    
+    function getPassword(){ 
+        return $this->_password;
+    }
+
+    function setRepassword($repassword){ 
+        $this->_repassword = $repassword;
+    }
+    
+    function getRepassword(){ 
+        return $this->_repassword;
+    }
+
+    function setSaltHash($salt_hash){ 
+        $this->_salt_hash = $salt_hash;
+    }
+    
+    function getSaltHash(){ 
+        return $this->_salt_hash;
+    }
+
+    function setAuthCode($auth_code){ 
+        $this->_auth_code = $auth_code;
+    }
+    
+    function getAuthCode(){ 
+        return $this->_auth_code;
+    }
+
+    function setStatus($status){ 
+        $this->_status = $status;
+    }
+    
+    function getStatus(){ 
+        return $this->_status;
+    }
+
+    function setImage($image){ 
+        $this->_image = $image;
+    }
+    
+    function getImage(){ 
+        return $this->_image;
+    }
+    
 //START FUNCTION FOR ADMIN PAGE
     public function check_email($crud, $email){
         $query = "SELECT email FROM $this->table WHERE email = '$email'";
@@ -58,12 +145,13 @@ class Admin
         return $result;
     }
 
-    public function insert_data($crud, $id, $name, $email, $password, $salt_hash, $auth_code, $status, $img){
+    public function insert_data($crud, $admin){
         date_default_timezone_set('Asia/Jakarta');
         $now = date("Y-m-d H:i:s");
 
         $query = "INSERT INTO $this->table (id, name, email, password, salt_hash, auth_code, status, img, create_date)
-            VALUES ('$id', '$name', '$email', '$password', '$salt_hash', '$auth_code', '$status', '$img', '$now')";
+            VALUES ('$admin->_id', '$admin->_name', '$admin->_email', '$admin->_password', '$admin->_salt_hash', 
+            '$admin->_auth_code', '$admin->_status', '$admin->_image', '$now')";
         $result = $crud->execute($query);
         return $result;
     }
