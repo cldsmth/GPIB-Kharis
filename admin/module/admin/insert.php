@@ -1,6 +1,6 @@
 <?php
-  include("../../packages/require.php");
-  include("../../packages/auth.php");
+  include("../../helpers/require.php");
+  include("../../helpers/auth.php");
   $curpage = "admin";
   $navpage = "Master";
 ?>
@@ -8,7 +8,7 @@
 <html lang="en">
   <head>
     <title><?=$title['admin'];?></title>
-    <?php include("../../packages/module-head.php");?>
+    <?php include("../../helpers/module-head.php");?>
   </head>
   <body class="menubar-left menubar-unfold menubar-light theme-primary">
 
@@ -148,7 +148,7 @@
       <?php include("../../parts/part-footer.php");?>
 
     </main>
-  	<?php include("../../packages/footer-js.php");?>
+  	<?php include("../../helpers/footer-js.php");?>
     <script type="text/javascript">
       $('#input-image').bind('change', function() {
         $("#input-image-size").val(sizeFile(this));

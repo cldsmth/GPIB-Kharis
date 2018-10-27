@@ -1,12 +1,12 @@
 <?php
-	include("packages/require.php");
+	include("helpers/require.php");
 	include("controller_index.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<title><?=$title['login'];?></title>
-		<?php include("packages/head.php");?>
+		<?php include("helpers/head.php");?>
 	</head>
 	<body class="simple-page">
 		<div class="simple-page-wrap">

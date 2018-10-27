@@ -1,6 +1,5 @@
 next step
 -adjust structure variable (check_input, config, dll) and filename (.php)
- 4. ada satu folder untuk kumpulan packages, namanya libraries
  4. folder packages rename to helpers
  6. folder module rename to view
  7. module-head, dll taruh di folder parts

@@ -1,6 +1,6 @@
 <?php
-  include("../../packages/require.php");
-  include("../../packages/auth.php");
+  include("../../helpers/require.php");
+  include("../../helpers/auth.php");
   include("controller/controller_home.php");
   $curpage = "home";
   $navpage = "Home";
@@ -9,7 +9,7 @@
 <html lang="en">
   <head>
     <title><?=$title['home'];?></title>
-    <?php include("../../packages/module-head.php");?>
+    <?php include("../../helpers/module-head.php");?>
   </head>
   <body class="menubar-left menubar-unfold menubar-light theme-primary">
 
@@ -254,7 +254,7 @@
       <?php include("../../parts/part-footer.php");?>
 
     </main>
-  	<?php include("../../packages/footer-js.php");?>
+  	<?php include("../../helpers/footer-js.php");?>
     <script type="text/javascript">
       <?php if($message != ""){?>
         //use session here for alert success/failed
