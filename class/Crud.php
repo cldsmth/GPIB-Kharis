@@ -28,6 +28,16 @@ class Crud extends Database
         }        
     }
 
+    public function delete($id, $table){ 
+        $query = "DELETE FROM $table WHERE id = '$id'";
+        $result = $this->connection->query($query);
+        if($result == false){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
     public function escape_string($value){
         return $this->connection->real_escape_string($value);
     }

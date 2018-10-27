@@ -72,13 +72,13 @@
                         </tr>
                         <?php $num=1; if(is_array($datas)){ foreach($datas as $data){?>
                         <tr class="<?=colorStatus($data['status']);?>">
-                          <td class="text-left"><?=($O_page-1)*20+$num;?>.</td>
+                          <td class="text-left"><?=($_page-1)*20+$num;?>.</td>
                           <td class="text-center">
                             <a href="#" class="btn btn-xs btn-outline btn-success"><i class='fa fa-edit'></i> Edit</a>
                             <a href="javascript:void(0)" onclick="confirmDelete('<?=$data['id'];?>', '<?=$data['name'];?>');" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> Delete</a>
                           </td>
                           <td class="text-center">
-                            <a class="fancybox" data-url="<?=$global['absolute-url'];?>" data-module="admin" data-img="<?=($data['img'] != "" ? $obj_encrypt->encrypt_decrypt("decrypt", $data['img']) : "");?>" href="javascript:void(0)" onclick="previewImage(this)">
+                            <a class="fancybox" data-url="<?=$global['absolute-url'];?>" data-module="admin" data-img="<?=($data['img'] != "" ? $encrypt->encrypt_decrypt("decrypt", $data['img']) : "");?>" href="javascript:void(0)" onclick="previewImage(this)">
                               <img style="width: 40px;" class="img-circle" src="<?=$path['decrypt-fie']."admin/thmb/".($data['img'] != "" ? $data['img'] : "null")."/";?>">
                             </a>
                           </td>
@@ -98,13 +98,13 @@
                   <div id="default-datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap up2">
                     <div class="row">
                       <div class="col-sm-5">
-                        <div class="dataTables_info" id="default-datatable_info" role="status" aria-live="polite"><?="Showing ".(($O_page-1)*20+1)." to ".((is_array($datas) ? count($datas) : 0)+(($O_page-1)*20))." of ".$total_data." entries";?></div>
+                        <div class="dataTables_info" id="default-datatable_info" role="status" aria-live="polite"><?="Showing ".(($_page-1)*20+1)." to ".((is_array($datas) ? count($datas) : 0)+(($_page-1)*20))." of ".$total_data." entries";?></div>
                       </div>
                       <div class="col-sm-7">
                         <div class="dataTables_paginate paging_simple_numbers" id="default-datatable_paginate">
                           <ul class="pagination">
                             <?php
-                            $batch = getBatch($O_page);
+                            $batch = getBatch($_page);
                             if($batch < 1){$batch = 1;}
                             $prevLimit = 1 +(5*($batch-1));
                             $nextLimit = 5 * $batch;
@@ -112,18 +112,18 @@
                             if($nextLimit > $total_page){
                               $nextLimit = $total_page;
                             }
-                            if($O_page > 1){
+                            if($_page > 1){
                               echo "<li id='default-datatable_previous' class='paginate_button previous'>";
-                              echo "<a href='".$page_name."?page=".($O_page-1)."' aria-controls='default-datatable' data-dt-idx='0' tabindex='0'><i class='fa fa-chevron-left'></i> Previous</a>";
+                              echo "<a href='".$page_name."?page=".($_page-1)."' aria-controls='default-datatable' data-dt-idx='0' tabindex='0'><i class='fa fa-chevron-left'></i> Previous</a>";
                               echo "</li>";
                             }
                             for($mon = $prevLimit; $mon <= $nextLimit;$mon++){?>
-                              <li class="paginate_button <?php if($mon == $O_page){echo 'active';}?>">
+                              <li class="paginate_button <?php if($mon == $_page){echo 'active';}?>">
                                 <a href="<?=$page_name."?page=".$mon;?>" aria-controls="default-datatable" data-dt-idx="<?=$mon;?>" tabindex="0"><?=$mon;?></a>
                               </li>
-                            <?php } if($total_page > 1 && $O_page != $total_page){
+                            <?php } if($total_page > 1 && $_page != $total_page){
                               echo "<li id='default-datatable_next' class='paginate_button next'>";
-                              echo "<a href='".$page_name."?page=".($O_page+1)."' aria-controls='default-datatable' data-dt-idx='".($O_page+1)."' tabindex='0'><i class='fa fa-chevron-right'></i> Next</a>";
+                              echo "<a href='".$page_name."?page=".($_page+1)."' aria-controls='default-datatable' data-dt-idx='".($_page+1)."' tabindex='0'><i class='fa fa-chevron-right'></i> Next</a>";
                               echo "</li>";
                             } ?>
                           </ul>

@@ -1,6 +1,14 @@
 next step
--research MVC for php7
 -adjust structure variable (check_input, config, dll) and filename (.php)
+ 1. check_input.php rename to functions.php
+ 2. back_config and front_config.php rename to config.php
+ 3. check_login.php taru aja langsung di require.php
+ 4. ada satu folder untuk kumpulan packages, namanya libraries
+ 4. folder packages rename to helpers
+ 5. simple image taru di folder class
+ 6. folder module rename to view
+ 7. module-head, dll taruh di folder parts
+ 8. folder admin rename to system
 -connect module edit administrator (without update password, check validate there is no change)
 -create action change password
 -connect forget password system

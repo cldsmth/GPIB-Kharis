@@ -1,23 +1,21 @@
 <?php
-require_once($global['root-url-class']."Connection.php");
-$obj_connect = new Connection();
+include_once($global['root-url']."class/Crud.php");
+$crud = new Crud();
 
-require_once($global['root-url-class']."Admin.php");
-$obj_admin = new Admin();
+require_once($global['root-url']."class/Encryption.php");
+$encrypt = new Encryption();
 
-require_once($global['root-url-class']."Encryption.php");
-$obj_encrypt = new Encryption();
+require_once($global['root-url']."class/RandomStringGenerator.php");
+$generator = new RandomStringGenerator();
 
-require_once($global['root-url-class']."RandomStringGenerator.php");
-$obj_generator = new RandomStringGenerator();
+include_once($global['root-url']."model/Admin.php");
+$admin = new Admin();
 
 if(!isset($_GET['action'])){
-	$conn = $obj_connect->setup();
-	$O_page = isset($_GET['page']) ? $_GET['page'] : 1;
-
+	$_page = isset($_GET['page']) ? $_GET['page'] : 1;
 	$filename = PHPFilename();
     if($filename == "index"){
-        $datas = $obj_admin->get_all($conn, $O_page);
+        $datas = $admin->get_all($crud, $_page);
 	    //var_dump($datas);
 	    $total_data = is_array($datas) ? $datas[0]['total_data_all'] : 0;
 	    $total_page = is_array($datas) ? $datas[0]['total_page'] : 0;
@@ -38,81 +36,72 @@ if(!isset($_GET['action'])){
     }else{
         //insert.php
     }
-
-    $obj_connect->close();
-
 }else{
 
 	if(isset($_GET['action'])){
 
 	    if($_GET['action'] == "add" && issetVar(array('name', 'email', 'password', 'repassword'))){
-	    	$conn = $obj_connect->setup();
-
-			$N_id = $obj_generator->generate(32);
-			$N_name = mysqli_real_escape_string($conn, check_input($_POST['name']));
-			$N_email = mysqli_real_escape_string($conn, check_input($_POST['email']));
-			$N_password = mysqli_real_escape_string($conn, check_input($_POST['password']));
-			$N_repassword = mysqli_real_escape_string($conn, check_input($_POST['repassword']));
-			$N_status = isset($_POST['status']) ? $_POST['status'] : 0;
-			$N_auth_code = generate_code(32);
+	    	$_id = $generator->generate(32);
+			$_name = $crud->escape_string(check_input($_POST['name']));
+			$_email = $crud->escape_string(check_input($_POST['email']));
+			$_password = $crud->escape_string(check_input($_POST['password']));
+			$_repassword = $crud->escape_string(check_input($_POST['repassword']));
+			$_status = isset($_POST['status']) ? $_POST['status'] : 0;
+			$_auth_code = generate_code(32);
 			$salt = substr(md5(time()), 0, 5);
-            $password = substr(doHash($N_password, $salt), 0, 64);
+            $password = substr(doHash($_password, $salt), 0, 64);
             $file_name = "";
 
-			$check_email = $obj_admin->check_email($conn, $N_email);
-			if($check_email == 0){
-				if($N_password == $N_repassword){
+			$check_email = $admin->check_email($crud, $_email);
+			if($check_email){
+				$message = "E-mail '".$_email."' already exist";
+				$alert = "failed";
+			}else{
+				if($_password == $_repassword){
 					//function uploading image
 					$images = save_image("image", $global['root-url']."uploads/admin/");
 					if($images['status'] == 200){
-						$file_name = $obj_encrypt->encrypt_decrypt("encrypt", $images['data']['filename']);
+						$file_name = $encrypt->encrypt_decrypt("encrypt", $images['data']['filename']);
 					}
-					$result = $obj_admin->insert_data($conn, $N_id, $N_name, $N_email, $password, $salt, $N_auth_code, $N_status, $file_name);
-	               	if($result == 1){
-	                    $message = "Add New Administrator '".$N_name."' success";
+					$result = $admin->insert_data($crud, $_id, $_name, $_email, $password, $salt, $_auth_code, $_status, $file_name);
+	               	if($result){
+	                    $message = "Add New Administrator '".$_name."' success";
 	                    $alert = "success";
 	                }else{
-	                    $message = "Add New Administrator '".$N_name."' failed. Please try again";
+	                    $message = "Add New Administrator '".$_name."' failed. Please try again";
 	                    $alert = "failed";
 	                }
 				}else{
 					$message = "Password does not match";
 	                $alert = "failed";
 				}
-			}else{
-				$message = "E-mail '".$N_email."' already exist";
-				$alert = "failed";
 			}
 
-	        $obj_connect->close();
 	        $_SESSION['status'] = $message;
 	        $_SESSION['alert'] = $alert;
-	        header("Location: index.php");
+	        header("Location:".$path['admin']);
 	    
 	    } else if($_GET['action'] == "delete" && issetVar(array('id', 'name'))){
-            $conn = $obj_connect->setup();
+            $_id = $crud->escape_string(check_input($_GET['id']));
+            $_name = $crud->escape_string(check_input($_GET['name']));
+            $_admin_id = $_SESSION['GpibKharis']['admin']['id'];
 
-            $O_id = mysqli_real_escape_string($conn, check_input($_GET['id']));
-            $O_name = mysqli_real_escape_string($conn, check_input($_GET['name']));
-            $O_admin_id = $_SESSION['GpibKharis']['admin']['id'];
-
-            if($O_admin_id != $O_id){
-            	$result = $obj_admin->delete_data($conn, $O_id, $obj_encrypt, $global['root-url']."uploads/admin/");
-	            if($result == 0){
-	                $message = "Administrator '".$O_name."' failed to be deleted in system";
-	                $alert = "failed";
-	            }else if($result == 1){
-	                $message = "Administrator '".$O_name."' success to be deleted in system";
+            if($_admin_id != $_id){
+            	$result = $admin->delete_data($crud, $_id, $encrypt, $global['root-url']."uploads/admin/");
+	            if($result){
+	                $message = "Administrator '".$_name."' success to be deleted in system";
 	                $alert = "success";
+	            }else{
+	                $message = "Administrator '".$_name."' failed to be deleted in system";
+	                $alert = "failed";
 	            }
 	            $page = $path['admin'];
             }else{
-            	$message = "You cannot delete '".$O_name."' when you're logged in";
+            	$message = "You cannot delete '".$_name."' when you're logged in";
             	$alert = "failed";
             	$page = $path['home'];
             }
 
-            $obj_connect->close();
 	        $_SESSION['status'] = $message;
 	        $_SESSION['alert'] = $alert;
 	        header("Location:".$page);
