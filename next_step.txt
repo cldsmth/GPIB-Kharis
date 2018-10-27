@@ -1,7 +1,4 @@
 next step
--adjust structure variable (check_input, config, dll) and filename (.php)
- 7. module-head, dll taruh di folder parts
- 8. folder admin rename to system
 -connect module edit administrator (without update password, check validate there is no change)
 -create action change password
 -connect forget password system

@@ -1,6 +1,6 @@
 <?php
 $global['absolute-url'] = "http://".$_SERVER['HTTP_HOST']."/gpib/";
-$global['absolute-url-admin'] = $global['absolute-url']."admin/";
+$global['absolute-url-admin'] = $global['absolute-url']."system/";
 $global['root-url'] = $_SERVER['DOCUMENT_ROOT']."/gpib/";
 $global['root-url-class'] = $global['root-url']."class/";
 $global['api'] = $global['absolute-url']."api/";

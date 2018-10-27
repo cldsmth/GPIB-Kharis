@@ -6,7 +6,7 @@
 <html lang="en">
 	<head>
 		<title><?=$title['login'];?></title>
-		<?php include("helpers/head.php");?>
+		<?php include("parts/part-head.php");?>
 	</head>
 	<body class="simple-page">
 		<div class="simple-page-wrap">

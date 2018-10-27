@@ -140,7 +140,7 @@ if(!function_exists('end_session'))
 if(!function_exists('create_cookie'))
 {
     function create_cookie($datas){
-        $path = "/dev/gpib/admin/";
+        $path = "/gpib/admin/";
         $cookie_time = (3600 * 24 * 15); // 15 day
         setcookie("cookie_datas", $datas, time() + $cookie_time, $path);
     }
@@ -149,7 +149,7 @@ if(!function_exists('create_cookie'))
 if(!function_exists('end_cookie'))
 {
     function end_cookie(){
-        $path = "/dev/gpib/admin/";
+        $path = "/gpib/admin/";
         $cookie_time = (3600 * 24 * 15); // 15 day
         setcookie("cookie_datas", "", time() - $cookie_time, $path);
     }

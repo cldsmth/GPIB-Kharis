@@ -10,7 +10,7 @@
 <html lang="en">
   <head>
     <title><?=$title['admin'];?></title>
-    <?php include("../../helpers/module-head.php");?>
+    <?php include("../../parts/part-module-head.php");?>
     <!-- Add fancyBox -->
     <link rel="stylesheet" href="<?=$global['absolute-url-admin'];?>libraries/fancybox/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen">
   </head>
@@ -144,7 +144,7 @@
       <?php include("../../parts/part-footer.php");?>
 
     </main>
-  	<?php include("../../helpers/footer-js.php");?>
+  	<?php include("../../parts/part-footer-js.php");?>
     <script type="text/javascript" src="<?=$global['absolute-url-admin'];?>libraries/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
     <script type="text/javascript">
       $(document).ready(function() {
