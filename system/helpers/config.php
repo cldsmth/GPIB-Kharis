@@ -1,26 +1,35 @@
 <?php
-$global['absolute-url'] = "http://".$_SERVER['HTTP_HOST']."/gpib/";
-$global['absolute-url-admin'] = $global['absolute-url']."system/";
-$global['root-url'] = $_SERVER['DOCUMENT_ROOT']."/gpib/";
-$global['root-url-class'] = $global['root-url']."class/";
-$global['api'] = $global['absolute-url']."api/";
-$global['favicon'] = $global['absolute-url-admin']."/assets/images/logo.png";
-$seo['company-name'] = "GPIB Kharis";
-$seo['copyright'] = "Copyright ".$seo['company-name']." ".date('Y')." &copy;";
+define('PATH', "http://".$_SERVER['HTTP_HOST']."/gpib/");
+define('ADMIN', PATH."system/");
+define('ROOT', $_SERVER['DOCUMENT_ROOT']."/");
+define('NAME', "GPIB Kharis");
 
-$path['logout'] = $global['absolute-url-admin']."?action=logout";
-$path['decrypt-fie'] = $global['absolute-url']."file/";
+$global = array(
+	'absolute-url' => PATH,
+	'absolute-url-admin' => ADMIN,
+	'root-url' => ROOT."gpib/",
+	'api' => PATH."api/",
+	'favicon' => ADMIN."assets/images/logo.png"
+);
 
-//login page
-$title['login'] = $seo['company-name']." | Login";
-$path['login'] = $global['absolute-url-admin'];
+$seo = array(
+	'company-name' => NAME,
+	'copyright' => "Copyright ".NAME." ".date('Y')." &copy;"
+);
 
-//home page
-$title['home'] = $seo['company-name']." | Home";
-$path['home'] = $global['absolute-url-admin']."view/home/index.php";
+$path = array(
+	'login' => ADMIN,
+	'logout' => ADMIN."?action=logout",
+	'decrypt-fie' => PATH."file/",
+	'home' => ADMIN."view/home/",
+	'admin' => ADMIN."view/admin/",
+	'admin-add' => ADMIN."view/admin/new/",
+	'admin-edit' => ADMIN."view/admin/update/"
+);
 
-//admin page
-$title['admin'] = $seo['company-name']." | Admin";
-$path['admin'] = $global['absolute-url-admin']."view/admin/index.php";
-$path['admin-add'] = $global['absolute-url-admin']."view/admin/insert.php";
+$title = array(
+	'login' => NAME." | Login",
+	'home' => NAME." | Home",
+	'admin' => NAME." | Admin"
+);
 ?>

@@ -1,10 +1,19 @@
 <?php
-$global['absolute-url'] = "http://".$_SERVER['HTTP_HOST']."/gpib/";
-$global['absolute-url-admin'] = $global['absolute-url']."system/";
-$global['root-url'] = $_SERVER['DOCUMENT_ROOT']."/gpib/";
-$global['root-url-class'] = $global['root-url']."class/";
-$global['api'] = $global['absolute-url']."api/";
-$global['favicon'] = $global['absolute-url-admin']."/assets/images/logo.png";
-$seo['company-name'] = "GPIB Kharis";
-$seo['copyright'] = "Copyright ".$seo['company-name']." ".date('Y')." &copy;";
+define('PATH', "http://".$_SERVER['HTTP_HOST']."/gpib/");
+define('ADMIN', PATH."system/");
+define('ROOT', $_SERVER['DOCUMENT_ROOT']."/");
+define('NAME', "GPIB Kharis");
+
+$global = array(
+	'absolute-url' => PATH,
+	'absolute-url-admin' => ADMIN,
+	'root-url' => ROOT."gpib/",
+	'api' => PATH."api/",
+	'favicon' => ADMIN."assets/images/logo.png"
+);
+
+$seo = array(
+	'company-name' => NAME,
+	'copyright' => "Copyright ".NAME." ".date('Y')." &copy;"
+);
 ?>

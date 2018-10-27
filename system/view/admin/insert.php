@@ -45,7 +45,7 @@
                 </header><!-- .widget-header -->
                 <hr class="widget-separator">
                 <div class="widget-body">
-                  <form id="form-admin" action="index.php?action=add" enctype="multipart/form-data" method="post" onsubmit="return confirmSubmit();">
+                  <form id="form-admin" action="<?=$path['admin'];?>index.php?action=add" enctype="multipart/form-data" method="post" onsubmit="return confirmSubmit();">
                     <div class="panel-body">
                       <div class="form-body">
                         <div class="row">
