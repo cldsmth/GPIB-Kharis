@@ -77,7 +77,7 @@ if(!function_exists('colorStatus'))
 if(!function_exists('checkStatus'))
 {
     function checkStatus($status){
-        return $status == 1 ? "Active" : "Inactive";
+        return $status == 1 ? "<span class='label label-success'>Active</span>" : "<span class='label label-danger'>Inactive</span>";
     }
 }
 

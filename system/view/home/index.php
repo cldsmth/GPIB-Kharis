@@ -27,9 +27,9 @@
             <!-- start: PAGE CONTENT -->
       			<div class="col-md-12">
       				<div class="widget p-lg">
-      					<h1 class="m-b-lg">Halo, <?=$_SESSION['GpibKharis']['admin']['name'];?></h1>
+      					<h1 class="m-b-lg">Hello, <?=$_SESSION['GpibKharis']['admin']['name'];?></h1>
       					<p class="m-b-lg docs" style="font-size: 17px;">
-      						Selamat datang di halaman administrator <?=$seo['company-name'];?>.
+      						Welcome to administrator <?=$seo['company-name'];?>.
       					</p>
       				</div>
       			</div>

@@ -70,7 +70,8 @@
                         <div class="row">
                           <div class="col-sm-4 col-xs-12 up1 form-label"><strong>E-mail <span class="symbol-required">*</span></strong> :</div>
                           <div class="col-sm-5 col-xs-12 up1">
-                            <input id="input-email" name="email" type="text" class="form-control input-style" placeholder="E-mail" maxlength="100" value="<?=$datas['email'];?>">
+                            <input name="old_email" type="hidden" value="<?=$datas['email'];?>">
+                            <input id="input-email" name="new_email" type="text" class="form-control input-style" placeholder="E-mail" maxlength="100" value="<?=$datas['email'];?>">
                             <div id="error-email" class="is-error"></div>
                           </div>
                         </div>

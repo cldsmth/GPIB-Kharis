@@ -70,11 +70,11 @@
                           <th>Create Date</th>
                         </tr>
                         <?php $num=1; if(is_array($datas)){ foreach($datas as $data){?>
-                        <tr class="<?=colorStatus($data['status']);?>">
+                        <tr>
                           <td class="text-left"><?=($_page-1)*20+$num;?>.</td>
                           <td class="text-center">
-                            <a href="<?=$path['admin-edit']."?id=".$data['id'];?>" class="btn btn-xs btn-outline btn-success"><i class='fa fa-edit'></i> Edit</a>
-                            <a href="javascript:void(0)" onclick="confirmDelete('<?=$data['id'];?>', '<?=$data['name'];?>');" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> Delete</a>
+                            <a href="<?=$path['admin-edit']."?id=".$data['id'];?>" class="btn btn-xs btn-outline btn-success" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class='fa fa-edit'></i> Edit</a>
+                            <a href="javascript:void(0)" onclick="confirmDelete('<?=$data['id'];?>', '<?=$data['name'];?>');" class="btn btn-xs btn-outline btn-danger" data-toggle="tooltip" data-placement="top" data-original-title="Delete"><i class="fa fa-trash"></i> Delete</a>
                           </td>
                           <td class="text-center">
                             <a class="fancybox" data-url="<?=$global['absolute-url'];?>" data-module="admin" data-img="<?=($data['img'] != "" ? $encrypt->encrypt_decrypt("decrypt", $data['img']) : "");?>" href="javascript:void(0)" onclick="previewImage(this)">
@@ -167,7 +167,7 @@
       function confirmDelete(id, name){
         var admin_id = "<?=$_SESSION['GpibKharis']['admin']['id'];?>";
         if(admin_id != id){
-          var x = confirm("Are you sure want to delete \""+name+"\" in system ?");
+          var x = confirm("Are you sure want to delete \""+name+"\" ?");
           if(x == true){
             window.location.href = "index.php?action=delete&id="+id+"&name="+name;
           }else{

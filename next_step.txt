@@ -1,5 +1,5 @@
 next step
--connect module edit administrator (without update password, check validate there is no change)
 -testing input special character
+-validate there is no change data (via javascript)
 -create action change password
 -connect forget password system

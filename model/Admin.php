@@ -165,6 +165,19 @@ class Admin
         return $result;
     }
 
+    public function update_data($crud, $admin, $encrypt, $path){
+        $cond = "";
+        if($admin->_image != ""){
+            $this->remove_image($crud, $admin->_id, $encrypt, $path);
+            $cond = "img = '$admin->_image', ";
+        }
+
+        $query = "UPDATE $this->table SET name = '$admin->_name', email = '$admin->_email', $cond 
+            status = '$admin->_status' WHERE id = '$admin->_id'";
+        $result = $crud->execute($query);
+        return $result;
+    }
+
     public function delete_data($crud, $id, $encrypt, $path){
         $this->remove_image($crud, $id, $encrypt, $path);
         $result = $crud->delete($id, $this->table);
