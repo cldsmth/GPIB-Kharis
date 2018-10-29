@@ -30,72 +30,54 @@ if(!isset($_GET['action'])){
 
 	if(isset($_GET['action'])){
 
-	    if($_GET['action'] == "add" && issetVar(array('title'))){
-	    	print_r($_POST);
-	    	/*$admin->setId($generator->generate(32));
-			$admin->setName($crud->escape_string(check_input($_POST['name'])));
-			$admin->setEmail($crud->escape_string(check_input($_POST['email'])));
-			$admin->setPassword($crud->escape_string(check_input($_POST['password'])));
-			$admin->setRepassword($crud->escape_string(check_input($_POST['repassword'])));
-			$admin->setStatus(isset($_POST['status']) ? $_POST['status'] : 0);
-			$admin->setAuthCode(generate_code(32));
-			$admin->setSaltHash(substr(md5(time()), 0, 5));
-            $password = substr(doHash($admin->getPassword(), $admin->getSaltHash()), 0, 64);
+	    if($_GET['action'] == "save" && issetVar(array('title'))){
+	    	$category->setId($crud->escape_string(check_input($_POST['id'])));
+			$category->setTitle($crud->escape_string(check_input($_POST['title'])));
+			$category->setSlug(encode($category->getTitle()));
+			$category->setType("article");
+			$category->setStatus(isset($_POST['status']) ? $_POST['status'] : 0);
 
-			$check_email = $admin->check_email($crud, $admin->getEmail());
-			if($check_email){
-				$message = "E-mail '".$admin->getEmail()."' already exist";
-				$alert = "failed";
+			if($category->getId() != ""){
+				$result = $category->update_data($crud, $category);
+               	if($result){
+                    $message = "Edit Article Category '".$category->getTitle()."' success";
+                    $alert = "success";
+                }else{
+                    $message = "Edit Article Category '".$category->getTitle()."' failed. Please try again";
+                    $alert = "failed";
+                }
 			}else{
-				if($admin->getPassword() == $admin->getRepassword()){
-					$admin->setPassword($password);
-					$images = save_image($image, "image", $global['root-url']."uploads/admin/");
-					if($images['status'] == 200){
-						$admin->setImage($encrypt->encrypt_decrypt("encrypt", $images['data']['filename']));
-					}
-					$result = $admin->insert_data($crud, $admin);
-	               	if($result){
-	                    $message = "Add New Administrator '".$admin->getName()."' success";
-	                    $alert = "success";
-	                }else{
-	                    $message = "Add New Administrator '".$admin->getName()."' failed. Please try again";
-	                    $alert = "failed";
-	                }
-				}else{
-					$message = "Password does not match";
-	                $alert = "failed";
-				}
+				$category->setId($generator->generate(32));
+				$result = $category->insert_data($crud, $category);
+               	if($result){
+                    $message = "Add New Article Category '".$category->getTitle()."' success";
+                    $alert = "success";
+                }else{
+                    $message = "Add New Article Category '".$category->getTitle()."' failed. Please try again";
+                    $alert = "failed";
+                }
 			}
 
 	        $_SESSION['status'] = $message;
 	        $_SESSION['alert'] = $alert;
-	        header("Location:".$path['admin']);*/
+	        header("Location:".$path['article-category']);
 	    
 	    } else if($_GET['action'] == "delete" && issetVar(array('id', 'title'))){
-            print_r($_GET);
-            /*$_id = $crud->escape_string(check_input($_GET['id']));
-            $_name = $crud->escape_string(check_input($_GET['name']));
-            $_admin_id = $_SESSION['GpibKharis']['admin']['id'];
-
-            if($_admin_id != $_id){
-            	$result = $admin->delete_data($crud, $_id, $encrypt, $global['root-url']."uploads/admin/");
-	            if($result){
-	                $message = "Administrator '".$_name."' success to be deleted in system";
-	                $alert = "success";
-	            }else{
-	                $message = "Administrator '".$_name."' failed to be deleted in system";
-	                $alert = "failed";
-	            }
-	            $page = $path['admin'];
+            $_id = $crud->escape_string(check_input($_GET['id']));
+            $_title = $crud->escape_string(check_input($_GET['title']));
+            
+            $result = $category->delete_data($crud, $_id);
+            if($result){
+                $message = "Article Category '".$_title."' success to be deleted in system";
+                $alert = "success";
             }else{
-            	$message = "You cannot delete '".$_name."' when you're logged in";
-            	$alert = "failed";
-            	$page = $path['home'];
+                $message = "Article Category '".$_title."' failed to be deleted in system";
+                $alert = "failed";
             }
 
 	        $_SESSION['status'] = $message;
 	        $_SESSION['alert'] = $alert;
-	        header("Location:".$page);*/
+	        header("Location:".$path['article-category']);
 
         } else {
 	    	$_SESSION['status'] = "Action Not Found.";

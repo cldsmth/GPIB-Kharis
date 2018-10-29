@@ -62,7 +62,7 @@
                       <tbody>
                         <tr>
                           <th class="text-left">#</th>
-                          <th class="text-center" style="width: 10%;">Action</th>
+                          <th class="text-center">Action</th>
                           <th class="text-center">Image</th>
                           <th>Name</th>
                           <th>E-mail</th>
@@ -73,8 +73,8 @@
                         <tr>
                           <td class="text-left"><?=($_page-1)*20+$num;?>.</td>
                           <td class="text-center">
-                            <a href="<?=$path['admin-edit']."?id=".$data['id'];?>" class="btn btn-xs btn-outline btn-success" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class='fa fa-edit'></i> Edit</a>
-                            <a href="javascript:void(0)" onclick="confirmDelete('<?=$data['id'];?>', '<?=$data['name'];?>');" class="btn btn-xs btn-outline btn-danger" data-toggle="tooltip" data-placement="top" data-original-title="Delete"><i class="fa fa-trash"></i> Delete</a>
+                            <a href="<?=$path['admin-edit']."?id=".$data['id'];?>" class="btn btn-xs btn-outline btn-success"><i class='fa fa-edit'></i> Edit</a>
+                            <a href="javascript:void(0)" onclick="confirmDelete('<?=$data['id'];?>', '<?=$data['name'];?>');" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> Delete</a>
                           </td>
                           <td class="text-center">
                             <a class="fancybox" data-url="<?=$global['absolute-url'];?>" data-module="admin" data-img="<?=($data['img'] != "" ? $encrypt->encrypt_decrypt("decrypt", $data['img']) : "");?>" href="javascript:void(0)" onclick="previewImage(this)">

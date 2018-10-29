@@ -1,7 +1,9 @@
 next step
--create module category (news/event) => satu halaman aja yang bisa insert/edit via modal box
+-create module event category
 -create action change password
 -connect forget password system
+-kalau sudah ada module jemaat/kepala keluarga, bikin satu module di dalam menu konfirgurasi
+ nama module nya import, trus ada submenu Jemaat, dll
 
 note
 -untuk check value change data via selectbox, bisa liat referensi link di bawah

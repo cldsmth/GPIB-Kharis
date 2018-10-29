@@ -55,7 +55,8 @@ class Category
     
 //START FUNCTION FOR ADMIN PAGE
     public function get_all($crud, $type){
-        $query = "SELECT id, title, status, datetime FROM $this->table ORDER BY title ASC";
+        $query = "SELECT id, title, status, datetime FROM $this->table 
+            WHERE type = '$type' ORDER BY title ASC";
         $result = $crud->getData($query);
         if(!$result){
             return false;
@@ -63,44 +64,28 @@ class Category
         return $result;
     }
 
-    /*public function get_detail($crud, $id){
-        $query = "SELECT * FROM $this->table WHERE id = '$id'";
-        $result = $crud->getData($query);
-        if(!$result){
-            return false;
-        }
-        return is_array($result) ? $result[0] : false;
-    }
-
-    public function insert_data($crud, $admin){
+    public function insert_data($crud, $category){
         date_default_timezone_set('Asia/Jakarta');
         $now = date("Y-m-d H:i:s");
 
-        $query = "INSERT INTO $this->table (id, name, email, password, salt_hash, auth_code, status, img, datetime)
-            VALUES ('$admin->_id', '$admin->_name', '$admin->_email', '$admin->_password', '$admin->_salt_hash', 
-            '$admin->_auth_code', '$admin->_status', '$admin->_image', '$now')";
+        $query = "INSERT INTO $this->table (id, title, slug, type, status, datetime)
+            VALUES ('$category->_id', '$category->_title', '$category->_slug', '$category->_type', 
+            '$category->_status', '$now')";
         $result = $crud->execute($query);
         return $result;
     }
 
-    public function update_data($crud, $admin, $encrypt, $path){
-        $cond = "";
-        if($admin->_image != ""){
-            $this->remove_image($crud, $admin->_id, $encrypt, $path);
-            $cond = "img = '$admin->_image', ";
-        }
-
-        $query = "UPDATE $this->table SET name = '$admin->_name', email = '$admin->_email', $cond 
-            status = '$admin->_status' WHERE id = '$admin->_id'";
+    public function update_data($crud, $category){
+        $query = "UPDATE $this->table SET title = '$category->_title', slug = '$category->_slug', 
+            status = '$category->_status' WHERE id = '$category->_id'";
         $result = $crud->execute($query);
         return $result;
     }
 
-    public function delete_data($crud, $id, $encrypt, $path){
-        $this->remove_image($crud, $id, $encrypt, $path);
+    public function delete_data($crud, $id){
         $result = $crud->delete($id, $this->table);
         return $result;
-    }*/
+    }
 //END FUNCTION FOR ADMIN PAGE
 }
 ?>

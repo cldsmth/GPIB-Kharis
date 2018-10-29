@@ -260,7 +260,7 @@
                 document.getElementById("form-admin").submit();
               }
             }else{
-              errorAlert("There is no change");
+              alert("There is no change");
             }
         }
         return false;
