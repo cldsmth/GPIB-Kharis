@@ -81,7 +81,7 @@
                               <img style="width: 40px;" class="img-circle" src="<?=$path['decrypt-fie']."admin/thmb/".($data['img'] != "" ? $data['img'] : "null")."/";?>">
                             </a>
                           </td>
-                          <td><?=$data['name'];?></td>
+                          <td><?=correctDisplay($data['name']);?></td>
                           <td><?=$data['email'];?></td>
                           <td><?=checkStatus($data['status']);?></td>
                           <td><?=date("d-M-Y, H:i:s", strtotime($data['create_date']));?></td>

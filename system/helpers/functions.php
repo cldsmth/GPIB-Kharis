@@ -1,4 +1,36 @@
 <?php
+if(!function_exists('characterToHTMLEntity'))
+{
+    function characterToHTMLEntity($str){
+        $search = array('&', '<', '>', '€', '‘', '’', '“', '”', '–', '—', 
+            '¡', '¢', '£', '¤', '¥', '¦', '§', '¨', '©', 'ª', 
+            '«', '¬', '®', '¯', '°', '±', '²', '³', '´', 'µ', 
+            '¶', '·', '¸', '¹', 'º', '»', '¼', '½', '¾', '¿', 
+            'À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ', 'Ç', 'È', 'É', 
+            'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ð', 'Ñ', 'Ò', 'Ó', 
+            'Ô', 'Õ', 'Ö', '×', 'Ø', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 
+            'Þ', 'ß', 'à', 'á', 'â', 'ã','ä', 'å', 'æ', 'ç', 
+            'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ð', 'ñ', 
+            'ò', 'ó', 'ô', 'õ', 'ö', '÷', 'ø', 'ù', 'ú', 'û', 
+            'ü', 'ý', 'þ', 'ÿ','Œ', 'œ', '‚', '„', '…', '™', 
+            '•', '˜', '"', '\'', '\n');
+        $replace = array('&amp;', '&lt;', '&gt;', '&euro;', '&lsquo;', '&rsquo;', '&ldquo;', '&rdquo;', '&ndash;', '&mdash;', 
+            '&iexcl;','&cent;', '&pound;', '&curren;', '&yen;', '&brvbar;', '&sect;', '&uml;', '&copy;', '&ordf;', 
+            '&laquo;', '&not;', '&reg;', '&macr;', '&deg;', '&plusmn;', '&sup2;', '&sup3;', '&acute;', '&micro;', 
+            '&para;', '&middot;', '&cedil;', '&sup1;', '&ordm;', '&raquo;', '&frac14;', '&frac12;', '&frac34;', '&iquest;', 
+            '&Agrave;', '&Aacute;', '&Acirc;', '&Atilde;', '&Auml;', '&Aring;', '&AElig;', '&Ccedil;', '&Egrave;', '&Eacute;', 
+            '&Ecirc;', '&Euml;', '&Igrave;', '&Iacute;', '&Icirc;', '&Iuml;', '&ETH;', '&Ntilde;', '&Ograve;', '&Oacute;', 
+            '&Ocirc;', '&Otilde;', '&Ouml;', '&times;', '&Oslash;', '&Ugrave;', '&Uacute;', '&Ucirc;', '&Uuml;', '&Yacute;', 
+            '&THORN;', '&szlig;', '&agrave;', '&aacute;', '&acirc;', '&atilde;', '&auml;', '&aring;', '&aelig;', '&ccedil;', 
+            '&egrave;', '&eacute;','&ecirc;', '&euml;', '&igrave;', '&iacute;', '&icirc;', '&iuml;', '&eth;', '&ntilde;', 
+            '&ograve;', '&oacute;', '&ocirc;', '&otilde;', '&ouml;', '&divide;','&oslash;', '&ugrave;', '&uacute;', '&ucirc;', 
+            '&uuml;', '&yacute;', '&thorn;', '&yuml;', '&OElig;', '&oelig;', '&sbquo;', '&bdquo;', '&hellip;', '&trade;', 
+            '&bull;', '&asymp;', '&quot;', '&rsquo;', '<br>');
+        $str = str_replace($search, $replace, $str); //REPLACE VALUES
+        return $str; //RETURN FORMATED STRING
+    }
+}
+
 if(!function_exists('save_image'))
 {
     function save_image($image, $param, $upload_link){
@@ -316,6 +348,13 @@ if(!function_exists('isSelected'))
     }
 }
 
+if(!function_exists('isChecked'))
+{
+    function isChecked($value, $data){
+        return $value == $data ? "checked" : "";
+    }
+}
+
 if(!function_exists('nowDate'))
 {
     function nowDate() {
@@ -336,12 +375,9 @@ if(!function_exists('nowDateComplete'))
 
 if(!function_exists('check_input'))
 {
-    //Function To check and secure the login info from hacker attack
     function check_input($data) {
         $data = trim($data);
-        $data = stripslashes($data);
-        $data = addslashes($data);
-        $data = htmlspecialchars($data, ENT_QUOTES);
+        $data = characterToHTMLEntity($data);
         return $data;
     }
 }
@@ -364,6 +400,15 @@ if(!function_exists('doHash'))
         //creates a random 5 character sequence
         $secData = hash('sha256', $salt . $secData);
         return $secData;
+    }
+}
+
+if(!function_exists('inputDisplay'))
+{
+    function inputDisplay($data) {
+        $data = htmlentities($data);
+        $data = html_entity_decode($data);
+        return $data;
     }
 }
 

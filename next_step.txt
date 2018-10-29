@@ -1,5 +1,5 @@
 next step
--testing input special character
 -validate there is no change data (via javascript)
+-create module category (news/event)
 -create action change password
 -connect forget password system

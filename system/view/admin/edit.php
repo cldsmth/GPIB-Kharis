@@ -55,7 +55,7 @@
                         <div class="row">
                           <div class="col-sm-4 col-xs-12 form-label"><strong>Name <span class="symbol-required">*</span></strong> :</div>
                           <div class="col-sm-5 col-xs-12">
-                            <input id="input-name" name="name" type="text" class="form-control input-style" placeholder="Name" maxlength="100" value="<?=$datas['name'];?>">
+                            <input id="input-name" name="name" type="text" class="form-control input-style" placeholder="Name" maxlength="100" value="<?=inputDisplay($datas['name']);?>">
                             <div id="error-name" class="is-error"></div>
                           </div>
                         </div>
@@ -109,7 +109,7 @@
                           <div class="col-sm-4 col-xs-12 up1 form-label">Status :</div>
                           <div class="col-sm-5 col-xs-12 up1">
                             <div class="checkbox checkbox-primary">
-                              <input <?php if($datas['status'] == 1){echo "checked";}?> id="input-status" name="status" type="checkbox" value="1">
+                              <input <?=isChecked($datas['status'], 1);?> id="input-status" name="status" type="checkbox" value="1">
                               <label for="input-status">
                                 <span class="note-input">Unchecked if status inactive</span>
                               </label>
