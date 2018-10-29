@@ -24,12 +24,14 @@ $path = array(
 	'home' => ADMIN."view/home/",
 	'admin' => ADMIN."view/admin/",
 	'admin-add' => ADMIN."view/admin/new/",
-	'admin-edit' => ADMIN."view/admin/update/"
+	'admin-edit' => ADMIN."view/admin/update/",
+	'article-category' => ADMIN."view/article-category/"
 );
 
 $title = array(
 	'login' => NAME." | Login",
 	'home' => NAME." | Home",
-	'admin' => NAME." | Admin"
+	'admin' => NAME." | Admin",
+	'article-category' => NAME." | Article Category"
 );
 ?>

@@ -84,7 +84,7 @@
                           <td><?=correctDisplay($data['name']);?></td>
                           <td><?=$data['email'];?></td>
                           <td><?=checkStatus($data['status']);?></td>
-                          <td><?=date("d-M-Y, H:i:s", strtotime($data['create_date']));?></td>
+                          <td><?=date("d-M-Y, H:i:s", strtotime($data['datetime']));?></td>
                         </tr>
                         <?php $num++;}}else{?>
                         <tr>

@@ -88,31 +88,31 @@
           </ul>
         </li>
 
-        <?php /*
         <!-- Article !-->
-        <li class="has-submenu">
+        <li class="has-submenu <?=(in_array_any(array($curpage), array("article-category")) ? "active open" : "");?>">
           <a href="javascript:void(0)" class="submenu-toggle">
             <i class="menu-icon fa fa-newspaper-o"></i>
             <span class="menu-text">Article</span>
             <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
           </a>
-          <ul class="submenu">
+          <ul class="submenu" style="<?=(in_array_any(array($curpage), array("article-category")) ? "display: block;" : "");?>">
             <!-- Module Category !-->
-            <li>
-              <a href="#">
+            <li class="<?=($curpage == "article-category" ? "active" : "");?>">
+              <a href="<?=$path['article-category'];?>">
                 <span class="menu-text">Category</span>
               </a>
             </li>
 
             <!-- Module Article !-->
-            <li>
+            <!--<li>
               <a href="#">
                 <span class="menu-text">List</span>
               </a>
-            </li>
+            </li>!-->
           </ul>
         </li>
 
+        <?php /*
         <!-- Event !-->
         <li class="has-submenu">
           <a href="javascript:void(0)" class="submenu-toggle">

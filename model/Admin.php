@@ -130,8 +130,8 @@ class Admin
         $total_page  = ceil($total_data / $this->itemPerPageAdmin);
         $limitBefore = $page <= 1 || $page == null ? 0 : ($page-1) * $this->itemPerPageAdmin;
 
-        $query = "SELECT id, name, email, img, status, create_date FROM $this->table
-            ORDER BY create_date DESC LIMIT $limitBefore, $this->itemPerPageAdmin";
+        $query = "SELECT id, name, email, img, status, datetime FROM $this->table
+            ORDER BY datetime DESC LIMIT $limitBefore, $this->itemPerPageAdmin";
         $result = $crud->getData($query);
         if(!$result){
             return false;
@@ -158,7 +158,7 @@ class Admin
         date_default_timezone_set('Asia/Jakarta');
         $now = date("Y-m-d H:i:s");
 
-        $query = "INSERT INTO $this->table (id, name, email, password, salt_hash, auth_code, status, img, create_date)
+        $query = "INSERT INTO $this->table (id, name, email, password, salt_hash, auth_code, status, img, datetime)
             VALUES ('$admin->_id', '$admin->_name', '$admin->_email', '$admin->_password', '$admin->_salt_hash', 
             '$admin->_auth_code', '$admin->_status', '$admin->_image', '$now')";
         $result = $crud->execute($query);
