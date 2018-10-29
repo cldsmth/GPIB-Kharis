@@ -1,3 +1,15 @@
+function isDataChanges(array){
+  var index = 0;
+  var check_values = new Array();
+  for(var i=0; i < array.length; i++){
+    if(array[i][0] == array[i][1]){
+      check_values[index] = i;
+      index++;
+    }
+  }
+  return check_values.length == array.length ? false : true;
+}
+
 function previewImage(x){
   var url = $(x).attr("data-url");
   var module = $(x).attr("data-module");

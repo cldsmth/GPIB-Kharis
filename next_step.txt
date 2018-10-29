@@ -1,5 +1,10 @@
 next step
--validate there is no change data (via javascript)
--create module category (news/event)
+-create module category (news/event) => satu halaman aja yang bisa insert/edit via modal box
 -create action change password
 -connect forget password system
+
+note
+-untuk check value change data via selectbox, bisa liat referensi link di bawah
+	=> https://www.sitepoint.com/detect-html-form-changes/
+	   var job = document.getElementById("job");
+	   if (!job.options[job.selectedIndex].defaultSelected) alert("#job has changed");
