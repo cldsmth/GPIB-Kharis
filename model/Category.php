@@ -55,8 +55,8 @@ class Category
     
 //START FUNCTION FOR ADMIN PAGE
     public function get_all($crud, $type){
-        $query = "SELECT id, title, status, datetime FROM $this->table 
-            WHERE type = '$type' ORDER BY title ASC";
+        $query = "SELECT id, title, status, datetime, timestamp FROM 
+            $this->table WHERE type = '$type' ORDER BY title ASC";
         $result = $crud->getData($query);
         if(!$result){
             return false;
@@ -68,9 +68,9 @@ class Category
         date_default_timezone_set('Asia/Jakarta');
         $now = date("Y-m-d H:i:s");
 
-        $query = "INSERT INTO $this->table (id, title, slug, type, status, datetime)
+        $query = "INSERT INTO $this->table (id, title, slug, type, status, datetime, timestamp)
             VALUES ('$category->_id', '$category->_title', '$category->_slug', '$category->_type', 
-            '$category->_status', '$now')";
+            '$category->_status', '$now', '$now')";
         $result = $crud->execute($query);
         return $result;
     }

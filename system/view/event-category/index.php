@@ -64,6 +64,7 @@
                           <th>Title</th>
                           <th>Status</th>
                           <th>Create Date</th>
+                          <th>Last Updated</th>
                         </tr>
                         <?php $num=1; if(is_array($datas)){ foreach($datas as $data){?>
                         <tr>
@@ -75,10 +76,11 @@
                           <td><?=correctDisplay($data['title']);?></td>
                           <td><?=checkStatus($data['status']);?></td>
                           <td><?=date("d-M-Y, H:i:s", strtotime($data['datetime']));?></td>
+                          <td><?=($data['datetime'] != $data['timestamp'] ? time_ago($data['timestamp']) : "-");?></td>
                         </tr>
                         <?php $num++;}}else{?>
                         <tr>
-                          <td colspan="5">There is no data!</td>
+                          <td colspan="6">There is no data!</td>
                         </tr>
                         <?php }?>
                       </tbody>

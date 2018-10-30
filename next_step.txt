@@ -1,8 +1,13 @@
 next step
 -create action change password
 -connect forget password system
--kalau sudah ada module jemaat/kepala keluarga, bikin satu module di dalam menu konfirgurasi
+-kalau sudah ada module jemaat/kepala keluarga, bikin satu module di dalam menu setting
  nama module nya import, trus ada submenu Jemaat, dll
+
+next improvement
+-ada pengecekan last login, jadi setiap kali login, insert di table log untuk loginnya dan tempat loginnya
+-ada pengecekan bahwa satu akun hanya bisa login sekali. Jadi kalau mau login di tempat lain
+ kasih pemberitahuan bahwa akunnya masih di pakai di PC lain.
 
 note
 -untuk check value change data via selectbox, bisa liat referensi link di bawah
