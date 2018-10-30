@@ -25,13 +25,15 @@ $path = array(
 	'admin' => ADMIN."view/admin/",
 	'admin-add' => ADMIN."view/admin/new/",
 	'admin-edit' => ADMIN."view/admin/update/",
-	'article-category' => ADMIN."view/article-category/"
+	'article-category' => ADMIN."view/article-category/",
+	'event-category' => ADMIN."view/event-category/"
 );
 
 $title = array(
 	'login' => NAME." | Login",
 	'home' => NAME." | Home",
 	'admin' => NAME." | Admin",
-	'article-category' => NAME." | Article Category"
+	'article-category' => NAME." | Article Category",
+	'event-category' => NAME." | Event Category"
 );
 ?>

@@ -1,5 +1,4 @@
 next step
--create module event category
 -create action change password
 -connect forget password system
 -kalau sudah ada module jemaat/kepala keluarga, bikin satu module di dalam menu konfirgurasi
