@@ -29,7 +29,10 @@ $path = array(
 	'event-category' => ADMIN."view/event-category/",
 	'keluarga' => ADMIN."view/keluarga/",
 	'keluarga-add' => ADMIN."view/keluarga/new/",
-	'keluarga-edit' => ADMIN."view/keluarga/update/"
+	'keluarga-edit' => ADMIN."view/keluarga/update/",
+	'jemaat' => ADMIN."view/jemaat/",
+	'jemaat-add' => ADMIN."view/jemaat/new/",
+	'jemaat-edit' => ADMIN."view/jemaat/update/"
 );
 
 $title = array(
@@ -38,6 +41,7 @@ $title = array(
 	'admin' => NAME." | Admin",
 	'article-category' => NAME." | Article Category",
 	'event-category' => NAME." | Event Category",
-	'keluarga' => NAME." | Keluarga"
+	'keluarga' => NAME." | Keluarga",
+	'jemaat' => NAME." | Jemaat"
 );
 ?>

@@ -118,6 +118,13 @@ if(!function_exists('colorStatus'))
     }
 }
 
+if(!function_exists('checkGender'))
+{
+    function checkGender($gender){
+        return $gender == "m" ? "Laki-laki" : $gender == "f" ? "Perempuan" : "-";
+    }
+}
+
 if(!function_exists('checkStatus'))
 {
     function checkStatus($status){
