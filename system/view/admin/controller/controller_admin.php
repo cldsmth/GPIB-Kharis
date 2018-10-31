@@ -83,7 +83,34 @@ if(!isset($_GET['action'])){
 	        $_SESSION['alert'] = $alert;
 	        header("Location:".$path['admin']);
 	    
-	    } else if($_GET['action'] == "delete" && issetVar(array('id', 'name'))){
+	    } else if($_GET['action'] == "change_password" && issetVar(array('id', 'name', 'password', 'repassword'))){
+            $_id = $crud->escape_string(check_input($_POST['id']));
+            $_name = $crud->escape_string(check_input($_POST['name']));
+            $_password = $crud->escape_string(check_input($_POST['password']));
+            $_repassword = $crud->escape_string(check_input($_POST['repassword']));
+            $_url = $_POST['url'];
+            $_salt = substr(md5(time()), 0, 5);
+            $password = substr(doHash($_password, $_salt), 0, 64);
+
+            if($_password == $_repassword){
+            	$result = $admin->change_password($crud, $_id, $password, $_salt);
+               	if($result){
+                    $message = "Change Password Administrator '".$_name."' success";
+                    $alert = "success";
+                }else{
+                    $message = "Change Password Administrator '".$_name."' failed. Please try again";
+                    $alert = "failed";
+                }
+			}else{
+				$message = "Password does not match";
+                $alert = "failed";
+			}
+
+	        $_SESSION['status'] = $message;
+	        $_SESSION['alert'] = $alert;
+	        header("Location:".$_url);
+
+        } else if($_GET['action'] == "delete" && issetVar(array('id', 'name'))){
             $_id = $crud->escape_string(check_input($_GET['id']));
             $_name = $crud->escape_string(check_input($_GET['name']));
             $_admin_id = $_SESSION['GpibKharis']['admin']['id'];

@@ -161,6 +161,12 @@ class Admin
         return $result;
     }
 
+    public function change_password($crud, $id, $password, $salt_hash){
+        $query = "UPDATE $this->table SET password = '$password', salt_hash = '$salt_hash' WHERE id = '$id'";
+        $result = $crud->execute($query);
+        return $result;
+    }
+
     public function update_data($crud, $admin, $encrypt, $path){
         $cond = "";
         if($admin->_image != ""){

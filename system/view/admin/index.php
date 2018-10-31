@@ -77,7 +77,7 @@
                             <div class="btn-group" role="group">
                               <button type="button" class="btn btn-outline btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-gear"></i></button>
                               <ul class="dropdown-menu">
-                                <li><a href="javascript:void(0)" onclick="alert('change password')"><i class="fa fa-lock"></i> Change Password</a></li>
+                                <li><a href="javascript:void(0)" onclick="copyValue(this)" data-id="<?=$data['id'];?>" data-name="<?=correctDisplay($data['name']);?>" data-toggle="modal" data-target="#panel-change-password"><i class="fa fa-lock"></i> Change Password</a></li>
                                 <li><a href="<?=$path['admin-edit']."?id=".$data['id'];?>"><i class='fa fa-edit'></i> Edit</a></li>
                                 <li><a href="javascript:void(0)" onclick="confirmDelete('<?=$data['id'];?>', '<?=$data['name'];?>');"><i class="fa fa-trash"></i> Delete</a></li>
                               </ul>
@@ -146,6 +146,52 @@
               </div><!-- .widget -->
             </div>		
             <!-- end: PAGE CONTENT-->
+
+            <!-- start: PANEL ADD MODAL FORM -->
+            <div class="modal fade" id="panel-change-password" tabindex="-1" role="dialog" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                      &times;
+                    </button>
+                    <h4 class="modal-title"><span id="text-header"></span></h4>
+                  </div>
+                  <form name="form-change-password" action="index.php?action=change_password" enctype="multipart/form-data" method="post" onsubmit="return confirmSubmitChangePassword();" >
+                    <div class="modal-body">
+                      <div class="row">
+                        <div class="col-sm-4 col-xs-12 form-label"><strong>New Password <span class="symbol-required">*</span></strong> :</div>
+                        <div class="col-sm-7 col-xs-12">
+                          <input id="input-password" name="password" type="password" class="form-control input-style" placeholder="New Password">
+                          <div id="error-password" class="is-error"></div>
+                        </div>
+                      </div>
+                      <div class="row up1"></div>
+                      <div class="row">
+                        <div class="col-sm-4 col-xs-12 form-label"><strong>Re-Type New Password <span class="symbol-required">*</span></strong> :</div>
+                        <div class="col-sm-7 col-xs-12">
+                          <input id="input-repassword" name="repassword" type="password" class="form-control input-style" placeholder="Re-Type New Password">
+                          <div id="error-repassword" class="is-error"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer f5-bg">
+                      <input id="input-id" type="hidden" name="id">
+                      <input id="input-name" type="hidden" name="name">
+                      <input type="hidden" name="url" value="<?=$path['admin']."?page=".$_page;?>">
+                      <div class="btn-group">
+                        <button type="reset" class="btn btn-default" data-dismiss="modal"><i class='fa fa-times'></i> Cancel</button>
+                        <button id="btn-submit" type="submit" class="btn btn-primary btn-md"><i class="fa fa-check"></i> Submit</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <!-- /.modal-content -->
+              </div>
+              <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+            <!-- end: SPANEL CONFIGURATION MODAL FORM -->
       	
         	</div><!-- .row -->
       	</section><!-- #dash-content -->
@@ -175,6 +221,73 @@
           successAlert(alertText);
         <?php } ?>
       <?php } ?>
+
+      function copyValue(x){
+        var id = $(x).attr("data-id");
+        var name = $(x).attr("data-name");
+        var header = "Change Password \""+name+"\"";
+
+        $("#error-password").html("");
+        $("#error-password").hide();
+        $("#input-password").removeClass("input-error");
+        $("#error-repassword").html("");
+        $("#error-repassword").hide();
+        $("#input-repassword").removeClass("input-error");
+        $("#text-header").text(header);
+        $("#input-id").val(id);
+        $("#input-name").val(name);
+      }
+
+      function validateFormChangePassword(){
+        var password = $("#input-password").val();
+        var repassword = $("#input-repassword").val();
+        
+        if(password != ""){
+          $("#error-password").html("");
+          $("#error-password").hide();
+          $("#input-password").removeClass("input-error");
+        } else {
+          $("#error-password").show();
+          $("#error-password").html("<i class='fa fa-warning'></i> This field is required.");
+          $("#input-password").addClass("input-error");
+          $("#input-password").focus();
+          return false;
+        }
+        if(repassword != ""){
+          $("#error-repassword").html("");
+          $("#error-repassword").hide();
+          $("#input-repassword").removeClass("input-error");
+        } else {
+          $("#error-repassword").show();
+          $("#error-repassword").html("<i class='fa fa-warning'></i> This field is required.");
+          $("#input-repassword").addClass("input-error");
+          $("#input-repassword").focus();
+          return false;
+        }
+        if(password != "" && repassword != ""){
+          if(password != repassword){
+            $("#error-repassword").show();
+            $("#error-repassword").html("<i class='fa fa-warning'></i> Re-Type New Password does not match.");
+            $("#input-repassword").addClass("input-error");
+            $("#input-repassword").focus();
+            return false;
+          }
+        }
+        return true;
+      }
+
+      function confirmSubmitChangePassword(){
+        if(validateFormChangePassword()){
+            var name = $("#input-name").val();
+            var result = confirm("Are you sure want to change password \""+name+"\" ?");
+            if(result){
+              $("#btn-submit").attr('disabled', 'disabled');
+              $("#btn-submit").html("<i class='fa fa-spinner fa-spin'></i> Loading");
+              document.getElementById("form-change-password").submit();
+            }
+        }
+        return false;
+      }
 
       function confirmDelete(id, name){
         var admin_id = "<?=$_SESSION['GpibKharis']['admin']['id'];?>";

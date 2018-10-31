@@ -1,5 +1,4 @@
 next step
--create action change password
 -create module jemaat
 -kalau sudah ada module jemaat/kepala keluarga, bikin satu module di dalam menu setting
  nama module nya import, trus ada submenu Jemaat, dll
@@ -9,9 +8,3 @@ next improvement
 -ada pengecekan last login, jadi setiap kali login, insert di table log untuk loginnya dan tempat loginnya
 -ada pengecekan bahwa satu akun hanya bisa login sekali. Jadi kalau mau login di tempat lain
  kasih pemberitahuan bahwa akunnya masih di pakai di PC lain.
-
-note
--untuk check value change data via selectbox, bisa liat referensi link di bawah
-	=> https://www.sitepoint.com/detect-html-form-changes/
-	   var job = document.getElementById("job");
-	   if (!job.options[job.selectedIndex].defaultSelected) alert("#job has changed");
