@@ -56,28 +56,26 @@
         </li>
 
         <!-- Master !-->
-        <li class="has-submenu <?=(in_array_any(array($curpage), array("admin")) ? "active open" : "");?>">
+        <li class="has-submenu <?=(in_array_any(array($curpage), array("keluarga", "admin")) ? "active open" : "");?>">
           <a href="javascript:void(0)" class="submenu-toggle">
             <i class="menu-icon fa fa-tasks"></i>
             <span class="menu-text">Master</span>
             <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
           </a>
-          <ul class="submenu" style="<?=(in_array_any(array($curpage), array("admin")) ? "display: block;" : "");?>">
-            <?php /*
+          <ul class="submenu" style="<?=(in_array_any(array($curpage), array("keluarga", "admin")) ? "display: block;" : "");?>">
             <!-- Module Kepala Keluarga !-->
-            <li>
-              <a href="#">
-                <span class="menu-text">Kepala Keluarga</span>
+            <li class="<?=($curpage == "keluarga" ? "active" : "");?>">
+              <a href="<?=$path['keluarga'];?>">
+                <span class="menu-text">Keluarga</span>
               </a>
             </li>
 
             <!-- Module Jemaat !-->
-            <li>
+            <!--<li>
               <a href="#">
                 <span class="menu-text">Jemaat</span>
               </a>
-            </li>
-            */?>
+            </li>!-->
 
             <!-- Module Admin !-->
             <li class="<?=($curpage == "admin" ? "active" : "");?>">

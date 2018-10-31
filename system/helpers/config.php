@@ -26,7 +26,10 @@ $path = array(
 	'admin-add' => ADMIN."view/admin/new/",
 	'admin-edit' => ADMIN."view/admin/update/",
 	'article-category' => ADMIN."view/article-category/",
-	'event-category' => ADMIN."view/event-category/"
+	'event-category' => ADMIN."view/event-category/",
+	'keluarga' => ADMIN."view/keluarga/",
+	'keluarga-add' => ADMIN."view/keluarga/new/",
+	'keluarga-edit' => ADMIN."view/keluarga/update/"
 );
 
 $title = array(
@@ -34,6 +37,7 @@ $title = array(
 	'home' => NAME." | Home",
 	'admin' => NAME." | Admin",
 	'article-category' => NAME." | Article Category",
-	'event-category' => NAME." | Event Category"
+	'event-category' => NAME." | Event Category",
+	'keluarga' => NAME." | Keluarga"
 );
 ?>

@@ -237,5 +237,9 @@ ErrorDocument 404 "<H1>Page not found</H1>"
 RewriteRule ^system/view/admin/new/$ system/view/admin/insert.php
 RewriteRule ^system/view/admin/update/$ system/view/admin/edit.php
 
+#code to redirect module keluarga
+RewriteRule ^system/view/keluarga/new/$ system/view/keluarga/insert.php
+RewriteRule ^system/view/keluarga/update/$ system/view/keluarga/edit.php
+
 #code to redirect decrypt to decrypt-file.php
 RewriteRule ^file/(.*)/(.*)/(.*)/$ decrypt-file.php?module=$1&type=$2&data=$3

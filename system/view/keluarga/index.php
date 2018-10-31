@@ -1,17 +1,15 @@
 <?php
   include("../../helpers/require.php");
   include("../../helpers/auth.php");
-  include("controller/controller_admin.php");
-  $curpage = "admin";
+  include("controller/controller_keluarga.php");
+  $curpage = "keluarga";
   $navpage = "Master";
 ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title><?=$title['admin'];?></title>
+    <title><?=$title['keluarga'];?></title>
     <?php include("../../parts/part-module-head.php");?>
-    <!-- Add fancyBox -->
-    <link rel="stylesheet" href="<?=$global['absolute-url-admin'];?>libraries/fancybox/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen">
   </head>
   <body class="menubar-left menubar-unfold menubar-light theme-primary">
 
@@ -31,7 +29,7 @@
       			<div class="col-md-12 pad0">
               <ol class="breadcrumb" style="background: none;">
                 <li><a href="<?=$path['home'];?>">Home</a></li>
-                <li class="active">Admin Management</li>
+                <li class="active">Keluarga Management</li>
               </ol>
       			</div>
 
@@ -41,16 +39,16 @@
                 <header class="widget-header">
                   <div class="row">
                     <div class="col-sm-6">
-                      <h4 class="widget-title">Manage Admin</h4>
+                      <h4 class="widget-title">Manage Keluarga</h4>
                     </div>
                     <div class="hidden-xs">
                       <div class="col-sm-6 text-right">
-                        <a href="<?=$path['admin-add'];?>" class="btn btn-xs btn-outline btn-primary"><i class='fa fa-plus'></i> Create New Admin</a>
+                        <a href="<?=$path['keluarga-add'];?>" class="btn btn-xs btn-outline btn-primary"><i class='fa fa-plus'></i> Create New Keluarga</a>
                       </div>
                     </div>
                     <div class="visible-xs">
                       <div class="col-sm-6 text-left up1">
-                        <a href="<?=$path['admin-add'];?>" class="btn btn-xs btn-outline btn-primary"><i class='fa fa-plus'></i> Create New Admin</a>
+                        <a href="<?=$path['keluarga-add'];?>" class="btn btn-xs btn-outline btn-primary"><i class='fa fa-plus'></i> Create New Keluarga</a>
                       </div>
                     </div>
                   </div>
@@ -63,9 +61,8 @@
                         <tr>
                           <th class="text-left">#</th>
                           <th class="text-center">Action</th>
-                          <th class="text-center">Image</th>
-                          <th>Name</th>
-                          <th>E-mail</th>
+                          <th>Nama Keluarga</th>
+                          <th class="text-center">Sektor</th>
                           <th>Status</th>
                           <th>Create Date</th>
                           <th>Last Updated</th>
@@ -74,33 +71,18 @@
                         <tr>
                           <td class="text-left"><?=($_page-1)*20+$num;?>.</td>
                           <td class="text-center">
-                            <div class="btn-group" role="group">
-                              <button type="button" class="btn btn-outline btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-gear"></i></button>
-                              <ul class="dropdown-menu">
-                                <li><a href="javascript:void(0)" onclick="alert('change password')"><i class="fa fa-lock"></i> Change Password</a></li>
-                                <li><a href="<?=$path['admin-edit']."?id=".$data['id'];?>"><i class='fa fa-edit'></i> Edit</a></li>
-                                <li><a href="javascript:void(0)" onclick="confirmDelete('<?=$data['id'];?>', '<?=$data['name'];?>');"><i class="fa fa-trash"></i> Delete</a></li>
-                              </ul>
-                            </div>
-                          </td>
-                          <td class="text-center">
-                            <a class="fancybox" data-url="<?=$global['absolute-url'];?>" data-module="admin" data-img="<?=($data['img'] != "" ? $encrypt->encrypt_decrypt("decrypt", $data['img']) : "");?>" href="javascript:void(0)" onclick="previewImage(this)">
-                              <img style="width: 40px;" class="img-circle" src="<?=$path['decrypt-fie']."admin/thmb/".($data['img'] != "" ? $data['img'] : "null")."/";?>">
-                            </a>
+                            <a href="<?=$path['keluarga-edit']."?id=".$data['id'];?>" class="btn btn-xs btn-outline btn-success"><i class='fa fa-edit'></i> Edit</a>
+                            <a href="javascript:void(0)" onclick="confirmDelete('<?=$data['id'];?>', '<?=$data['name'];?>');" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> Delete</a>
                           </td>
                           <td><?=correctDisplay($data['name']);?></td>
-                          <td><?=$data['email'];?></td>
+                          <td class="text-center"><?=$data['sector'];?></td>
                           <td><?=checkStatus($data['status']);?></td>
                           <td><?=date("d-M-Y, H:i:s", strtotime($data['datetime']));?></td>
                           <td><?=($data['datetime'] != $data['timestamp'] ? time_ago($data['timestamp']) : "-");?></td>
                         </tr>
-                        <?php $num++;}?>
-                        <tr style="height: 100px;">
-                          <td colspan="8"></td>
-                        </tr>
-                        <?php }else{?>
+                        <?php $num++;}}else{?>
                         <tr>
-                          <td colspan="8">There is no data!</td>
+                          <td colspan="7">There is no data!</td>
                         </tr>
                         <?php }?>
                       </tbody>
@@ -125,16 +107,16 @@
                             }
                             if($_page > 1){
                               echo "<li id='default-datatable_previous' class='paginate_button previous'>";
-                              echo "<a href='".$path['admin']."?page=".($_page-1)."' aria-controls='default-datatable' data-dt-idx='0' tabindex='0'><i class='fa fa-chevron-left'></i> Previous</a>";
+                              echo "<a href='".$path['keluarga']."?page=".($_page-1)."' aria-controls='default-datatable' data-dt-idx='0' tabindex='0'><i class='fa fa-chevron-left'></i> Previous</a>";
                               echo "</li>";
                             }
                             for($mon = $prevLimit; $mon <= $nextLimit;$mon++){?>
                               <li class="paginate_button <?php if($mon == $_page){echo 'active';}?>">
-                                <a href="<?=$path['admin']."?page=".$mon;?>" aria-controls="default-datatable" data-dt-idx="<?=$mon;?>" tabindex="0"><?=$mon;?></a>
+                                <a href="<?=$path['keluarga']."?page=".$mon;?>" aria-controls="default-datatable" data-dt-idx="<?=$mon;?>" tabindex="0"><?=$mon;?></a>
                               </li>
                             <?php } if($total_page > 1 && $_page != $total_page){
                               echo "<li id='default-datatable_next' class='paginate_button next'>";
-                              echo "<a href='".$path['admin']."?page=".($_page+1)."' aria-controls='default-datatable' data-dt-idx='".($_page+1)."' tabindex='0'><i class='fa fa-chevron-right'></i> Next</a>";
+                              echo "<a href='".$path['keluarga']."?page=".($_page+1)."' aria-controls='default-datatable' data-dt-idx='".($_page+1)."' tabindex='0'><i class='fa fa-chevron-right'></i> Next</a>";
                               echo "</li>";
                             } ?>
                           </ul>
@@ -156,14 +138,7 @@
 
     </main>
   	<?php include("../../parts/part-footer-js.php");?>
-    <script type="text/javascript" src="<?=$global['absolute-url-admin'];?>libraries/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
     <script type="text/javascript">
-      $(document).ready(function() {
-        $(".fancybox").fancybox({
-          padding : 0
-        });
-      });
-
       <?php if($message != ""){?>
         //use session here for alert success/failed
         var alertText = "<?=$message;?>"; //text for alert
@@ -177,16 +152,11 @@
       <?php } ?>
 
       function confirmDelete(id, name){
-        var admin_id = "<?=$_SESSION['GpibKharis']['admin']['id'];?>";
-        if(admin_id != id){
-          var x = confirm("Are you sure want to delete \""+name+"\" ?");
-          if(x == true){
-            window.location.href = "index.php?action=delete&id="+id+"&name="+name;
-          }else{
-            //nothing
-          }
+        var x = confirm("Are you sure want to delete \""+name+"\" ?");
+        if(x == true){
+          window.location.href = "index.php?action=delete&id="+id+"&name="+name;
         }else{
-          alert("You cannot delete \""+name+"\" when you're logged in")
+          //nothing
         }
       }
     </script>

@@ -9,7 +9,6 @@ class Category
     private $table;
 
     function __construct(){
-        $this->_image = "";
         $this->table = "category";
     }
 

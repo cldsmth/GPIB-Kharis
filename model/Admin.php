@@ -146,12 +146,8 @@ class Admin
     }
 
     public function get_detail($crud, $id){
-        $query = "SELECT * FROM $this->table WHERE id = '$id'";
-        $result = $crud->getData($query);
-        if(!$result){
-            return false;
-        }
-        return is_array($result) ? $result[0] : false;
+        $result = $crud->detail($id, $this->table);
+        return !$result ? false : is_array($result) ? $result[0] : false;
     }
 
     public function insert_data($crud, $admin){

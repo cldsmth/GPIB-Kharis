@@ -28,6 +28,12 @@ class Crud extends Database
         }        
     }
 
+    public function detail($id, $table){
+        $query = "SELECT * FROM $table WHERE id = '$id'";
+        $result = $this->getData($query);
+        return $result;
+    }
+
     public function delete($id, $table){ 
         $query = "DELETE FROM $table WHERE id = '$id'";
         $result = $this->connection->query($query);

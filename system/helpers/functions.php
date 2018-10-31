@@ -1,4 +1,16 @@
 <?php
+if(!function_exists('listSector'))
+{
+    function listSector(){
+        $data = array(0 => array('value' => 1, 'text' => "Sektor 1"),
+            1 => array('value' => 2, 'text' => "Sektor 2"),
+            2 => array('value' => 3, 'text' => "Sektor 3"),
+            3 => array('value' => 4, 'text' => "Sektor 4")
+        );
+        return $data;
+    }
+}
+
 if(!function_exists('characterToHTMLEntity'))
 {
     function characterToHTMLEntity($str){

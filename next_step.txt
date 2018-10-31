@@ -1,8 +1,9 @@
 next step
 -create action change password
--connect forget password system
+-create module jemaat
 -kalau sudah ada module jemaat/kepala keluarga, bikin satu module di dalam menu setting
  nama module nya import, trus ada submenu Jemaat, dll
+-connect forget password system
 
 next improvement
 -ada pengecekan last login, jadi setiap kali login, insert di table log untuk loginnya dan tempat loginnya
