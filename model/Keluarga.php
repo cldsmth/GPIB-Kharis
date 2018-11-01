@@ -55,6 +55,15 @@ class Keluarga
     }
     
 //START FUNCTION FOR ADMIN PAGE
+    public function get_list($crud){
+        $query = "SELECT id, name FROM $this->table WHERE status = 1";
+        $result = $crud->getData($query);
+        if(!$result){
+            return false;
+        }
+        return $result;
+    }
+
     public function check_name($crud, $name){
         $query = "SELECT name FROM $this->table WHERE name = '$name'";
         $result = $crud->getData($query);

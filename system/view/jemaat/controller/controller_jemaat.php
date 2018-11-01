@@ -8,6 +8,9 @@ $generator = new RandomStringGenerator();
 include_once($global['root-url']."model/Jemaat.php");
 $jemaat = new Jemaat();
 
+include_once($global['root-url']."model/Keluarga.php");
+$keluarga = new Keluarga();
+
 if(!isset($_GET['action'])){
 	$_page = isset($_GET['page']) ? $_GET['page'] : 1;
 	$filename = PHPFilename();
@@ -31,13 +34,13 @@ if(!isset($_GET['action'])){
 	        $alert = "";
 	    }
     }else{
-        //insert.php
+        $keluargas = $keluarga->get_list($crud);
     }
 }else{
 
 	if(isset($_GET['action'])){
 
-	    if($_GET['action'] == "add" && issetVar(array(''))){
+	    if($_GET['action'] == "add" && issetVar(array('first_name', 'middle_name', 'last_name', 'keluarga', 'gender'))){
 	    	print_r($_POST);
 	    	/*$keluarga->setId($generator->generate(32));
 			$keluarga->setName($crud->escape_string(check_input($_POST['name'])));
