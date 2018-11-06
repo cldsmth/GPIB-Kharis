@@ -1,25 +1,33 @@
 <?php
-include_once("Database.php");
- 
-class Crud extends Database
+class Crud
 {
-    public function __construct(){
-        parent::__construct();
+    private $database;
+    private $connection;
+
+    function __construct(){
+        $this->database = "gpib";
+        if(!isset($this->connection)){
+            $this->connection = new MongoDB\Driver\Manager("mongodb://localhost:27017");
+            if(!$this->connection){
+                echo "Cannot connect to database server mongodb";
+                exit;
+            }
+        }
     }
     
-    public function getData($query){        
-        $result = $this->connection->query($query);
-        if($result == false){
+    public function getData($table, $query){
+        $result = $this->connection->executeQuery($this->database.".".$table, $query);
+        if(!$result){
             return false;
         }
         $rows = array();
-        while($row = $result->fetch_assoc()){
-            $rows[] = $row;
+        foreach($result as $data){
+            $rows[] = $data;
         }
         return $rows;
     }
         
-    public function execute($query){
+    /*public function execute($query){
         $result = $this->connection->query($query);
         if($result == false){
             return false;
@@ -46,6 +54,6 @@ class Crud extends Database
 
     public function escape_string($value){
         return $this->connection->real_escape_string($value);
-    }
+    }*/
 }
 ?>

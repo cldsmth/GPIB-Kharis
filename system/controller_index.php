@@ -30,15 +30,15 @@ if(!isset($_GET['action'])){
 	if(isset($_GET['action'])){
 
 	    if($_GET['action'] == 'login' && issetVar(array('email', 'password'))){
-	        $_email = $crud->escape_string(check_input($_POST['email']));
-	        $_password = $crud->escape_string(check_input($_POST['password']));
+	        $_email = check_input($_POST['email']);
+	        $_password = check_input($_POST['password']);
         	$_remember_me = isset($_POST['remember_me']) ? $_POST['remember_me'] : "no";
         	$salt = $admin->get_salt($crud, $_email);
         	$password = substr(doHash($_password, $salt), 0, 64);
 
         	$result = $admin->login($crud, $_email, $password);
-	        //var_dump($result);
-	        if(is_array($result)){
+	        var_dump($result);
+	        /*if(is_array($result)){
 	        	create_session($result);
 	        	if(isset($_SESSION['GpibKharis']) && $_remember_me == "yes"){
 	        		create_cookie(json_encode($_SESSION['GpibKharis']));
@@ -49,7 +49,7 @@ if(!isset($_GET['action'])){
 	        	$_SESSION['alert'] = "failed";
 	        	$page = $path['login'];
 	        }
-	        header("Location:".$page);
+	        header("Location:".$page);*/
 	    
 	    } else if($_GET['action'] == 'logout'){
 		    //set end data session
