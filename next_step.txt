@@ -2,6 +2,8 @@ next step
 -CRUD module jemaat
 -advanced search di module jemaat
 -export excel di module jemmat
+-untuk pagination, nanti cari struktur array yang terbaru. Jadi ngga pake $datas[0]['total_data'] untuk
+ ambil total data, total page, dll
 -kalau sudah ada module jemaat/kepala keluarga, bikin satu module di dalam menu setting
  nama module nya import, trus ada submenu Jemaat, dll
 -connect forget password system
