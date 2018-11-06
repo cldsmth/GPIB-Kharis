@@ -20,8 +20,8 @@ if(!isset($_GET['action'])){
     if($filename == "index"){
         $datas = $admin->get_all($crud, $_page);
 	    //var_dump($datas);
-	    $total_data = is_array($datas) ? $datas[0]['total_data_all'] : 0;
-	    $total_page = is_array($datas) ? $datas[0]['total_page'] : 0;
+	    $total_data = is_array($datas) ? $datas[0]->total_data_all : 0;
+	    $total_page = is_array($datas) ? $datas[0]->total_page : 0;
 
 	    if(isset($_SESSION['status'])){
 	        $message = $_SESSION['status'];
@@ -44,7 +44,8 @@ if(!isset($_GET['action'])){
 	if(isset($_GET['action'])){
 
 	    if($_GET['action'] == "add" && issetVar(array('name', 'email', 'password', 'repassword'))){
-	    	$admin->setId($generator->generate(32));
+	    	print_r($_POST);
+	    	/*$admin->setId($generator->generate(32));
 			$admin->setName($crud->escape_string(check_input($_POST['name'])));
 			$admin->setEmail($crud->escape_string(check_input($_POST['email'])));
 			$admin->setPassword($crud->escape_string(check_input($_POST['password'])));
@@ -81,10 +82,11 @@ if(!isset($_GET['action'])){
 
 	        $_SESSION['status'] = $message;
 	        $_SESSION['alert'] = $alert;
-	        header("Location:".$path['admin']);
+	        header("Location:".$path['admin']);*/
 	    
 	    } else if($_GET['action'] == "change_password" && issetVar(array('id', 'name', 'password', 'repassword'))){
-            $_id = $crud->escape_string(check_input($_POST['id']));
+            print_r($_POST);
+            /*$_id = $crud->escape_string(check_input($_POST['id']));
             $_name = $crud->escape_string(check_input($_POST['name']));
             $_password = $crud->escape_string(check_input($_POST['password']));
             $_repassword = $crud->escape_string(check_input($_POST['repassword']));
@@ -108,10 +110,11 @@ if(!isset($_GET['action'])){
 
 	        $_SESSION['status'] = $message;
 	        $_SESSION['alert'] = $alert;
-	        header("Location:".$_url);
+	        header("Location:".$_url);*/
 
         } else if($_GET['action'] == "delete" && issetVar(array('id', 'name'))){
-            $_id = $crud->escape_string(check_input($_GET['id']));
+           	print_r($_GET);
+            /*$_id = $crud->escape_string(check_input($_GET['id']));
             $_name = $crud->escape_string(check_input($_GET['name']));
             $_admin_id = $_SESSION['GpibKharis']['admin']['id'];
 
@@ -133,7 +136,7 @@ if(!isset($_GET['action'])){
 
 	        $_SESSION['status'] = $message;
 	        $_SESSION['alert'] = $alert;
-	        header("Location:".$page);
+	        header("Location:".$page);*/
 
         } else {
 	    	$_SESSION['status'] = "Action Not Found.";

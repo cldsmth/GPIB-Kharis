@@ -37,8 +37,8 @@ if(!isset($_GET['action'])){
         	$password = substr(doHash($_password, $salt), 0, 64);
 
         	$result = $admin->login($crud, $_email, $password);
-	        var_dump($result);
-	        /*if(is_array($result)){
+	        //var_dump($result);
+	        if(hasProperty($result, "id")){
 	        	create_session($result);
 	        	if(isset($_SESSION['GpibKharis']) && $_remember_me == "yes"){
 	        		create_cookie(json_encode($_SESSION['GpibKharis']));
@@ -49,7 +49,7 @@ if(!isset($_GET['action'])){
 	        	$_SESSION['alert'] = "failed";
 	        	$page = $path['login'];
 	        }
-	        header("Location:".$page);*/
+	        header("Location:".$page);
 	    
 	    } else if($_GET['action'] == 'logout'){
 		    //set end data session

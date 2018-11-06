@@ -77,22 +77,22 @@
                             <div class="btn-group" role="group">
                               <button type="button" class="btn btn-outline btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-gear"></i></button>
                               <ul class="dropdown-menu">
-                                <li><a href="javascript:void(0)" onclick="copyValue(this)" data-id="<?=$data['id'];?>" data-name="<?=correctDisplay($data['name']);?>" data-toggle="modal" data-target="#panel-change-password"><i class="fa fa-lock"></i> Change Password</a></li>
-                                <li><a href="<?=$path['admin-edit']."?id=".$data['id'];?>"><i class='fa fa-edit'></i> Edit</a></li>
-                                <li><a href="javascript:void(0)" onclick="confirmDelete('<?=$data['id'];?>', '<?=$data['name'];?>');"><i class="fa fa-trash"></i> Delete</a></li>
+                                <li><a href="javascript:void(0)" onclick="copyValue(this)" data-id="<?=$data->id;?>" data-name="<?=correctDisplay($data->name);?>" data-toggle="modal" data-target="#panel-change-password"><i class="fa fa-lock"></i> Change Password</a></li>
+                                <li><a href="<?=$path['admin-edit']."?id=".$data->id;?>"><i class='fa fa-edit'></i> Edit</a></li>
+                                <li><a href="javascript:void(0)" onclick="confirmDelete('<?=$data->id;?>', '<?=$data->name;?>');"><i class="fa fa-trash"></i> Delete</a></li>
                               </ul>
                             </div>
                           </td>
                           <td class="text-center">
-                            <a class="fancybox" data-url="<?=$global['absolute-url'];?>" data-module="admin" data-img="<?=($data['img'] != "" ? $encrypt->encrypt_decrypt("decrypt", $data['img']) : "");?>" href="javascript:void(0)" onclick="previewImage(this)">
-                              <img style="width: 40px;" class="img-circle" src="<?=$path['decrypt-fie']."admin/thmb/".($data['img'] != "" ? $data['img'] : "null")."/";?>">
+                            <a class="fancybox" data-url="<?=$global['absolute-url'];?>" data-module="admin" data-img="<?=($data->img != "" ? $encrypt->encrypt_decrypt("decrypt", $data->img) : "");?>" href="javascript:void(0)" onclick="previewImage(this)">
+                              <img style="width: 40px;" class="img-circle" src="<?=$path['decrypt-fie']."admin/thmb/".($data->img != "" ? $data->img : "null")."/";?>">
                             </a>
                           </td>
-                          <td><?=correctDisplay($data['name']);?></td>
-                          <td><?=$data['email'];?></td>
-                          <td><?=checkStatus($data['status']);?></td>
-                          <td><?=date("d-M-Y, H:i:s", strtotime($data['datetime']));?></td>
-                          <td><?=($data['datetime'] != $data['timestamp'] ? time_ago($data['timestamp']) : "-");?></td>
+                          <td><?=correctDisplay($data->name);?></td>
+                          <td><?=$data->email;?></td>
+                          <td><?=checkStatus($data->status);?></td>
+                          <td><?=date("d-M-Y, H:i:s", strtotime($data->datetime));?></td>
+                          <td><?=($data->datetime != $data->timestamp ? time_ago($data->timestamp) : "-");?></td>
                         </tr>
                         <?php $num++;}?>
                         <tr style="height: 100px;">

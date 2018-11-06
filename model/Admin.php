@@ -122,7 +122,8 @@ class Admin
     public function login($crud, $email, $password){
         $filter = [
             'email' => $email, 
-            'password' => $password
+            'password' => $password,
+            'status' => 1
         ];
         $options = [
             'projection' => [
@@ -142,32 +143,53 @@ class Admin
         return is_array($result) ? $result[0] : false;
     }
 
-    /*public function get_all($crud, $page=1){
+    public function get_all($crud, $page=1){
         //get total data
-        $query_total = "SELECT id FROM $this->table";
-        $result_total = $crud->getData($query_total);
-        $total_data = !$result_total ? 0 : count($result_total);
+        $query_total = [];
+        $total_data = $crud->count(
+            new MongoDB\Driver\Command([
+                'count' => $this->table, 
+                'query' => $query_total
+            ])
+        );
 
         //get total page
         $total_page  = ceil($total_data / $this->itemPerPageAdmin);
         $limitBefore = $page <= 1 || $page == null ? 0 : ($page-1) * $this->itemPerPageAdmin;
 
-        $query = "SELECT id, name, email, img, status, datetime, timestamp FROM $this->table
-            ORDER BY datetime DESC LIMIT $limitBefore, $this->itemPerPageAdmin";
-        $result = $crud->getData($query);
+        $filter = [];
+        $options = [
+            'projection' => [
+                '_id' => 0, 
+                'id' => 1, 
+                'name' => 1, 
+                'email' => 1, 
+                'img' => 1, 
+                'status' => 1,
+                'datetime' => 1,
+                'timestamp' => 1
+            ],
+            'sort' => [
+                'datetime' => -1
+            ],
+            'limit' => $this->itemPerPageAdmin,
+            'skip' => $limitBefore
+        ];
+        $query = new MongoDB\Driver\Query($filter, $options);
+        $result = $crud->getData($this->table, $query);
         if(!$result){
             return false;
         }else{
             if(is_array($result)){
-                $result[0]['total_page'] = $total_page;
-                $result[0]['total_data_all'] = $total_data;
-                $result[0]['total_data'] = count($result);
+                $result[0]->total_page = $total_page;
+                $result[0]->total_data_all = $total_data;
+                $result[0]->total_data = count($result);
             }
         }
         return $result;
     }
 
-    public function get_detail($crud, $id){
+    /*public function get_detail($crud, $id){
         $result = $crud->detail($id, $this->table);
         return !$result ? false : is_array($result) ? $result[0] : false;
     }

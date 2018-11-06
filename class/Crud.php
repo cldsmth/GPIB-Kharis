@@ -16,15 +16,30 @@ class Crud
     }
     
     public function getData($table, $query){
-        $result = $this->connection->executeQuery($this->database.".".$table, $query);
-        if(!$result){
-            return false;
+        try {
+            $result = $this->connection->executeQuery($this->database.".".$table, $query);
+            if(!$result){
+                return false;
+            }
+            $rows = array();
+            foreach($result as $data){
+                $rows[] = $data;
+            }
+            return $rows;   
+        } catch (Throwable $t) {
+            echo "Error: ".$t->getMessage();
         }
-        $rows = array();
-        foreach($result as $data){
-            $rows[] = $data;
+    }
+
+    public function count($command){
+        try {
+            $result = $this->connection->executeCommand($this->database, $command);
+            $res = current($result->toArray());
+            $count = $res->n;
+            return $count;
+        } catch (Throwable $t) {
+            echo "Error: ".$t->getMessage();
         }
-        return $rows;
     }
         
     /*public function execute($query){
