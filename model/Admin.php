@@ -181,9 +181,12 @@ class Admin
             return false;
         }else{
             if(is_array($result)){
-                $result[0]->total_page = $total_page;
-                $result[0]->total_data_all = $total_data;
-                $result[0]->total_data = count($result);
+                $obj = new stdClass;
+                $obj->total_page = $total_page;
+                $obj->total_data_all = $total_data;
+                $obj->total_data = count($result);
+                $obj->data = $result;
+                $result = $obj;
             }
         }
         return $result;

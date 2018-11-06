@@ -70,7 +70,7 @@
                           <th>Create Date</th>
                           <th>Last Updated</th>
                         </tr>
-                        <?php $num=1; if(is_array($datas)){ foreach($datas as $data){?>
+                        <?php $num=1; if(hasProperty($datas, "data")){ foreach($datas->data as $data){?>
                         <tr>
                           <td class="text-left"><?=($_page-1)*20+$num;?>.</td>
                           <td class="text-center">
@@ -109,7 +109,7 @@
                   <div id="default-datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap up2">
                     <div class="row">
                       <div class="col-sm-5">
-                        <div class="dataTables_info" id="default-datatable_info" role="status" aria-live="polite"><?="Showing ".(($_page-1)*20+1)." to ".((is_array($datas) ? count($datas) : 0)+(($_page-1)*20))." of ".$total_data." entries";?></div>
+                        <div class="dataTables_info" id="default-datatable_info" role="status" aria-live="polite"><?="Showing ".(($_page-1)*20+1)." to ".((hasProperty($datas, "data") ? count($datas->data) : 0)+(($_page-1)*20))." of ".$total_data." entries";?></div>
                       </div>
                       <div class="col-sm-7">
                         <div class="dataTables_paginate paging_simple_numbers" id="default-datatable_paginate">

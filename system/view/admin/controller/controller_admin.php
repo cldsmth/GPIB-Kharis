@@ -20,8 +20,8 @@ if(!isset($_GET['action'])){
     if($filename == "index"){
         $datas = $admin->get_all($crud, $_page);
 	    //var_dump($datas);
-	    $total_data = is_array($datas) ? $datas[0]->total_data_all : 0;
-	    $total_page = is_array($datas) ? $datas[0]->total_page : 0;
+	    $total_data = hasProperty($datas, "data") ? $datas->total_data_all : 0;
+	    $total_page = hasProperty($datas, "data") ? $datas->total_page : 0;
 
 	    if(isset($_SESSION['status'])){
 	        $message = $_SESSION['status'];
