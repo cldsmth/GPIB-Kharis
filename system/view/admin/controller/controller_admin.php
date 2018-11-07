@@ -85,11 +85,10 @@ if(!isset($_GET['action'])){
 	        header("Location:".$path['admin']);
 	    
 	    } else if($_GET['action'] == "change_password" && issetVar(array('id', 'name', 'password', 'repassword'))){
-            print_r($_POST);
-            /*$_id = $crud->escape_string(check_input($_POST['id']));
-            $_name = $crud->escape_string(check_input($_POST['name']));
-            $_password = $crud->escape_string(check_input($_POST['password']));
-            $_repassword = $crud->escape_string(check_input($_POST['repassword']));
+            $_id = check_input($_POST['id']);
+            $_name = check_input($_POST['name']);
+            $_password = check_input($_POST['password']);
+            $_repassword = check_input($_POST['repassword']);
             $_url = $_POST['url'];
             $_salt = substr(md5(time()), 0, 5);
             $password = substr(doHash($_password, $_salt), 0, 64);
@@ -110,7 +109,7 @@ if(!isset($_GET['action'])){
 
 	        $_SESSION['status'] = $message;
 	        $_SESSION['alert'] = $alert;
-	        header("Location:".$_url);*/
+	        header("Location:".$_url);
 
         } else if($_GET['action'] == "delete" && issetVar(array('id', 'name'))){
            	print_r($_GET);

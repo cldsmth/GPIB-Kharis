@@ -50,6 +50,15 @@ class Crud
             echo "Error: ".$t->getMessage();
         }
     }
+
+    public function update($table, $bulk){
+        try {
+            $result = $this->connection->executeBulkWrite($this->database.".".$table, $bulk);
+            return $result->getModifiedCount() >= 1 ? true : false;
+        } catch (Throwable $t) {
+            echo "Error: ".$t->getMessage();
+        }
+    }
         
     /*public function execute($query){
         $result = $this->connection->query($query);

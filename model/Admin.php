@@ -228,13 +228,28 @@ class Admin
         return $result;
     }
 
-    /*public function change_password($crud, $id, $password, $salt_hash){
-        $query = "UPDATE $this->table SET password = '$password', salt_hash = '$salt_hash' WHERE id = '$id'";
-        $result = $crud->execute($query);
+    public function change_password($crud, $id, $password, $salt_hash){
+        date_default_timezone_set('Asia/Jakarta');
+        $now = date("Y-m-d H:i:s");
+
+        $bulk = new MongoDB\Driver\BulkWrite;
+        $bulk->update(
+            [
+                'id' => $id
+            ], 
+            [
+                '$set' => [
+                    'password' => $password, 
+                    'salt_hash' => $salt_hash, 
+                    'timestamp' => $now
+                ]
+            ]
+        );
+        $result = $crud->update($this->table, $bulk);
         return $result;
     }
 
-    public function update_data($crud, $admin, $encrypt, $path){
+    /*public function update_data($crud, $admin, $encrypt, $path){
         $cond = "";
         if($admin->_image != ""){
             $this->remove_image($crud, $admin->_id, $encrypt, $path);
