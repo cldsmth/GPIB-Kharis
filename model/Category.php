@@ -54,9 +54,24 @@ class Category
     
 //START FUNCTION FOR ADMIN PAGE
     public function get_all($crud, $type){
-        $query = "SELECT id, title, status, datetime, timestamp FROM 
-            $this->table WHERE type = '$type' ORDER BY title ASC";
-        $result = $crud->getData($query);
+        $filter = [
+            'type' => $type
+        ];
+        $options = [
+            'projection' => [
+                '_id' => 0, 
+                'id' => 1, 
+                'title' => 1, 
+                'status' => 1, 
+                'datetime' => 1,
+                'timestamp' => 1
+            ],
+            'sort' => [
+                'title' => 1
+            ]
+        ];
+        $query = new MongoDB\Driver\Query($filter, $options);
+        $result = $crud->find($this->table, $query);
         if(!$result){
             return false;
         }
@@ -67,23 +82,45 @@ class Category
         date_default_timezone_set('Asia/Jakarta');
         $now = date("Y-m-d H:i:s");
 
-        $query = "INSERT INTO $this->table (id, title, slug, type, status, datetime, timestamp)
-            VALUES ('$category->_id', '$category->_title', '$category->_slug', '$category->_type', 
-            '$category->_status', '$now', '$now')";
-        $result = $crud->execute($query);
+        $query = [
+            'id' => $category->_id, 
+            'title' => $category->_title, 
+            'slug' => $category->_slug, 
+            'type' => $category->_type,  
+            'status' => (int) $category->_status,  
+            'datetime' => $now, 
+            'timestamp' => $now
+        ];
+        $bulk = new MongoDB\Driver\BulkWrite;
+        $bulk->insert($query);
+        $result = $crud->post($this->table, $bulk);
         return $result;
     }
 
     public function update_data($crud, $category){
-        $query = "UPDATE $this->table SET title = '$category->_title', slug = '$category->_slug', 
-            status = '$category->_status' WHERE id = '$category->_id'";
-        $result = $crud->execute($query);
+        date_default_timezone_set('Asia/Jakarta');
+        $now = date("Y-m-d H:i:s");
+
+        $bulk = new MongoDB\Driver\BulkWrite;
+        $bulk->update(
+            [
+                'id' => $category->_id
+            ], 
+            [
+                '$set' => [
+                    'title' => $category->_title, 
+                    'slug' => $category->_slug,
+                    'status' => (int) $category->_status, 
+                    'timestamp' => $now
+                ]
+            ]
+        );
+        $result = $crud->put($this->table, $bulk);
         return $result;
     }
 
     public function delete_data($crud, $id){
-        $result = $crud->delete($id, $this->table);
-        return $result;
+        return $crud->removeById($this->table, $id);
     }
 //END FUNCTION FOR ADMIN PAGE
 }
