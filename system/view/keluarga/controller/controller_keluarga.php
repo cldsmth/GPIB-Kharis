@@ -14,8 +14,9 @@ if(!isset($_GET['action'])){
     if($filename == "index"){
         $datas = $keluarga->get_all($crud, $_page);
 	    //var_dump($datas);
-	    $total_data = is_array($datas) ? $datas[0]['total_data_all'] : 0;
-	    $total_page = is_array($datas) ? $datas[0]['total_page'] : 0;
+	    $total_page = hasProperty($datas, "data") ? $datas->total_page : 0;
+	    $total_data = hasProperty($datas, "data") ? $datas->total_data : 0;
+	    $total_data_all = hasProperty($datas, "data") ? $datas->total_data_all : 0;
 
 	    if(isset($_SESSION['status'])){
 	        $message = $_SESSION['status'];
@@ -39,9 +40,9 @@ if(!isset($_GET['action'])){
 
 	    if($_GET['action'] == "add" && issetVar(array('name', 'sector'))){
 	    	$keluarga->setId($generator->generate(32));
-			$keluarga->setName($crud->escape_string(check_input($_POST['name'])));
-			$keluarga->setSector($crud->escape_string(check_input($_POST['sector'])));
-			$keluarga->setAddress($crud->escape_string(check_input(nl2br($_POST['address'], false))));
+			$keluarga->setName(check_input($_POST['name']));
+			$keluarga->setSector(check_input($_POST['sector']));
+			$keluarga->setAddress(check_input(nl2br($_POST['address'], false)));
 			$keluarga->setStatus(isset($_POST['status']) ? $_POST['status'] : 0);
 
 			$check_name = $keluarga->check_name($crud, $keluarga->getName());
@@ -64,8 +65,8 @@ if(!isset($_GET['action'])){
 	        header("Location:".$path['keluarga']);
 	    
 	    } else if($_GET['action'] == "delete" && issetVar(array('id', 'name'))){
-            $_id = $crud->escape_string(check_input($_GET['id']));
-            $_name = $crud->escape_string(check_input($_GET['name']));
+            $_id = check_input($_GET['id']);
+            $_name = check_input($_GET['name']);
 
             $result = $keluarga->delete_data($crud, $_id);
             if($result){

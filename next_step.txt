@@ -1,6 +1,5 @@
 todo
 -convert mysql to mongodb:
- 1. module category (event, article)
  2. module keluarga
 -semua inputan $_POST / $_GET pakai function check_input()
 -primary key mongodb (how to use)

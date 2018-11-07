@@ -56,8 +56,21 @@ class Keluarga
     
 //START FUNCTION FOR ADMIN PAGE
     public function get_list($crud){
-        $query = "SELECT id, name FROM $this->table WHERE status = 1";
-        $result = $crud->getData($query);
+        $filter = [
+            'status' => 1
+        ];
+        $options = [
+            'projection' => [
+                '_id' => 0, 
+                'id' => 1, 
+                'name' => 1
+            ],
+            'sort' => [
+                'name' => 1
+            ]
+        ];
+        $query = new MongoDB\Driver\Query($filter, $options);
+        $result = $crud->find($this->table, $query);
         if(!$result){
             return false;
         }
@@ -65,8 +78,17 @@ class Keluarga
     }
 
     public function check_name($crud, $name){
-        $query = "SELECT name FROM $this->table WHERE name = '$name'";
-        $result = $crud->getData($query);
+        $filter = [
+            'name' => $name
+        ];
+        $options = [
+            'projection' => [
+                '_id' => 0, 
+                'name' => 1
+            ]
+        ]; 
+        $query = new MongoDB\Driver\Query($filter, $options);
+        $result = $crud->find($this->table, $query);
         if(!$result){
             return false;
         }
@@ -75,55 +97,100 @@ class Keluarga
 
     public function get_all($crud, $page=1){
         //get total data
-        $query_total = "SELECT id FROM $this->table";
-        $result_total = $crud->getData($query_total);
-        $total_data = !$result_total ? 0 : count($result_total);
+        $query_total = [];
+        $total_data = $crud->count(
+            new MongoDB\Driver\Command([
+                'count' => $this->table, 
+                'query' => $query_total
+            ])
+        );
 
         //get total page
         $total_page  = ceil($total_data / $this->itemPerPageAdmin);
         $limitBefore = $page <= 1 || $page == null ? 0 : ($page-1) * $this->itemPerPageAdmin;
 
-        $query = "SELECT id, name, sector, status, datetime, timestamp FROM $this->table
-            ORDER BY datetime DESC LIMIT $limitBefore, $this->itemPerPageAdmin";
-        $result = $crud->getData($query);
+        $filter = [];
+        $options = [
+            'projection' => [
+                '_id' => 0, 
+                'id' => 1, 
+                'name' => 1, 
+                'sector' => 1,  
+                'status' => 1,
+                'datetime' => 1,
+                'timestamp' => 1
+            ],
+            'sort' => [
+                'datetime' => -1
+            ],
+            'limit' => $this->itemPerPageAdmin,
+            'skip' => $limitBefore
+        ];
+        $query = new MongoDB\Driver\Query($filter, $options);
+        $result = $crud->find($this->table, $query);
         if(!$result){
             return false;
         }else{
             if(is_array($result)){
-                $result[0]['total_page'] = $total_page;
-                $result[0]['total_data_all'] = $total_data;
-                $result[0]['total_data'] = count($result);
+                $obj = new stdClass;
+                $obj->total_page = $total_page;
+                $obj->total_data = count($result);
+                $obj->total_data_all = $total_data;
+                $obj->data = $result;
+                $result = $obj;
             }
         }
         return $result;
     }
 
     public function get_detail($crud, $id){
-        $result = $crud->detail($id, $this->table);
-        return !$result ? false : is_array($result) ? $result[0] : false;
+        return $crud->findById($this->table, $id);
     }
 
     public function insert_data($crud, $keluarga){
         date_default_timezone_set('Asia/Jakarta');
         $now = date("Y-m-d H:i:s");
 
-        $query = "INSERT INTO $this->table (id, name, sector, address, status, datetime, timestamp) 
-            VALUES ('$keluarga->_id', '$keluarga->_name', '$keluarga->_sector', '$keluarga->_address', 
-            '$keluarga->_status', '$now', '$now')";
-        $result = $crud->execute($query);
+        $query = [
+            'id' => $keluarga->_id, 
+            'name' => $keluarga->_name, 
+            'sector' => (int) $keluarga->_sector, 
+            'address' => $keluarga->_address, 
+            'status' => (int) $keluarga->_status, 
+            'datetime' => $now, 
+            'timestamp' => $now
+        ];
+        $bulk = new MongoDB\Driver\BulkWrite;
+        $bulk->insert($query);
+        $result = $crud->post($this->table, $bulk);
         return $result;
     }
 
     public function update_data($crud, $keluarga){
-        $query = "UPDATE $this->table SET name = '$keluarga->_name', sector = '$keluarga->_sector',
-            address = '$keluarga->_address', status = '$keluarga->_status' WHERE id = '$keluarga->_id'";
-        $result = $crud->execute($query);
+        date_default_timezone_set('Asia/Jakarta');
+        $now = date("Y-m-d H:i:s");
+
+        $bulk = new MongoDB\Driver\BulkWrite;
+        $bulk->update(
+            [
+                'id' => $keluarga->_id
+            ], 
+            [
+                '$set' => [
+                    'name' => $keluarga->_name, 
+                    'sector' => (int) $keluarga->_sector,
+                    'address' => $keluarga->_address,
+                    'status' => (int) $keluarga->_status, 
+                    'timestamp' => $now
+                ]
+            ]
+        );
+        $result = $crud->put($this->table, $bulk);
         return $result;
     }
 
     public function delete_data($crud, $id){
-        $result = $crud->delete($id, $this->table);
-        return $result;
+        return $crud->removeById($this->table, $id);
     }
 //END FUNCTION FOR ADMIN PAGE
 }

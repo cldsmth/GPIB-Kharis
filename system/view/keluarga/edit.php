@@ -37,11 +37,11 @@
             <!-- start: PAGE CONTENT -->
             <div class="col-md-12">
               <div class="widget">
-                <?php if(is_array($datas)){?>
+                <?php if(hasProperty($datas, "id")){?>
                 <header class="widget-header">
                   <div class="row">
                     <div class="col-sm-6">
-                      <h4 class="widget-title">Keluarga "<?=correctDisplay($datas['name']);?>"</strong></h4>
+                      <h4 class="widget-title">Keluarga "<?=correctDisplay($datas->name);?>"</strong></h4>
                     </div>
                   </div>
                 </header><!-- .widget-header -->
@@ -53,8 +53,8 @@
                         <div class="row">
                           <div class="col-sm-4 col-xs-12 form-label"><strong>Nama Keluarga <span class="symbol-required">*</span></strong> :</div>
                           <div class="col-sm-5 col-xs-12">
-                            <input name="old_name" type="hidden" value="<?=inputDisplay($datas['name']);?>">
-                            <input id="input-name" name="new_name" type="text" class="form-control input-style" placeholder="Nama Keluarga" maxlength="100" value="<?=inputDisplay($datas['name']);?>">
+                            <input name="old_name" type="hidden" value="<?=inputDisplay($datas->name);?>">
+                            <input id="input-name" name="new_name" type="text" class="form-control input-style" placeholder="Nama Keluarga" maxlength="100" value="<?=inputDisplay($datas->name);?>">
                             <div id="error-name" class="is-error"></div>
                           </div>
                         </div>
@@ -72,7 +72,7 @@
                             <select id="input-sector" name="sector" class="form-control">
                               <option value="">Pilih Sektor</option>
                               <?php if(is_array($sectors)){ foreach($sectors as $sector){?>
-                              <option <?=isSelected($datas['sector'], $sector['value']);?> value="<?=$sector['value'];?>"><?=$sector['text'];?></option>
+                              <option <?=isSelected($datas->sector, $sector['value']);?> value="<?=$sector['value'];?>"><?=$sector['text'];?></option>
                               <?php }}?>
                             </select>
                             <div id="error-sector" class="is-error"></div>
@@ -82,7 +82,7 @@
                         <div class="row">
                           <div class="col-sm-4 col-xs-12 up1 form-label">Alamat :</div>
                           <div class="col-sm-5 col-xs-12 up1">
-                            <textarea id="input-address" name="address" class="form-control" rows="3" placeholder="Alamat" maxlength="255"><?=str_replace("<br>", "", correctDisplay($datas['address']));?></textarea>
+                            <textarea id="input-address" name="address" class="form-control" rows="3" placeholder="Alamat" maxlength="255"><?=str_replace("<br>", "", correctDisplay($datas->address));?></textarea>
                             <div id="error-address" class="is-error"></div>
                           </div>
                         </div>
@@ -99,7 +99,7 @@
                           <div class="col-sm-4 col-xs-12 up1 form-label">Status :</div>
                           <div class="col-sm-5 col-xs-12 up1">
                             <div class="checkbox checkbox-primary">
-                              <input <?=isChecked($datas['status'], 1);?> id="input-status" name="status" type="checkbox" value="1">
+                              <input <?=isChecked($datas->status, 1);?> id="input-status" name="status" type="checkbox" value="1">
                               <label for="input-status">
                                 <span class="note-input">Unchecked if status inactive</span>
                               </label>
@@ -112,8 +112,8 @@
                       <div class="row">
                         <div class="col-sm-12 text-right">
                           <div class="btn-group">
-                            <input name="id" type="hidden" value="<?=$datas['id'];?>">
-                            <input id="default-sector" name="default_sector" type="hidden" value="<?=$datas['sector'];?>">
+                            <input name="id" type="hidden" value="<?=$datas->id;?>">
+                            <input id="default-sector" name="default_sector" type="hidden" value="<?=$datas->sector;?>">
                             <a href="<?=$path['keluarga'];?>" class="btn btn-default"><i class='fa fa-times'></i> Cancel</a>
                             <button id="btn-submit" type="submit" class="btn btn-primary btn-md"><i class="fa fa-check"></i> Submit</button>
                           </div>

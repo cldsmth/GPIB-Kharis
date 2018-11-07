@@ -15,12 +15,12 @@ if(!isset($_GET['action'])){
 	if(isset($_GET['action'])){
 
 	    if($_GET['action'] == "edit" && issetVar(array('id', 'new_name', 'sector'))){
-	    	$keluarga->setId($crud->escape_string(check_input($_POST['id'])));
-			$keluarga->setName($crud->escape_string(check_input($_POST['new_name'])));
-			$keluarga->setSector($crud->escape_string(check_input($_POST['sector'])));
-			$keluarga->setAddress($crud->escape_string(check_input(nl2br($_POST['address'], false))));
+	    	$keluarga->setId(check_input($_POST['id']));
+			$keluarga->setName(check_input($_POST['new_name']));
+			$keluarga->setSector(check_input($_POST['sector']));
+			$keluarga->setAddress(check_input(nl2br($_POST['address'], false)));
 			$keluarga->setStatus(isset($_POST['status']) ? $_POST['status'] : 0);
-			$_old_name = $crud->escape_string(check_input($_POST['old_name']));
+			$_old_name = check_input($_POST['old_name']);
 
 			$check_name = $keluarga->getName() != $_old_name ? $keluarga->check_name($crud, $keluarga->getName()) : false;
 			if($check_name){

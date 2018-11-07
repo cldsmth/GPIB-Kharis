@@ -130,7 +130,8 @@ class Jemaat
     }*/
 
     public function get_all($crud, $page=1){
-        //get total data
+        return false;
+        /*//get total data
         $query_total = "SELECT id FROM $this->table";
         $result_total = $crud->getData($query_total);
         $total_data = !$result_total ? 0 : count($result_total);
@@ -153,7 +154,7 @@ class Jemaat
                 $result[0]['total_data'] = count($result);
             }
         }
-        return $result;
+        return $result;*/
     }
 
     /*public function get_detail($crud, $id){
