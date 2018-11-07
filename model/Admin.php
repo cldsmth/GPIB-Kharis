@@ -201,10 +201,9 @@ class Admin
         return $result;
     }
 
-    /*public function get_detail($crud, $id){
-        $result = $crud->detail($id, $this->table);
-        return !$result ? false : is_array($result) ? $result[0] : false;
-    }*/
+    public function get_detail($crud, $id){
+        return $crud->detail($id, $this->table);
+    }
 
     public function insert_data($crud, $admin){
         date_default_timezone_set('Asia/Jakarta');
@@ -249,49 +248,69 @@ class Admin
         return $result;
     }
 
-    /*public function update_data($crud, $admin, $encrypt, $path){
-        $cond = "";
+    public function update_data($crud, $admin, $encrypt, $path){
+        date_default_timezone_set('Asia/Jakarta');
+        $now = date("Y-m-d H:i:s");
+
+        $bulk = new MongoDB\Driver\BulkWrite;
+        $bulk->update(
+            [
+                'id' => $admin->_id
+            ], 
+            [
+                '$set' => [
+                    'name' => $admin->_name, 
+                    'email' => $admin->_email,
+                    'status' => $admin->_status, 
+                    'timestamp' => $now
+                ]
+            ]
+        );
         if($admin->_image != ""){
             $this->remove_image($crud, $admin->_id, $encrypt, $path);
-            $cond = "img = '$admin->_image', ";
+            $bulk->update(['id' => $admin->_id], ['$set' => ['img' => $admin->_image]]);
         }
-
-        $query = "UPDATE $this->table SET name = '$admin->_name', email = '$admin->_email', $cond 
-            status = '$admin->_status' WHERE id = '$admin->_id'";
-        $result = $crud->execute($query);
+        $result = $crud->update($this->table, $bulk);
         return $result;
     }
 
-    public function delete_data($crud, $id, $encrypt, $path){
+    /*public function delete_data($crud, $id, $encrypt, $path){
         $this->remove_image($crud, $id, $encrypt, $path);
         $result = $crud->delete($id, $this->table);
         return $result;
-    }
+    }*/
 
     public function remove_image($crud, $id, $encrypt, $path){
-        $query = "SELECT img FROM $this->table WHERE id = '$id'";
-        $result = $crud->getData($query);
-        if(!$result){
-            return false;
-        }else{
-            if(is_array($result)){
-                foreach($result as $data){
-                    if($data['img'] != ""){
-                        $deleteImg = $path.$encrypt->encrypt_decrypt("decrypt", $data['img']);
-                        if(file_exists($deleteImg)){
-                            unlink($deleteImg);
-                        }
-                        $deleteImgThmb = $path."thmb/".$encrypt->encrypt_decrypt("decrypt", $data['img']);
-                        if(file_exists($deleteImgThmb)){
-                            unlink($deleteImgThmb);
-                        }
-                        $result = true;
+        $filter = [
+            'id' => $id
+        ];
+        $options = [
+            'projection' => [
+                '_id' => 0, 
+                'img' => 1
+            ]
+        ]; 
+        $query = new MongoDB\Driver\Query($filter, $options);
+        $result = $crud->data($this->table, $query);
+        if(is_array($result)){
+            foreach($result as $data){
+                if($data->img != ""){
+                    $deleteImg = $path.$encrypt->encrypt_decrypt("decrypt", $data->img);
+                    if(file_exists($deleteImg)){
+                        unlink($deleteImg);
                     }
+                    $deleteImgThmb = $path."thmb/".$encrypt->encrypt_decrypt("decrypt", $data->img);
+                    if(file_exists($deleteImgThmb)){
+                        unlink($deleteImgThmb);
+                    }
+                    $result = true;
                 }
             }
+        }else{
+            $result = false;
         }
         return $result;
-    }*/
+    }
 //END FUNCTION FOR ADMIN PAGE
 }
 ?>

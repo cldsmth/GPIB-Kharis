@@ -20,11 +20,11 @@ if(!isset($_GET['action'])){
 	if(isset($_GET['action'])){
 
 	    if($_GET['action'] == "edit" && issetVar(array('id', 'name', 'new_email'))){
-	    	$admin->setId($crud->escape_string(check_input($_POST['id'])));
-			$admin->setName($crud->escape_string(check_input($_POST['name'])));
-			$admin->setEmail($crud->escape_string(check_input($_POST['new_email'])));
+	    	$admin->setId(check_input($_POST['id']));
+			$admin->setName(check_input($_POST['name']));
+			$admin->setEmail(check_input($_POST['new_email']));
 			$admin->setStatus(isset($_POST['status']) ? $_POST['status'] : 0);
-			$_old_email = $crud->escape_string(check_input($_POST['old_email']));
+			$_old_email = check_input($_POST['old_email']);
 
 			$check_email = $admin->getEmail() != $_old_email ? $admin->check_email($crud, $admin->getEmail()) : false;
 			if($check_email){

@@ -39,11 +39,11 @@
             <!-- start: PAGE CONTENT -->
             <div class="col-md-12">
               <div class="widget">
-                <?php if(is_array($datas)){?>
+                <?php if(hasProperty($datas, "id")){?>
                 <header class="widget-header">
                   <div class="row">
                     <div class="col-sm-6">
-                      <h4 class="widget-title">Admin "<?=correctDisplay($datas['name']);?>"</strong></h4>
+                      <h4 class="widget-title">Admin "<?=correctDisplay($datas->name);?>"</strong></h4>
                     </div>
                   </div>
                 </header><!-- .widget-header -->
@@ -55,7 +55,7 @@
                         <div class="row">
                           <div class="col-sm-4 col-xs-12 form-label"><strong>Name <span class="symbol-required">*</span></strong> :</div>
                           <div class="col-sm-5 col-xs-12">
-                            <input id="input-name" name="name" type="text" class="form-control input-style" placeholder="Name" maxlength="100" value="<?=inputDisplay($datas['name']);?>">
+                            <input id="input-name" name="name" type="text" class="form-control input-style" placeholder="Name" maxlength="100" value="<?=inputDisplay($datas->name);?>">
                             <div id="error-name" class="is-error"></div>
                           </div>
                         </div>
@@ -70,8 +70,8 @@
                         <div class="row">
                           <div class="col-sm-4 col-xs-12 up1 form-label"><strong>E-mail <span class="symbol-required">*</span></strong> :</div>
                           <div class="col-sm-5 col-xs-12 up1">
-                            <input name="old_email" type="hidden" value="<?=$datas['email'];?>">
-                            <input id="input-email" name="new_email" type="text" class="form-control input-style" placeholder="E-mail" maxlength="100" value="<?=$datas['email'];?>">
+                            <input name="old_email" type="hidden" value="<?=$datas->email;?>">
+                            <input id="input-email" name="new_email" type="text" class="form-control input-style" placeholder="E-mail" maxlength="100" value="<?=$datas->email;?>">
                             <div id="error-email" class="is-error"></div>
                           </div>
                         </div>
@@ -87,8 +87,8 @@
                         <div class="row">
                           <div class="col-sm-4 col-xs-12 up1 form-label">Image :</div>
                           <div class="col-sm-5 col-xs-12 up1">
-                            <a class="fancybox" data-url="<?=$global['absolute-url'];?>" data-module="admin" data-img="<?=($datas['img'] != "" ? $encrypt->encrypt_decrypt("decrypt", $datas['img']) : "");?>" href="javascript:void(0)" onclick="previewImage(this)">
-                              <img style="width: 40px;" class="img-circle" src="<?=$path['decrypt-fie']."admin/thmb/".($datas['img'] != "" ? $datas['img'] : "null")."/";?>">
+                            <a class="fancybox" data-url="<?=$global['absolute-url'];?>" data-module="admin" data-img="<?=($datas->img != "" ? $encrypt->encrypt_decrypt("decrypt", $datas->img) : "");?>" href="javascript:void(0)" onclick="previewImage(this)">
+                              <img style="width: 40px;" class="img-circle" src="<?=$path['decrypt-fie']."admin/thmb/".($datas->img != "" ? $datas->img : "null")."/";?>">
                             </a>
                             <div class="up1"></div>
                             <input id="input-image" name="image" type="file" class="form-control">
@@ -109,7 +109,7 @@
                           <div class="col-sm-4 col-xs-12 up1 form-label">Status :</div>
                           <div class="col-sm-5 col-xs-12 up1">
                             <div class="checkbox checkbox-primary">
-                              <input <?=isChecked($datas['status'], 1);?> id="input-status" name="status" type="checkbox" value="1">
+                              <input <?=isChecked($datas->status, 1);?> id="input-status" name="status" type="checkbox" value="1">
                               <label for="input-status">
                                 <span class="note-input">Unchecked if status inactive</span>
                               </label>
@@ -122,7 +122,7 @@
                       <div class="row">
                         <div class="col-sm-12 text-right">
                           <div class="btn-group">
-                            <input name="id" type="hidden" value="<?=$datas['id'];?>">
+                            <input name="id" type="hidden" value="<?=$datas->id;?>">
                             <a href="<?=$path['admin'];?>" class="btn btn-default"><i class='fa fa-times'></i> Cancel</a>
                             <button id="btn-submit" type="submit" class="btn btn-primary btn-md"><i class="fa fa-check"></i> Submit</button>
                           </div>

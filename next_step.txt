@@ -1,3 +1,11 @@
+imporevement
+nama fungsi crud ubah jadi:
+data => find
+detail => findId
+insert => post
+update => put
+delete => remove
+
 todo
 -convert mysql to mongodb
 -semua inputan $_POST / $_GET pakai function check_input()

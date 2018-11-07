@@ -42,6 +42,28 @@ class Crud
         }
     }
 
+    public function detail($id, $table){
+        try {
+            $filter = [
+                'id' => $id
+            ];
+            $options = [
+                'projection' => [
+                    '_id' => 0
+                ],
+                'limit' => 1
+            ]; 
+            $query = new MongoDB\Driver\Query($filter, $options);
+            $cursor = $this->connection->executeQuery($this->database.".".$table, $query);
+            $cursor->setTypeMap(array('document' => 'array'));
+            $result = $cursor->toArray();
+            $result = current($result);
+            return $result;
+        } catch (Throwable $t) {
+            echo "Error: ".$t->getMessage();
+        }
+    }
+
     public function insert($table, $bulk){
         try {
             $result = $this->connection->executeBulkWrite($this->database.".".$table, $bulk);
@@ -59,23 +81,8 @@ class Crud
             echo "Error: ".$t->getMessage();
         }
     }
-        
-    /*public function execute($query){
-        $result = $this->connection->query($query);
-        if($result == false){
-            return false;
-        }else{
-            return true;
-        }        
-    }
 
-    public function detail($id, $table){
-        $query = "SELECT * FROM $table WHERE id = '$id'";
-        $result = $this->getData($query);
-        return $result;
-    }
-
-    public function delete($id, $table){ 
+    /*public function delete($id, $table){ 
         $query = "DELETE FROM $table WHERE id = '$id'";
         $result = $this->connection->query($query);
         if($result == false){
