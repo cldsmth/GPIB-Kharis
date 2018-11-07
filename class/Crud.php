@@ -26,7 +26,7 @@ class Crud
         }
     }
 
-    public function data($table, $query){
+    public function find($table, $query){
         try {
             $result = $this->connection->executeQuery($this->database.".".$table, $query);
             if(!$result){
@@ -42,7 +42,7 @@ class Crud
         }
     }
 
-    public function detail($table, $id){
+    public function findById($table, $id){
         try {
             $filter = [
                 'id' => $id
@@ -64,7 +64,7 @@ class Crud
         }
     }
 
-    public function insert($table, $bulk){
+    public function post($table, $bulk){
         try {
             $result = $this->connection->executeBulkWrite($this->database.".".$table, $bulk);
             return $result->getInsertedCount() >= 1 ? true : false;
@@ -73,7 +73,7 @@ class Crud
         }
     }
 
-    public function update($table, $bulk){
+    public function put($table, $bulk){
         try {
             $result = $this->connection->executeBulkWrite($this->database.".".$table, $bulk);
             return $result->getModifiedCount() >= 1 ? true : false;
@@ -82,7 +82,7 @@ class Crud
         }
     }
 
-    public function delete($table, $bulk){
+    public function remove($table, $bulk){
         try {
             $result = $this->connection->executeBulkWrite($this->database.".".$table, $bulk);
             return $result->getDeletedCount() >= 1 ? true : false;
@@ -91,7 +91,7 @@ class Crud
         }
     }
 
-    public function deleteById($table, $id){
+    public function removeById($table, $id){
         try {
             $bulk = new MongoDB\Driver\BulkWrite;
             $bulk->delete(['id' => $id]);

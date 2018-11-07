@@ -1,14 +1,7 @@
-imporevement
-nama fungsi crud ubah jadi:
-data => find
-detail => findId
-insert => post
-update => put
-delete => remove
-escape_string mongodb
-
 todo
--convert mysql to mongodb
+-convert mysql to mongodb:
+ 1. module category (event, article)
+ 2. module keluarga
 -semua inputan $_POST / $_GET pakai function check_input()
 -primary key mongodb (how to use)
 -security input php 7.2 or using mongodb

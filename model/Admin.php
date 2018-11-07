@@ -103,7 +103,7 @@ class Admin
             ]
         ]; 
         $query = new MongoDB\Driver\Query($filter, $options);
-        $result = $crud->data($this->table, $query);
+        $result = $crud->find($this->table, $query);
         if(!$result){
             return false;
         }
@@ -121,7 +121,7 @@ class Admin
             ]
         ]; 
         $query = new MongoDB\Driver\Query($filter, $options);
-        $result = $crud->data($this->table, $query);
+        $result = $crud->find($this->table, $query);
         if(!$result){
             return false;
         }
@@ -145,7 +145,7 @@ class Admin
             ]
         ]; 
         $query = new MongoDB\Driver\Query($filter, $options);
-        $result = $crud->data($this->table, $query);
+        $result = $crud->find($this->table, $query);
         if(!$result){
             return false;
         }
@@ -185,7 +185,7 @@ class Admin
             'skip' => $limitBefore
         ];
         $query = new MongoDB\Driver\Query($filter, $options);
-        $result = $crud->data($this->table, $query);
+        $result = $crud->find($this->table, $query);
         if(!$result){
             return false;
         }else{
@@ -202,7 +202,7 @@ class Admin
     }
 
     public function get_detail($crud, $id){
-        return $crud->detail($this->table, $id);
+        return $crud->findById($this->table, $id);
     }
 
     public function insert_data($crud, $admin){
@@ -216,14 +216,14 @@ class Admin
             'password' => $admin->_password, 
             'salt_hash' => $admin->_salt_hash, 
             'auth_code' => $admin->_auth_code, 
-            'status' => $admin->_status, 
+            'status' => (int) $admin->_status, 
             'img' => $admin->_image, 
             'datetime' => $now, 
             'timestamp' => $now
         ];
         $bulk = new MongoDB\Driver\BulkWrite;
         $bulk->insert($query);
-        $result = $crud->insert($this->table, $bulk);
+        $result = $crud->post($this->table, $bulk);
         return $result;
     }
 
@@ -244,7 +244,7 @@ class Admin
                 ]
             ]
         );
-        $result = $crud->update($this->table, $bulk);
+        $result = $crud->put($this->table, $bulk);
         return $result;
     }
 
@@ -261,7 +261,7 @@ class Admin
                 '$set' => [
                     'name' => $admin->_name, 
                     'email' => $admin->_email,
-                    'status' => $admin->_status, 
+                    'status' => (int) $admin->_status, 
                     'timestamp' => $now
                 ]
             ]
@@ -270,13 +270,13 @@ class Admin
             $this->remove_image($crud, $admin->_id, $encrypt, $path);
             $bulk->update(['id' => $admin->_id], ['$set' => ['img' => $admin->_image]]);
         }
-        $result = $crud->update($this->table, $bulk);
+        $result = $crud->put($this->table, $bulk);
         return $result;
     }
 
     public function delete_data($crud, $id, $encrypt, $path){
         $this->remove_image($crud, $id, $encrypt, $path);
-        return $crud->deleteById($this->table, $id);
+        return $crud->removeById($this->table, $id);
     }
 
     public function remove_image($crud, $id, $encrypt, $path){
@@ -290,7 +290,7 @@ class Admin
             ]
         ]; 
         $query = new MongoDB\Driver\Query($filter, $options);
-        $result = $crud->data($this->table, $query);
+        $result = $crud->find($this->table, $query);
         if(is_array($result)){
             foreach($result as $data){
                 if($data->img != ""){
