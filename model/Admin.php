@@ -92,14 +92,23 @@ class Admin
     }
     
 //START FUNCTION FOR ADMIN PAGE
-    /*public function check_email($crud, $email){
-        $query = "SELECT email FROM $this->table WHERE email = '$email'";
-        $result = $crud->getData($query);
+    public function check_email($crud, $email){
+        $filter = [
+            'email' => $email
+        ];
+        $options = [
+            'projection' => [
+                '_id' => 0, 
+                'email' => 1
+            ]
+        ]; 
+        $query = new MongoDB\Driver\Query($filter, $options);
+        $result = $crud->data($this->table, $query);
         if(!$result){
             return false;
         }
         return is_array($result) ? true : false;
-    }*/
+    }
 
     public function get_salt($crud, $email){
         $filter = [
@@ -112,7 +121,7 @@ class Admin
             ]
         ]; 
         $query = new MongoDB\Driver\Query($filter, $options);
-        $result = $crud->getData($this->table, $query);
+        $result = $crud->data($this->table, $query);
         if(!$result){
             return false;
         }
@@ -136,7 +145,7 @@ class Admin
             ]
         ]; 
         $query = new MongoDB\Driver\Query($filter, $options);
-        $result = $crud->getData($this->table, $query);
+        $result = $crud->data($this->table, $query);
         if(!$result){
             return false;
         }
@@ -176,15 +185,15 @@ class Admin
             'skip' => $limitBefore
         ];
         $query = new MongoDB\Driver\Query($filter, $options);
-        $result = $crud->getData($this->table, $query);
+        $result = $crud->data($this->table, $query);
         if(!$result){
             return false;
         }else{
             if(is_array($result)){
                 $obj = new stdClass;
                 $obj->total_page = $total_page;
-                $obj->total_data_all = $total_data;
                 $obj->total_data = count($result);
+                $obj->total_data_all = $total_data;
                 $obj->data = $result;
                 $result = $obj;
             }
@@ -195,20 +204,31 @@ class Admin
     /*public function get_detail($crud, $id){
         $result = $crud->detail($id, $this->table);
         return !$result ? false : is_array($result) ? $result[0] : false;
-    }
+    }*/
 
     public function insert_data($crud, $admin){
         date_default_timezone_set('Asia/Jakarta');
         $now = date("Y-m-d H:i:s");
-
-        $query = "INSERT INTO $this->table (id, name, email, password, salt_hash, auth_code, status, img, datetime, 
-            timestamp) VALUES ('$admin->_id', '$admin->_name', '$admin->_email', '$admin->_password', '$admin->_salt_hash', 
-            '$admin->_auth_code', '$admin->_status', '$admin->_image', '$now', '$now')";
-        $result = $crud->execute($query);
+        
+        $query = [
+            'id' => $admin->_id, 
+            'name' => $admin->_name, 
+            'email' => $admin->_email, 
+            'password' => $admin->_password, 
+            'salt_hash' => $admin->_salt_hash, 
+            'auth_code' => $admin->_auth_code, 
+            'status' => $admin->_status, 
+            'img' => $admin->_image, 
+            'datetime' => $now, 
+            'timestamp' => $now
+        ];
+        $bulk = new MongoDB\Driver\BulkWrite;
+        $bulk->insert($query);
+        $result = $crud->insert($this->table, $bulk);
         return $result;
     }
 
-    public function change_password($crud, $id, $password, $salt_hash){
+    /*public function change_password($crud, $id, $password, $salt_hash){
         $query = "UPDATE $this->table SET password = '$password', salt_hash = '$salt_hash' WHERE id = '$id'";
         $result = $crud->execute($query);
         return $result;

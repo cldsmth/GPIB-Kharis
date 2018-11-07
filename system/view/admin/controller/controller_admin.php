@@ -20,8 +20,9 @@ if(!isset($_GET['action'])){
     if($filename == "index"){
         $datas = $admin->get_all($crud, $_page);
 	    //var_dump($datas);
-	    $total_data = hasProperty($datas, "data") ? $datas->total_data_all : 0;
 	    $total_page = hasProperty($datas, "data") ? $datas->total_page : 0;
+	    $total_data = hasProperty($datas, "data") ? $datas->total_data : 0;
+	    $total_data_all = hasProperty($datas, "data") ? $datas->total_data_all : 0;
 
 	    if(isset($_SESSION['status'])){
 	        $message = $_SESSION['status'];
@@ -44,12 +45,11 @@ if(!isset($_GET['action'])){
 	if(isset($_GET['action'])){
 
 	    if($_GET['action'] == "add" && issetVar(array('name', 'email', 'password', 'repassword'))){
-	    	print_r($_POST);
-	    	/*$admin->setId($generator->generate(32));
-			$admin->setName($crud->escape_string(check_input($_POST['name'])));
-			$admin->setEmail($crud->escape_string(check_input($_POST['email'])));
-			$admin->setPassword($crud->escape_string(check_input($_POST['password'])));
-			$admin->setRepassword($crud->escape_string(check_input($_POST['repassword'])));
+	    	$admin->setId($generator->generate(32));
+			$admin->setName(check_input($_POST['name']));
+			$admin->setEmail(check_input($_POST['email']));
+			$admin->setPassword(check_input($_POST['password']));
+			$admin->setRepassword(check_input($_POST['repassword']));
 			$admin->setStatus(isset($_POST['status']) ? $_POST['status'] : 0);
 			$admin->setAuthCode(generate_code(32));
 			$admin->setSaltHash(substr(md5(time()), 0, 5));
@@ -82,7 +82,7 @@ if(!isset($_GET['action'])){
 
 	        $_SESSION['status'] = $message;
 	        $_SESSION['alert'] = $alert;
-	        header("Location:".$path['admin']);*/
+	        header("Location:".$path['admin']);
 	    
 	    } else if($_GET['action'] == "change_password" && issetVar(array('id', 'name', 'password', 'repassword'))){
             print_r($_POST);

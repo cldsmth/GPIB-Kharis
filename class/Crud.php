@@ -14,8 +14,19 @@ class Crud
             }
         }
     }
-    
-    public function getData($table, $query){
+
+    public function count($command){
+        try {
+            $result = $this->connection->executeCommand($this->database, $command);
+            $res = current($result->toArray());
+            $count = $res->n;
+            return $count;
+        } catch (Throwable $t) {
+            echo "Error: ".$t->getMessage();
+        }
+    }
+
+    public function data($table, $query){
         try {
             $result = $this->connection->executeQuery($this->database.".".$table, $query);
             if(!$result){
@@ -31,12 +42,10 @@ class Crud
         }
     }
 
-    public function count($command){
+    public function insert($table, $bulk){
         try {
-            $result = $this->connection->executeCommand($this->database, $command);
-            $res = current($result->toArray());
-            $count = $res->n;
-            return $count;
+            $result = $this->connection->executeBulkWrite($this->database.".".$table, $bulk);
+            return $result->getInsertedCount() >= 1 ? true : false;
         } catch (Throwable $t) {
             echo "Error: ".$t->getMessage();
         }

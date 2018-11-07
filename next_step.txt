@@ -1,9 +1,14 @@
+todo
+-convert mysql to mongodb
+-semua inputan $_POST / $_GET pakai function check_input()
+-primary key mongodb (how to use)
+-security input php 7.2 or using mongodb
+-research structure mvc/oop php 7.2
+
 next step
 -CRUD module jemaat
 -advanced search di module jemaat
 -export excel di module jemmat
--untuk pagination, nanti cari struktur array yang terbaru. Jadi ngga pake $datas[0]['total_data'] untuk
- ambil total data, total page, dll
 -kalau sudah ada module jemaat/kepala keluarga, bikin satu module di dalam menu setting
  nama module nya import, trus ada submenu Jemaat, dll
 -connect forget password system
