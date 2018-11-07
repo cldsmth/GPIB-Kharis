@@ -17,10 +17,9 @@ class Crud
 
     public function count($command){
         try {
-            $result = $this->connection->executeCommand($this->database, $command);
-            $res = current($result->toArray());
-            $count = $res->n;
-            return $count;
+            $cursor = $this->connection->executeCommand($this->database, $command);
+            $result = current($cursor->toArray());
+            return $result->n;
         } catch (Throwable $t) {
             echo "Error: ".$t->getMessage();
         }
@@ -36,7 +35,7 @@ class Crud
             foreach($result as $data){
                 $rows[] = $data;
             }
-            return $rows;   
+            return $rows;
         } catch (Throwable $t) {
             echo "Error: ".$t->getMessage();
         }
@@ -55,9 +54,8 @@ class Crud
             ]; 
             $query = new MongoDB\Driver\Query($filter, $options);
             $cursor = $this->connection->executeQuery($this->database.".".$table, $query);
-            $cursor->setTypeMap(array('document' => 'array'));
-            $result = $cursor->toArray();
-            $result = current($result);
+            $cursor->setTypeMap(['document' => 'array']);
+            $result = current($cursor->toArray());
             return $result;
         } catch (Throwable $t) {
             echo "Error: ".$t->getMessage();

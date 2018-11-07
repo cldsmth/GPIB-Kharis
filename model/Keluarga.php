@@ -85,7 +85,8 @@ class Keluarga
             'projection' => [
                 '_id' => 0, 
                 'name' => 1
-            ]
+            ],
+            'limit' => 1
         ]; 
         $query = new MongoDB\Driver\Query($filter, $options);
         $result = $crud->find($this->table, $query);

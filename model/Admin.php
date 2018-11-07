@@ -100,7 +100,8 @@ class Admin
             'projection' => [
                 '_id' => 0, 
                 'email' => 1
-            ]
+            ],
+            'limit' => 1
         ]; 
         $query = new MongoDB\Driver\Query($filter, $options);
         $result = $crud->find($this->table, $query);
@@ -118,7 +119,8 @@ class Admin
             'projection' => [
                 '_id' => 0, 
                 'salt_hash' => 1
-            ]
+            ],
+            'limit' => 1
         ]; 
         $query = new MongoDB\Driver\Query($filter, $options);
         $result = $crud->find($this->table, $query);
@@ -142,7 +144,8 @@ class Admin
                 'email' => 1, 
                 'img' => 1, 
                 'auth_code' => 1
-            ]
+            ],
+            'limit' => 1
         ]; 
         $query = new MongoDB\Driver\Query($filter, $options);
         $result = $crud->find($this->table, $query);
