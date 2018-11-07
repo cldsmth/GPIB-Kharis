@@ -202,7 +202,7 @@ class Admin
     }
 
     public function get_detail($crud, $id){
-        return $crud->detail($id, $this->table);
+        return $crud->detail($this->table, $id);
     }
 
     public function insert_data($crud, $admin){
@@ -274,11 +274,10 @@ class Admin
         return $result;
     }
 
-    /*public function delete_data($crud, $id, $encrypt, $path){
+    public function delete_data($crud, $id, $encrypt, $path){
         $this->remove_image($crud, $id, $encrypt, $path);
-        $result = $crud->delete($id, $this->table);
-        return $result;
-    }*/
+        return $crud->deleteById($this->table, $id);
+    }
 
     public function remove_image($crud, $id, $encrypt, $path){
         $filter = [

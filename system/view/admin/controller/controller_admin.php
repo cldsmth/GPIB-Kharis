@@ -112,9 +112,8 @@ if(!isset($_GET['action'])){
 	        header("Location:".$_url);
 
         } else if($_GET['action'] == "delete" && issetVar(array('id', 'name'))){
-           	print_r($_GET);
-            /*$_id = $crud->escape_string(check_input($_GET['id']));
-            $_name = $crud->escape_string(check_input($_GET['name']));
+           	$_id = check_input($_GET['id']);
+            $_name = check_input($_GET['name']);
             $_admin_id = $_SESSION['GpibKharis']['admin']['id'];
 
             if($_admin_id != $_id){
@@ -135,7 +134,7 @@ if(!isset($_GET['action'])){
 
 	        $_SESSION['status'] = $message;
 	        $_SESSION['alert'] = $alert;
-	        header("Location:".$page);*/
+	        header("Location:".$page);
 
         } else {
 	    	$_SESSION['status'] = "Action Not Found.";

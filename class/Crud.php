@@ -42,7 +42,7 @@ class Crud
         }
     }
 
-    public function detail($id, $table){
+    public function detail($table, $id){
         try {
             $filter = [
                 'id' => $id
@@ -82,18 +82,24 @@ class Crud
         }
     }
 
-    /*public function delete($id, $table){ 
-        $query = "DELETE FROM $table WHERE id = '$id'";
-        $result = $this->connection->query($query);
-        if($result == false){
-            return false;
-        }else{
-            return true;
+    public function delete($table, $bulk){
+        try {
+            $result = $this->connection->executeBulkWrite($this->database.".".$table, $bulk);
+            return $result->getDeletedCount() >= 1 ? true : false;
+        } catch (Throwable $t) {
+            echo "Error: ".$t->getMessage();
         }
     }
 
-    public function escape_string($value){
-        return $this->connection->real_escape_string($value);
-    }*/
+    public function deleteById($table, $id){
+        try {
+            $bulk = new MongoDB\Driver\BulkWrite;
+            $bulk->delete(['id' => $id]);
+            $result = $this->connection->executeBulkWrite($this->database.".".$table, $bulk);
+            return $result->getDeletedCount() >= 1 ? true : false;
+        } catch (Throwable $t) {
+            echo "Error: ".$t->getMessage();
+        }
+    }
 }
 ?>

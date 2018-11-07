@@ -5,6 +5,7 @@ detail => findId
 insert => post
 update => put
 delete => remove
+escape_string mongodb
 
 todo
 -convert mysql to mongodb
