@@ -15,7 +15,7 @@ include_once($global['root-url']."model/Admin.php");
 $admin = new Admin();
 
 if(!isset($_GET['action'])){
-	$_page = isset($_GET['page']) ? $_GET['page'] : 1;
+	$_page = isset($_GET['page']) ? check_input($_GET['page']) : 1;
 	$filename = PHPFilename();
     if($filename == "index"){
         $datas = $admin->get_all($crud, $_page);
@@ -50,7 +50,7 @@ if(!isset($_GET['action'])){
 			$admin->setEmail(check_input($_POST['email']));
 			$admin->setPassword(check_input($_POST['password']));
 			$admin->setRepassword(check_input($_POST['repassword']));
-			$admin->setStatus(isset($_POST['status']) ? $_POST['status'] : 0);
+			$admin->setStatus(isset($_POST['status']) ? check_input($_POST['status']) : 0);
 			$admin->setAuthCode(generate_code(32));
 			$admin->setSaltHash(substr(md5(time()), 0, 5));
             $password = substr(doHash($admin->getPassword(), $admin->getSaltHash()), 0, 64);
@@ -89,7 +89,7 @@ if(!isset($_GET['action'])){
             $_name = check_input($_POST['name']);
             $_password = check_input($_POST['password']);
             $_repassword = check_input($_POST['repassword']);
-            $_url = $_POST['url'];
+            $_url = check_input($_POST['url']);
             $_salt = substr(md5(time()), 0, 5);
             $password = substr(doHash($_password, $_salt), 0, 64);
 

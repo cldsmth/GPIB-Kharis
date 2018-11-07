@@ -12,7 +12,7 @@ include_once($global['root-url']."model/Keluarga.php");
 $keluarga = new Keluarga();
 
 if(!isset($_GET['action'])){
-	$_page = isset($_GET['page']) ? $_GET['page'] : 1;
+	$_page = isset($_GET['page']) ? check_input($_GET['page']) : 1;
 	$filename = PHPFilename();
     if($filename == "index"){
         $datas = $jemaat->get_all($crud, $_page);

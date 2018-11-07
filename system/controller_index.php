@@ -32,7 +32,7 @@ if(!isset($_GET['action'])){
 	    if($_GET['action'] == 'login' && issetVar(array('email', 'password'))){
 	        $_email = check_input($_POST['email']);
 	        $_password = check_input($_POST['password']);
-        	$_remember_me = isset($_POST['remember_me']) ? $_POST['remember_me'] : "no";
+        	$_remember_me = isset($_POST['remember_me']) ? check_input($_POST['remember_me']) : "no";
         	$salt = $admin->get_salt($crud, $_email);
         	$password = substr(doHash($_password, $salt), 0, 64);
 

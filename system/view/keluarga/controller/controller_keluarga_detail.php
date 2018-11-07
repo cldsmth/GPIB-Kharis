@@ -6,7 +6,7 @@ include_once($global['root-url']."model/Keluarga.php");
 $keluarga = new Keluarga();
 
 if(!isset($_GET['action'])){
-	$_id = isset($_GET['id']) ? $_GET['id'] : "";
+	$_id = isset($_GET['id']) ? check_input($_GET['id']) : "";
 	$sectors = listSector();
 	$datas = $keluarga->get_detail($crud, $_id);
 	//var_dump($datas);
@@ -19,7 +19,7 @@ if(!isset($_GET['action'])){
 			$keluarga->setName(check_input($_POST['new_name']));
 			$keluarga->setSector(check_input($_POST['sector']));
 			$keluarga->setAddress(check_input(nl2br($_POST['address'], false)));
-			$keluarga->setStatus(isset($_POST['status']) ? $_POST['status'] : 0);
+			$keluarga->setStatus(isset($_POST['status']) ? check_input($_POST['status']) : 0);
 			$_old_name = check_input($_POST['old_name']);
 
 			$check_name = $keluarga->getName() != $_old_name ? $keluarga->check_name($crud, $keluarga->getName()) : false;

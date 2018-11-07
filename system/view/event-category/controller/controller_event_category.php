@@ -35,7 +35,7 @@ if(!isset($_GET['action'])){
 			$category->setTitle(check_input($_POST['title']));
 			$category->setSlug(encode($category->getTitle()));
 			$category->setType("event");
-			$category->setStatus(isset($_POST['status']) ? $_POST['status'] : 0);
+			$category->setStatus(isset($_POST['status']) ? check_input($_POST['status']) : 0);
 
 			if($category->getId() != ""){
 				$result = $category->update_data($crud, $category);

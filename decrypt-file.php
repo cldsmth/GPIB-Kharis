@@ -9,9 +9,9 @@ include_once($global['root-url']."class/Encryption.php");
 $encrypt = new Encryption();
 
 if(issetVar(array('module', 'type', 'data'))){
-	$_module = $_GET['module'];
-	$_type = $_GET['type'];
-	$_data = $_GET['data'];
+	$_module = check_input($_GET['module']);
+	$_type = check_input($_GET['type']);
+	$_data = check_input($_GET['data']);
 	$msg = $validation->check_empty($_GET, array('module', 'type', 'data'));
 
 	if($msg != null){

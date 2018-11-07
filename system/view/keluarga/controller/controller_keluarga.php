@@ -9,7 +9,7 @@ include_once($global['root-url']."model/Keluarga.php");
 $keluarga = new Keluarga();
 
 if(!isset($_GET['action'])){
-	$_page = isset($_GET['page']) ? $_GET['page'] : 1;
+	$_page = isset($_GET['page']) ? check_input($_GET['page']) : 1;
 	$filename = PHPFilename();
     if($filename == "index"){
         $datas = $keluarga->get_all($crud, $_page);
@@ -43,7 +43,7 @@ if(!isset($_GET['action'])){
 			$keluarga->setName(check_input($_POST['name']));
 			$keluarga->setSector(check_input($_POST['sector']));
 			$keluarga->setAddress(check_input(nl2br($_POST['address'], false)));
-			$keluarga->setStatus(isset($_POST['status']) ? $_POST['status'] : 0);
+			$keluarga->setStatus(isset($_POST['status']) ? check_input($_POST['status']) : 0);
 
 			$check_name = $keluarga->check_name($crud, $keluarga->getName());
 			if($check_name){
