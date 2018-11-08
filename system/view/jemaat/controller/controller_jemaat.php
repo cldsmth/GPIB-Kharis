@@ -17,8 +17,9 @@ if(!isset($_GET['action'])){
     if($filename == "index"){
         $datas = $jemaat->get_all($crud, $_page);
 	    //var_dump($datas);
-	    $total_data = is_array($datas) ? $datas[0]['total_data_all'] : 0;
-	    $total_page = is_array($datas) ? $datas[0]['total_page'] : 0;
+	    $total_page = hasProperty($datas, "data") ? $datas->total_page : 0;
+	    $total_data = hasProperty($datas, "data") ? $datas->total_data : 0;
+	    $total_data_all = hasProperty($datas, "data") ? $datas->total_data_all : 0;
 
 	    if(isset($_SESSION['status'])){
 	        $message = $_SESSION['status'];
@@ -40,14 +41,15 @@ if(!isset($_GET['action'])){
 
 	if(isset($_GET['action'])){
 
-	    if($_GET['action'] == "add" && issetVar(array('first_name', 'middle_name', 'last_name', 'keluarga', 'gender'))){
+	    if($_GET['action'] == "add" && issetVar(array('first_name', 'last_name', 'keluarga', 'gender'))){
 	    	$jemaat->setId($generator->generate(32));
 	    	$jemaat->setKeluargaId(check_input($_POST['keluarga']));
 			$jemaat->setFirstName(check_input($_POST['first_name']));
 			$jemaat->setMiddleName(check_input($_POST['middle_name']));
 			$jemaat->setLastName(check_input($_POST['last_name']));
+			$jemaat->setFullName(checkFullName($jemaat->getFirstName(), $jemaat->getMiddleName(), $jemaat->getLastName()));
 			$jemaat->setGender(check_input($_POST['gender']));
-			$jemaat->setBirthday($_POST['birthday'] != "" ? check_input($_POST['birthday']) : "0000-00-00");
+			$jemaat->setBirthday($_POST['birthday'] != "" ? date("Y-m-d", strtotime(check_input($_POST['birthday']))) : "0000-00-00");
 			$jemaat->setPhone1(check_input($_POST['phone1']));
 			$jemaat->setPhone2(check_input($_POST['phone2']));
 			$jemaat->setPhone3(check_input($_POST['phone3']));
@@ -56,10 +58,10 @@ if(!isset($_GET['action'])){
 
 			$result = $jemaat->insert_data($crud, $jemaat);
            	if($result){
-                $message = "Add New Jemaat '".$jemaat->getFirstName()."' success";
+                $message = "Add New Jemaat '".$jemaat->getFullName()."' success";
                 $alert = "success";
             }else{
-                $message = "Add New Jemaat '".$jemaat->getFirstName()."' failed. Please try again";
+                $message = "Add New Jemaat '".$jemaat->getFullName()."' failed. Please try again";
                 $alert = "failed";
             }
 
@@ -68,22 +70,21 @@ if(!isset($_GET['action'])){
 	        header("Location:".$path['jemaat']);
 	    
 	    } else if($_GET['action'] == "delete" && issetVar(array('id', 'name'))){
-	    	print_r($_POST);
-            /*$_id = $crud->escape_string(check_input($_GET['id']));
-            $_name = $crud->escape_string(check_input($_GET['name']));
+	    	$_id = check_input($_GET['id']);
+            $_name = check_input($_GET['name']);
 
-            $result = $keluarga->delete_data($crud, $_id);
+            $result = $jemaat->delete_data($crud, $_id);
             if($result){
-                $message = "Keluarga '".$_name."' success to be deleted in system";
+                $message = "Jemaat '".$_name."' success to be deleted in system";
                 $alert = "success";
             }else{
-                $message = "Keluarga '".$_name."' failed to be deleted in system";
+                $message = "Jemaat '".$_name."' failed to be deleted in system";
                 $alert = "failed";
             }
 
 	        $_SESSION['status'] = $message;
 	        $_SESSION['alert'] = $alert;
-	        header("Location:".$path['keluarga']);*/
+	        header("Location:".$path['jemaat']);
 
         } else {
 	    	$_SESSION['status'] = "Action Not Found.";

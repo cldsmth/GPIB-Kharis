@@ -6,6 +6,7 @@ class Jemaat
     private $_first_name;
     private $_middle_name;
     private $_last_name;
+    private $_full_name;
     private $_gender;
     private $_birthday;
     private $_phone1;
@@ -14,12 +15,12 @@ class Jemaat
     private $_notes;
     private $_status;
     private $table;
-    private $joinKeluarga;
+    private $tableKeluarga;
     private $itemPerPageAdmin;
 
     function __construct(){
         $this->table = "jemaat";
-        $this->joinKeluarga = "LEFT JOIN keluarga keluarga ON keluarga.id = jemaat.keluarga_id";
+        $this->tableKeluarga = "keluarga";
         $this->itemPerPageAdmin = 20;
     }
 
@@ -61,6 +62,14 @@ class Jemaat
     
     function getLastName(){ 
         return $this->_last_name;
+    }
+
+    function setFullName($full_name){ 
+        $this->_full_name = $full_name;
+    }
+    
+    function getFullName(){ 
+        return $this->_full_name;
     }
 
     function setGender($gender){ 
@@ -120,41 +129,82 @@ class Jemaat
     }
     
 //START FUNCTION FOR ADMIN PAGE
-    /*public function check_name($crud, $name){
-        $query = "SELECT name FROM $this->table WHERE name = '$name'";
-        $result = $crud->getData($query);
-        if(!$result){
-            return false;
-        }
-        return is_array($result) ? true : false;
-    }*/
-
     public function get_all($crud, $page=1){
-        return false;
-        /*//get total data
-        $query_total = "SELECT id FROM $this->table";
-        $result_total = $crud->getData($query_total);
-        $total_data = !$result_total ? 0 : count($result_total);
+        //get total data
+        $query_total = [];
+        $total_data = $crud->count(
+            new MongoDB\Driver\Command([
+                'count' => $this->table, 
+                'query' => $query_total
+            ])
+        );
 
         //get total page
         $total_page  = ceil($total_data / $this->itemPerPageAdmin);
         $limitBefore = $page <= 1 || $page == null ? 0 : ($page-1) * $this->itemPerPageAdmin;
 
-        $query = "SELECT jemaat.id, CONCAT(jemaat.first_name, jemaat.middle_name) AS name, jemaat.last_name, 
-            jemaat.gender, jemaat.birthday, jemaat.phone1, jemaat.status, keluarga.name AS keluarga_name, 
-            keluarga.sector AS sector jemaat.datetime, jemaat.timestamp FROM $this->table jemaat 
-            $this->joinKeluarga ORDER BY jemaat.datetime DESC LIMIT $limitBefore, $this->itemPerPageAdmin";
-        $result = $crud->getData($query);
+        $command = new MongoDB\Driver\Command([
+            'aggregate' => $this->table,
+            'pipeline' => [
+                [
+                    '$lookup' => [
+                        'from' => $this->tableKeluarga,
+                        'localField' => "keluarga_id",
+                        'foreignField' => "id",
+                        'as' => "keluarga"
+                    ]
+                ],
+                [
+                    '$unwind' => '$keluarga'
+                ],
+                [
+                    '$project' => [
+                        '_id' => 0, 
+                        'id' => 1, 
+                        'full_name' => 1, 
+                        'gender' => 1, 
+                        'phone1' => 1, 
+                        'birthday' => 1, 
+                        'status' => 1, 
+                        'datetime' => 1, 
+                        'timestamp' => 1,
+                        'keluarga' => [
+                            'id' => 1, 
+                            'name' => 1, 
+                            'sector' => 1
+                        ]
+                    ],
+                ],
+                [
+                    '$sort' => [
+                        'datetime' => -1
+                    ]
+                ],
+                [
+                    '$skip' => $limitBefore
+                ],
+                [
+                    '$limit' => $this->itemPerPageAdmin
+                ]
+            ],
+            'cursor' => [
+                'batchSize' => 4
+            ]
+        ]);
+        $result = $crud->aggregate($command);
         if(!$result){
             return false;
         }else{
             if(is_array($result)){
-                $result[0]['total_page'] = $total_page;
-                $result[0]['total_data_all'] = $total_data;
-                $result[0]['total_data'] = count($result);
+                $obj = new stdClass;
+                $obj->total_page = $total_page;
+                $obj->total_data = count($result);
+                $obj->total_data_all = $total_data;
+                $obj->data = $result;
+                $result = $obj;
             }
         }
-        return $result;*/
+        return $result;
     }
 
     /*public function get_detail($crud, $id){
@@ -172,6 +222,7 @@ class Jemaat
             'first_name' => $jemaat->_first_name,
             'middle_name' => $jemaat->_middle_name,
             'last_name' => $jemaat->_last_name,
+            'full_name' => $jemaat->_full_name,
             'gender' => $jemaat->_gender,
             'birthday' => $jemaat->_birthday, 
             'phone1' => $jemaat->_phone1, 
@@ -193,12 +244,11 @@ class Jemaat
             address = '$keluarga->_address', status = '$keluarga->_status' WHERE id = '$keluarga->_id'";
         $result = $crud->execute($query);
         return $result;
-    }
+    }*/
 
     public function delete_data($crud, $id){
-        $result = $crud->delete($id, $this->table);
-        return $result;
-    }*/
+        return $crud->removeById($this->table, $id);
+    }
 //END FUNCTION FOR ADMIN PAGE
 }
 ?>

@@ -1,12 +1,10 @@
 todo
--aggregate or join table using mongodb
 -primary key mongodb (how to use)
 -security input php 7.2 or using mongodb
 -research structure mvc/oop php 7.2
 
 next step
--input datepicker module jemaat
--CRUD module jemaat
+-create module update jemaat
 -connect forget password system
 -nanti adjust lagi yang validasi input "password" dan "phone"
 -nanti adjust validasi check name/email lagsung ajax

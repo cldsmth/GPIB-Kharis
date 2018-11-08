@@ -62,6 +62,22 @@ class Crud
         }
     }
 
+    public function aggregate($command){
+        try {
+            $result = $this->connection->executeCommand($this->database, $command);
+            if(!$result){
+                return false;
+            }
+            $rows = array();
+            foreach($result as $data){
+                $rows[] = $data;
+            }
+            return $rows;
+        } catch (Throwable $t) {
+            echo "Error: ".$t->getMessage();
+        }
+    }
+
     public function post($table, $bulk){
         try {
             $result = $this->connection->executeBulkWrite($this->database.".".$table, $bulk);

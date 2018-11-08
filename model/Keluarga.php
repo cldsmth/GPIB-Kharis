@@ -124,8 +124,8 @@ class Keluarga
             'sort' => [
                 'datetime' => -1
             ],
-            'limit' => $this->itemPerPageAdmin,
-            'skip' => $limitBefore
+            'skip' => $limitBefore,
+            'limit' => $this->itemPerPageAdmin
         ];
         $query = new MongoDB\Driver\Query($filter, $options);
         $result = $crud->find($this->table, $query);

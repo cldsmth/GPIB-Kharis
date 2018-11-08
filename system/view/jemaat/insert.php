@@ -65,7 +65,7 @@
                           </div>
                         </div>
                         <div class="row">
-                          <div class="col-sm-4 col-xs-12 up1 form-label"><strong>Nama Tengah <span class="symbol-required">*</span></strong> :</div>
+                          <div class="col-sm-4 col-xs-12 up1 form-label">Nama Tengah :</div>
                           <div class="col-sm-5 col-xs-12 up1">
                             <input id="input-middle-name" name="middle_name" type="text" class="form-control input-style" placeholder="Nama Tengah" maxlength="100">
                             <div id="error-middle-name" class="is-error"></div>
@@ -219,7 +219,6 @@
     <script type="text/javascript">
       function validateForm(){
         var first_name = $("#input-first-name").val();
-        var middle_name = $("#input-middle-name").val();
         var last_name = $("#input-last-name").val();
         var keluarga = $("#input-keluarga").val();
         var gender = document.getElementsByName('gender');
@@ -239,17 +238,6 @@
           $("#error-first-name").html("<i class='fa fa-warning'></i> This field is required.");
           $("#input-first-name").addClass("input-error");
           $("#input-first-name").focus();
-          return false;
-        }
-        if(middle_name != ""){
-          $("#error-middle-name").html("");
-          $("#error-middle-name").hide();
-          $("#input-middle-name").removeClass("input-error");
-        } else {
-          $("#error-middle-name").show();
-          $("#error-middle-name").html("<i class='fa fa-warning'></i> This field is required.");
-          $("#input-middle-name").addClass("input-error");
-          $("#input-middle-name").focus();
           return false;
         }
         if(last_name != ""){
@@ -290,8 +278,10 @@
 
       function confirmSubmit(){
         if(validateForm()){
-            var name = $("#input-first-name").val();
-            var result = confirm("Are you sure want to create \""+name+"\" ?");
+            var first_name = $("#input-first-name").val();
+            var middle_name = $("#input-middle-name").val();
+            var last_name = $("#input-last-name").val();
+            var result = confirm("Are you sure want to create \""+checkFullName(first_name, middle_name, last_name)+"\" ?");
             if(result){
               $("#btn-submit").attr('disabled', 'disabled');
               $("#btn-submit").html("<i class='fa fa-spinner fa-spin'></i> Loading");

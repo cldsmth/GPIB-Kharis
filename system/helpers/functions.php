@@ -125,10 +125,28 @@ if(!function_exists('colorStatus'))
     }
 }
 
+if(!function_exists('checkFullName'))
+{
+    function checkFullName($first_name, $middle_name, $last_name){
+        return $first_name.($middle_name != "" ? " ".$middle_name." ".$last_name : " ".$last_name);
+    }
+}
+
 if(!function_exists('checkGender'))
 {
     function checkGender($gender){
-        return $gender == "m" ? "Laki-laki" : $gender == "f" ? "Perempuan" : "-";
+        switch ($gender) {
+            case "m":
+                $result = "Laki-laki";
+                break;
+            case "f":
+                $result = "Perempuan";
+                break;
+            default:
+                $result = "-";
+                break;
+        }
+        return $result;
     }
 }
 

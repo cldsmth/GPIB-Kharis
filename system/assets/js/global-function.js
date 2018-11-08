@@ -1,3 +1,7 @@
+function checkFullName(first_name, middle_name, last_name){
+  return first_name + (middle_name != "" ? " " + middle_name + " " + last_name : " " + last_name);
+}
+
 function isDataChanges(array){
   var index = 0;
   var check_values = new Array();
