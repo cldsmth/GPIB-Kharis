@@ -87,9 +87,9 @@ class Category
             'title' => $category->_title, 
             'slug' => $category->_slug, 
             'type' => $category->_type,  
-            'status' => (int) $category->_status,  
-            'datetime' => $now, 
-            'timestamp' => $now
+            'status' => (int) $category->_status, 
+            'timestamp' => $now, 
+            'datetime' => $now
         ];
         $bulk = new MongoDB\Driver\BulkWrite;
         $bulk->insert($query);

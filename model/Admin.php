@@ -221,8 +221,8 @@ class Admin
             'auth_code' => $admin->_auth_code, 
             'status' => (int) $admin->_status, 
             'img' => $admin->_image, 
-            'datetime' => $now, 
-            'timestamp' => $now
+            'timestamp' => $now, 
+            'datetime' => $now
         ];
         $bulk = new MongoDB\Driver\BulkWrite;
         $bulk->insert($query);

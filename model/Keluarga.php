@@ -158,8 +158,8 @@ class Keluarga
             'sector' => (int) $keluarga->_sector, 
             'address' => $keluarga->_address, 
             'status' => (int) $keluarga->_status, 
-            'datetime' => $now, 
-            'timestamp' => $now
+            'timestamp' => $now, 
+            'datetime' => $now
         ];
         $bulk = new MongoDB\Driver\BulkWrite;
         $bulk->insert($query);

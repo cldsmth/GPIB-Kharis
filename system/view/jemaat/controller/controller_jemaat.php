@@ -41,31 +41,31 @@ if(!isset($_GET['action'])){
 	if(isset($_GET['action'])){
 
 	    if($_GET['action'] == "add" && issetVar(array('first_name', 'middle_name', 'last_name', 'keluarga', 'gender'))){
-	    	print_r($_POST);
-	    	/*$keluarga->setId($generator->generate(32));
-			$keluarga->setName($crud->escape_string(check_input($_POST['name'])));
-			$keluarga->setSector($crud->escape_string(check_input($_POST['sector'])));
-			$keluarga->setAddress($crud->escape_string(check_input(nl2br($_POST['address'], false))));
-			$keluarga->setStatus(isset($_POST['status']) ? $_POST['status'] : 0);
+	    	$jemaat->setId($generator->generate(32));
+	    	$jemaat->setKeluargaId(check_input($_POST['keluarga']));
+			$jemaat->setFirstName(check_input($_POST['first_name']));
+			$jemaat->setMiddleName(check_input($_POST['middle_name']));
+			$jemaat->setLastName(check_input($_POST['last_name']));
+			$jemaat->setGender(check_input($_POST['gender']));
+			$jemaat->setBirthday($_POST['birthday'] != "" ? check_input($_POST['birthday']) : "0000-00-00");
+			$jemaat->setPhone1(check_input($_POST['phone1']));
+			$jemaat->setPhone2(check_input($_POST['phone2']));
+			$jemaat->setPhone3(check_input($_POST['phone3']));
+			$jemaat->setNotes(check_input(nl2br($_POST['notes'], false)));
+			$jemaat->setStatus(isset($_POST['status']) ? check_input($_POST['status']) : 0);
 
-			$check_name = $keluarga->check_name($crud, $keluarga->getName());
-			if($check_name){
-				$message = "Name '".$keluarga->getName()."' already exist";
-				$alert = "failed";
-			}else{
-				$result = $keluarga->insert_data($crud, $keluarga);
-               	if($result){
-                    $message = "Add New Keluarga '".$keluarga->getName()."' success";
-                    $alert = "success";
-                }else{
-                    $message = "Add New Keluarga '".$keluarga->getName()."' failed. Please try again";
-                    $alert = "failed";
-                }
-			}
+			$result = $jemaat->insert_data($crud, $jemaat);
+           	if($result){
+                $message = "Add New Jemaat '".$jemaat->getFirstName()."' success";
+                $alert = "success";
+            }else{
+                $message = "Add New Jemaat '".$jemaat->getFirstName()."' failed. Please try again";
+                $alert = "failed";
+            }
 
 	        $_SESSION['status'] = $message;
 	        $_SESSION['alert'] = $alert;
-	        header("Location:".$path['keluarga']);*/
+	        header("Location:".$path['jemaat']);
 	    
 	    } else if($_GET['action'] == "delete" && issetVar(array('id', 'name'))){
 	    	print_r($_POST);

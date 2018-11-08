@@ -123,11 +123,21 @@
                         <div class="row">
                           <div class="col-sm-4 col-xs-12 up1 form-label">Tanggal Lahir :</div>
                           <div class="col-sm-5 col-xs-12 up1">
-                            <input id="input-birthday" name="birthday" type="text" class="form-control input-style" placeholder="Tanggal Lahir">
+                            <div class="input-group">
+                              <input id="input-birthday" name="birthday" type="date" class="form-control input-style" placeholder="Tanggal Lahir">
+                              <span class="input-group-addon"> <i class="fa fa-calendar"></i> </span>
+                            </div>
                             <div id="error-birthday" class="is-error"></div>
                           </div>
                         </div>
-                        <div class="row up1"></div>
+                        <div class="row">
+                          <div class="col-sm-4 col-xs-12"></div>
+                          <div class="col-sm-5 col-xs-12">
+                            <span class="note-input">
+                              <i class="fa fa-info-circle"></i> Format: mm/dd/yyyy
+                            </span>
+                          </div>
+                        </div>
                         <div class="row">
                           <div class="col-sm-4 col-xs-12 up1 form-label">No. HP 1 :</div>
                           <div class="col-sm-5 col-xs-12 up1">

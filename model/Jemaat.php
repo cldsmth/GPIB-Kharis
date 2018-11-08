@@ -160,20 +160,35 @@ class Jemaat
     /*public function get_detail($crud, $id){
         $result = $crud->detail($id, $this->table);
         return !$result ? false : is_array($result) ? $result[0] : false;
-    }
+    }*/
 
-    public function insert_data($crud, $keluarga){
+    public function insert_data($crud, $jemaat){
         date_default_timezone_set('Asia/Jakarta');
         $now = date("Y-m-d H:i:s");
 
-        $query = "INSERT INTO $this->table (id, name, sector, address, status, datetime, timestamp) 
-            VALUES ('$keluarga->_id', '$keluarga->_name', '$keluarga->_sector', '$keluarga->_address', 
-            '$keluarga->_status', '$now', '$now')";
-        $result = $crud->execute($query);
+        $query = [
+            'id' => $jemaat->_id, 
+            'keluarga_id' => $jemaat->_keluarga_id, 
+            'first_name' => $jemaat->_first_name,
+            'middle_name' => $jemaat->_middle_name,
+            'last_name' => $jemaat->_last_name,
+            'gender' => $jemaat->_gender,
+            'birthday' => $jemaat->_birthday, 
+            'phone1' => $jemaat->_phone1, 
+            'phone2' => $jemaat->_phone2, 
+            'phone3' => $jemaat->_phone3, 
+            'notes' => $jemaat->_notes, 
+            'status' => (int) $jemaat->_status, 
+            'timestamp' => $now, 
+            'datetime' => $now
+        ];
+        $bulk = new MongoDB\Driver\BulkWrite;
+        $bulk->insert($query);
+        $result = $crud->post($this->table, $bulk);
         return $result;
     }
 
-    public function update_data($crud, $keluarga){
+    /*public function update_data($crud, $keluarga){
         $query = "UPDATE $this->table SET name = '$keluarga->_name', sector = '$keluarga->_sector',
             address = '$keluarga->_address', status = '$keluarga->_status' WHERE id = '$keluarga->_id'";
         $result = $crud->execute($query);
