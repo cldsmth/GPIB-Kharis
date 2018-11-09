@@ -133,8 +133,7 @@ class Admin
     public function login($crud, $email, $password){
         $filter = [
             'email' => $email, 
-            'password' => $password,
-            'status' => 1
+            'password' => $password
         ];
         $options = [
             'projection' => [
@@ -143,7 +142,8 @@ class Admin
                 'name' => 1, 
                 'email' => 1, 
                 'img' => 1, 
-                'auth_code' => 1
+                'auth_code' => 1, 
+                'status' => 1
             ],
             'limit' => 1
         ]; 

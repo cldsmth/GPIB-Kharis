@@ -166,6 +166,14 @@
                           <div id="error-password" class="is-error"></div>
                         </div>
                       </div>
+                      <div class="row">
+                        <div class="col-sm-4 col-xs-12"></div>
+                        <div class="col-sm-7 col-xs-12">
+                          <span class="note-input">
+                            <i class="fa fa-info-circle"></i> Password must contain the following: A lowercase letter, a capital (uppercase) letter, a number, and minimum 8 characters
+                          </span>
+                        </div>
+                      </div>
                       <div class="row up1"></div>
                       <div class="row">
                         <div class="col-sm-4 col-xs-12 form-label"><strong>Re-Type New Password <span class="symbol-required">*</span></strong> :</div>
@@ -241,11 +249,55 @@
       function validateFormChangePassword(){
         var password = $("#input-password").val();
         var repassword = $("#input-repassword").val();
+        var lowercaseformat = /[a-z]/g;
+        var uppercaseformat = /[A-Z]/g;
+        var numberformat = /[0-9]/g;
         
         if(password != ""){
-          $("#error-password").html("");
-          $("#error-password").hide();
-          $("#input-password").removeClass("input-error");
+          if(password.match(lowercaseformat)){
+            $("#error-password").html("");
+            $("#error-password").hide();
+            $("#input-password").removeClass("input-error");
+          }else{
+            $("#error-password").show();
+            $("#error-password").html("<i class='fa fa-warning'></i> Password must contain at least one lowercase letter.");
+            $("#input-password").addClass("input-error");
+            $("#input-password").focus();
+            return false;
+          }
+          if(password.match(uppercaseformat)){
+            $("#error-password").html("");
+            $("#error-password").hide();
+            $("#input-password").removeClass("input-error");
+          }else{
+            $("#error-password").show();
+            $("#error-password").html("<i class='fa fa-warning'></i> Password must contain at least one capital (uppercase) letter.");
+            $("#input-password").addClass("input-error");
+            $("#input-password").focus();
+            return false;
+          }
+          if(password.match(numberformat)){
+            $("#error-password").html("");
+            $("#error-password").hide();
+            $("#input-password").removeClass("input-error");
+          }else{
+            $("#error-password").show();
+            $("#error-password").html("<i class='fa fa-warning'></i> Password must contain at least one number.");
+            $("#input-password").addClass("input-error");
+            $("#input-password").focus();
+            return false;
+          }
+          if(password.length >= 8){
+            $("#error-password").html("");
+            $("#error-password").hide();
+            $("#input-password").removeClass("input-error");
+          }else{
+            $("#error-password").show();
+            $("#error-password").html("<i class='fa fa-warning'></i> Password must contain at least 8 characters.");
+            $("#input-password").addClass("input-error");
+            $("#input-password").focus();
+            return false;
+          }
         } else {
           $("#error-password").show();
           $("#error-password").html("<i class='fa fa-warning'></i> This field is required.");

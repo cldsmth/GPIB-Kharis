@@ -1,14 +1,11 @@
-todo
--research structure mvc/oop php 7.2
-
 next step
--connect forget password system
--nanti adjust lagi yang validasi input "password" dan "phone"
+-nanti adjust lagi yang validasi input "phone"
 -nanti adjust validasi check name/email lagsung ajax
 -kalau sudah ada module jemaat/kepala keluarga, bikin satu module di dalam menu setting
  nama module nya import, trus ada submenu Jemaat, dll
 -advanced search di module jemaat
 -export excel di module jemmat
+-connect forget password system
 
 next improvement
 -ada pengecekan last login, jadi setiap kali login, insert di table log untuk loginnya dan tempat loginnya

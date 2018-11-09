@@ -39,11 +39,17 @@ if(!isset($_GET['action'])){
         	$result = $admin->login($crud, $_email, $password);
 	        //var_dump($result);
 	        if(hasProperty($result, "id")){
-	        	create_session($result);
-	        	if(isset($_SESSION['GpibKharis']) && $_remember_me == "yes"){
-	        		create_cookie(json_encode($_SESSION['GpibKharis']));
+	        	if($result->status == 1){
+	        		create_session($result);
+		        	if(isset($_SESSION['GpibKharis']) && $_remember_me == "yes"){
+		        		create_cookie(json_encode($_SESSION['GpibKharis']));
+		        	}
+	        		$page = $path['home'];
+	        	}else{
+	        		$_SESSION['status'] = "Login failed. Your account has been inactive.";
+		        	$_SESSION['alert'] = "failed";
+		        	$page = $path['login'];
 	        	}
-	        	$page = $path['home'];
 	        }else{
 	        	$_SESSION['status'] = "Login failed. Please try again.";
 	        	$_SESSION['alert'] = "failed";
