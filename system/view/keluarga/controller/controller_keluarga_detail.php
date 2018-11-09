@@ -18,6 +18,7 @@ if(!isset($_GET['action'])){
 	    	$keluarga->setId(check_input($_POST['id']));
 			$keluarga->setName(check_input($_POST['new_name']));
 			$keluarga->setSector(check_input($_POST['sector']));
+			$keluarga->setWeddingDate($_POST['wedding_date'] != "" ? date("Y-m-d", strtotime(check_input($_POST['wedding_date']))) : "0000-00-00");
 			$keluarga->setAddress(check_input(nl2br($_POST['address'], false)));
 			$keluarga->setStatus(isset($_POST['status']) ? check_input($_POST['status']) : 0);
 			$_old_name = check_input($_POST['old_name']);

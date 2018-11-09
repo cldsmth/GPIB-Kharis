@@ -4,6 +4,7 @@ class Keluarga
     private $_id;
     private $_name;
     private $_sector;
+    private $_wedding_date;
     private $_address;
     private $_status;
     private $table;
@@ -36,6 +37,14 @@ class Keluarga
     
     function getSector(){ 
         return $this->_sector;
+    }
+
+    function setWeddingDate($wedding_date){ 
+        $this->_wedding_date = $wedding_date;
+    }
+    
+    function getWeddingDate(){ 
+        return $this->_wedding_date;
     }
 
     function setAddress($address){ 
@@ -116,7 +125,8 @@ class Keluarga
                 '_id' => 0, 
                 'id' => 1, 
                 'name' => 1, 
-                'sector' => 1,  
+                'sector' => 1, 
+                'wedding_date' => 1, 
                 'status' => 1,
                 'datetime' => 1,
                 'timestamp' => 1
@@ -156,6 +166,7 @@ class Keluarga
             'id' => $keluarga->_id, 
             'name' => $keluarga->_name, 
             'sector' => (int) $keluarga->_sector, 
+            'wedding_date' => $keluarga->_wedding_date, 
             'address' => $keluarga->_address, 
             'status' => (int) $keluarga->_status, 
             'timestamp' => $now, 
@@ -180,6 +191,7 @@ class Keluarga
                 '$set' => [
                     'name' => $keluarga->_name, 
                     'sector' => (int) $keluarga->_sector,
+                    'wedding_date' => $keluarga->_wedding_date,
                     'address' => $keluarga->_address,
                     'status' => (int) $keluarga->_status, 
                     'timestamp' => $now

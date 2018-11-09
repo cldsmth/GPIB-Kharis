@@ -78,6 +78,24 @@
                         </div>
                         <div class="row up1"></div>
                         <div class="row">
+                          <div class="col-sm-4 col-xs-12 up1 form-label">Tanggal Pernikahan :</div>
+                          <div class="col-sm-5 col-xs-12 up1">
+                            <div class="input-group">
+                              <input id="input-wedding-date" name="wedding_date" type="date" class="form-control input-style" placeholder="Tanggal Pernikahan">
+                              <span class="input-group-addon"> <i class="fa fa-calendar"></i> </span>
+                            </div>
+                            <div id="error-wedding-date" class="is-error"></div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-4 col-xs-12"></div>
+                          <div class="col-sm-5 col-xs-12">
+                            <span class="note-input">
+                              <i class="fa fa-info-circle"></i> Format: mm/dd/yyyy
+                            </span>
+                          </div>
+                        </div>
+                        <div class="row">
                           <div class="col-sm-4 col-xs-12 up1 form-label">Alamat :</div>
                           <div class="col-sm-5 col-xs-12 up1">
                             <textarea id="input-address" name="address" class="form-control" rows="3" placeholder="Alamat" maxlength="255"></textarea>

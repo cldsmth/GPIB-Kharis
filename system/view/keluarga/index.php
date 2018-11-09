@@ -63,6 +63,7 @@
                           <th class="text-center">Action</th>
                           <th>Nama Keluarga</th>
                           <th class="text-center">Sektor</th>
+                          <th>Tanggal Pernikahan</th>
                           <th>Status</th>
                           <th>Create Date</th>
                           <th>Last Updated</th>
@@ -76,13 +77,14 @@
                           </td>
                           <td><?=correctDisplay($data->name);?></td>
                           <td class="text-center"><?=$data->sector;?></td>
+                          <td><?=($data->wedding_date != "0000-00-00" ? date("d-M-Y", strtotime($data->wedding_date)) : "-");?></td>
                           <td><?=checkStatus($data->status);?></td>
                           <td><?=date("d-M-Y, H:i:s", strtotime($data->datetime));?></td>
                           <td><?=($data->datetime != $data->timestamp ? time_ago($data->timestamp) : "-");?></td>
                         </tr>
                         <?php $num++;}}else{?>
                         <tr>
-                          <td colspan="7">There is no data!</td>
+                          <td colspan="8">There is no data!</td>
                         </tr>
                         <?php }?>
                       </tbody>

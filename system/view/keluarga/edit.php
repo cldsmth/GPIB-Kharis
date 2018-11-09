@@ -80,6 +80,24 @@
                         </div>
                         <div class="row up1"></div>
                         <div class="row">
+                          <div class="col-sm-4 col-xs-12 up1 form-label">Tanggal Pernikahan :</div>
+                          <div class="col-sm-5 col-xs-12 up1">
+                            <div class="input-group">
+                              <input id="input-wedding-date" name="wedding_date" type="date" class="form-control input-style" placeholder="Tanggal Pernikahan" value="<?=($datas->wedding_date != "0000-00-00" ? $datas->wedding_date : "");?>">
+                              <span class="input-group-addon"> <i class="fa fa-calendar"></i> </span>
+                            </div>
+                            <div id="error-wedding-date" class="is-error"></div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-4 col-xs-12"></div>
+                          <div class="col-sm-5 col-xs-12">
+                            <span class="note-input">
+                              <i class="fa fa-info-circle"></i> Format: mm/dd/yyyy
+                            </span>
+                          </div>
+                        </div>
+                        <div class="row">
                           <div class="col-sm-4 col-xs-12 up1 form-label">Alamat :</div>
                           <div class="col-sm-5 col-xs-12 up1">
                             <textarea id="input-address" name="address" class="form-control" rows="3" placeholder="Alamat" maxlength="255"><?=str_replace("<br>", "", correctDisplay($datas->address));?></textarea>
@@ -192,12 +210,14 @@
         if(validateForm()){
             var name = document.getElementById("input-name");
             var sector = document.getElementById("input-sector");
+            var wedding_date = document.getElementById("input-wedding-date");
             var address = document.getElementById("input-address");
             var status = document.getElementById("input-status");
             var default_sector = document.getElementById("default-sector");
             var array = [
               [name.defaultValue, name.value],
               [default_sector.defaultValue, sector.value],
+              [wedding_date.defaultValue, wedding_date.value],
               [address.defaultValue, address.value],
               [status.defaultChecked, status.checked]
             ];
