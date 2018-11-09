@@ -41,7 +41,7 @@
                 <header class="widget-header">
                   <div class="row">
                     <div class="col-sm-6">
-                      <h4 class="widget-title">Keluarga "<?=correctDisplay($datas->name);?>"</strong></h4>
+                      <h4 class="widget-title">Keluarga "<?=correctDisplay($datas->name);?>"</h4>
                     </div>
                   </div>
                 </header><!-- .widget-header -->
