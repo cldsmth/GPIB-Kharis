@@ -223,6 +223,10 @@
         var keluarga = $("#input-keluarga").val();
         var gender = document.getElementsByName('gender');
         var is_gender = false;
+        var phone1 = $("#input-phone1").val();
+        var phone2 = $("#input-phone2").val();
+        var phone3 = $("#input-phone3").val();
+        var phoneformat = /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g;
 
         for(var i=0; i < gender.length; i++){
             if(gender[i].checked == true){
@@ -272,6 +276,45 @@
           $("#input-gender").addClass("input-error");
           $("#input-gender").focus();
           return false;
+        }
+        if(phone1 != ""){
+          if(phone1.match(phoneformat)){
+            $("#error-phone1").html("");
+            $("#error-phone1").hide();
+            $("#input-phone1").removeClass("input-error");
+          } else {
+            $("#error-phone1").show();
+            $("#error-phone1").html("<i class='fa fa-warning'></i> Invalid phone number format.");
+            $("#input-phone1").addClass("input-error");
+            $("#input-phone1").focus();
+            return false;
+          }
+        }
+        if(phone2 != ""){
+          if(phone2.match(phoneformat)){
+            $("#error-phone2").html("");
+            $("#error-phone2").hide();
+            $("#input-phone2").removeClass("input-error");
+          } else {
+            $("#error-phone2").show();
+            $("#error-phone2").html("<i class='fa fa-warning'></i> Invalid phone number format.");
+            $("#input-phone2").addClass("input-error");
+            $("#input-phone2").focus();
+            return false;
+          }
+        }
+        if(phone3 != ""){
+          if(phone3.match(phoneformat)){
+            $("#error-phone3").html("");
+            $("#error-phone3").hide();
+            $("#input-phone3").removeClass("input-error");
+          } else {
+            $("#error-phone3").show();
+            $("#error-phone3").html("<i class='fa fa-warning'></i> Invalid phone number format.");
+            $("#input-phone3").addClass("input-error");
+            $("#input-phone3").focus();
+            return false;
+          }
         }
         return true;
       }
