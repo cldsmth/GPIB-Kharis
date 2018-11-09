@@ -1,6 +1,4 @@
 todo
--primary key mongodb (how to use)
--security input php 7.2 or using mongodb
 -research structure mvc/oop php 7.2
 
 next step
