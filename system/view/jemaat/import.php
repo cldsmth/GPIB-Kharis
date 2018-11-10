@@ -108,6 +108,18 @@
     </main>
   	<?php include("../../parts/part-footer-js.php");?>
     <script type="text/javascript">
+      <?php if($message != ""){?>
+        //use session here for alert success/failed
+        var alertText = "<?=$message;?>"; //text for alert
+        <?php if($alert != "success"){?>
+          //error alert
+          errorAlert(alertText);
+        <?php } else { ?>
+          //success alert
+          successAlert(alertText);
+        <?php } ?>
+      <?php } ?>
+      
       $("#input-file").change(function(){
         var file_val = $(this).val();
         if(file_val != ""){

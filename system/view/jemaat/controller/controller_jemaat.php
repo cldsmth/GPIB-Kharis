@@ -20,25 +20,26 @@ if(!isset($_GET['action'])){
 	    $total_page = hasProperty($datas, "data") ? $datas->total_page : 0;
 	    $total_data = hasProperty($datas, "data") ? $datas->total_data : 0;
 	    $total_data_all = hasProperty($datas, "data") ? $datas->total_data_all : 0;
-
-	    if(isset($_SESSION['status'])){
-	        $message = $_SESSION['status'];
-	        unset($_SESSION['status']);
-	    } else {
-	        $message = "";
-	    }
-
-	    if(isset($_SESSION['alert'])){
-	        $alert = $_SESSION['alert'];
-	        unset($_SESSION['alert']);
-	    } else {
-	        $alert = "";
-	    }
     }else if($filename == "insert"){
         $keluargas = $keluarga->get_list($crud);
     }else{
     	//code import
     }
+
+    if(isset($_SESSION['status'])){
+        $message = $_SESSION['status'];
+        unset($_SESSION['status']);
+    } else {
+        $message = "";
+    }
+
+    if(isset($_SESSION['alert'])){
+        $alert = $_SESSION['alert'];
+        unset($_SESSION['alert']);
+    } else {
+        $alert = "";
+    }
+
 }else{
 
 	if(isset($_GET['action'])){
@@ -89,7 +90,85 @@ if(!isset($_GET['action'])){
 	        header("Location:".$path['jemaat']);
 
         } else if($_GET['action'] == "import" && isset($_FILES['file'])){
-	    	print_r($_FILES);
+	    	error_reporting(E_ALL^E_NOTICE); //remove notice
+            include_once($global['root-url']."/system/libraries/php-excel-reader/excel_reader2.php");
+            include_once($global['root-url']."/system/libraries/php-excel-reader/SpreadsheetReader.php");
+
+            $datas = "";
+            $excels = save_excel("file", $global['root-url']."uploads/template/");
+			if($excels['status'] == 200){
+				$datas = array();
+				$file_location = $excels['data']['location'];
+				chmod($file_location, 0777);
+
+				$Reader = new SpreadsheetReader($file_location);
+                $totalSheet = count($Reader->sheets());
+                for($i=0; $i < $totalSheet; $i++){
+                    $Reader->ChangeSheet($i);
+                    $index = 0;
+                    $num = 0;
+                    $isFormat = false;
+                    foreach($Reader as $Row){
+                        if($index > 0){
+                        	if($isFormat){
+                        		if($Row[0] != ""){
+                        			$first_name = $Row[2];
+	                        		$middle_name = $Row[3];
+	                        		//set array data
+	                        		$datas['data']['first_name'][$num] = $first_name;
+	                        		$datas['data']['middle_name'][$num] = $middle_name;
+	                        		$num++;
+                        		}
+                        	}
+                        }else{
+                        	$columns = array(0 => array('value' => $Row[0], 'text' => "NO"),
+					            1 => array('value' => $Row[1], 'text' => "SEKTOR"),
+					            2 => array('value' => $Row[2], 'text' => "NAMA AWAL"),
+					            3 => array('value' => $Row[3], 'text' => "NAMA AKHIR"),
+					            4 => array('value' => $Row[4], 'text' => "NAMA MARGA"),
+					            5 => array('value' => $Row[5], 'text' => "NAMA KELUARGA"),
+					            6 => array('value' => $Row[6], 'text' => "JENIS KELAMIN"),
+					            7 => array('value' => $Row[7], 'text' => "NO. TELP / HP"),
+					            8 => array('value' => $Row[8], 'text' => "STATUS AKTIF"),
+					            9 => array('value' => $Row[9], 'text' => "CATATAN"),
+					            10 => array('value' => $Row[10], 'text' => "TANGGAL LAHIR"),
+					            11 => array('value' => $Row[11], 'text' => "ALAMAT"),
+					        );
+                        	$array_check = array();
+                        	$index_check = 0;
+                        	foreach($columns as $column){
+                        		if($column['value'] == $column['text']){
+                        			$array_check[$index_check] = true;
+                        			$index_check++;
+                        		}
+                        	}
+                        	if(count($array_check) == count($columns)){
+                        		$isFormat = true;
+                        	}
+                        }
+                        $index++;
+                    }
+                }
+                unlink($file_location);
+			}
+
+			//var_dump($datas);
+			if(is_array($datas)){
+				if(isset($datas['data'])){
+					$message = "Import file excel success";
+					$alert = "success";
+				}else{
+					$message = "Invalid format column file excel. Please check your file excel with the same format template";
+					$alert = "failed";
+				}
+			}else{
+				$message = "Import file excel failed";
+				$alert = "failed";
+			}
+
+			$_SESSION['status'] = $message;
+	        $_SESSION['alert'] = $alert;
+	        header("Location:".$path['jemaat-import']);
 	    
 	    } else {
 	    	$_SESSION['status'] = "Action Not Found.";

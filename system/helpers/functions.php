@@ -94,6 +94,42 @@ if(!function_exists('save_image'))
     }
 }
 
+if(!function_exists('save_excel'))
+{
+    function save_excel($param, $upload_link){
+        $result = array("status" => "400", "message" => "No data");
+        if(isset($_FILES[$param]['name'])){
+            if(!empty($_FILES[$param]['name'])){
+                $allowed_ext = array('xls', 'xlsx');
+                $file_name = time().rand().cleanSpace($_FILES[$param]['name']);
+                $file_ext_tmp = explode('.', $file_name);
+                $file_ext = strtolower(end($file_ext_tmp));
+                $file_type = $_FILES[$param]['type'];
+                $file_size = $_FILES[$param]['size'];
+                $file_tmp = $_FILES[$param]['tmp_name'];
+
+                if(in_array($file_ext, $allowed_ext) === true){
+                    $file_loc = $upload_link.$file_name;
+                    if(move_uploaded_file($file_tmp, $file_loc)){
+                        $result = array("status" => "200", "message" => "Upload excel success");
+                        $result['data']['filename'] = $file_name;
+                        $result['data']['location'] = $file_loc;
+                    }else{
+                        $result = array("status" => "400", "message" => "Upload excel failed");
+                    }
+                }else{
+                    $result = array("status" => "415", "message" => "ERROR: extension file invalid!");
+                }
+            }else{
+                $result = array("status" => "404", "message" => "Upload file is empty");
+            }
+        }else{
+            $result = array("status" => "404", "message" => "Upload file is empty");
+        }
+        return $result;
+    }
+}
+
 if(!function_exists('getUploadFile'))
 {
     function getUploadFile($url, $module, $thmb, $data){
