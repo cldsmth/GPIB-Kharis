@@ -242,26 +242,26 @@
 
       function confirmSubmit(){
         if(validateForm()){
-            var name = document.getElementById("input-name");
-            var email = document.getElementById("input-email");
-            var image = document.getElementById("input-image");
-            var status = document.getElementById("input-status");
-            var array = [
-              [name.defaultValue, name.value],
-              [email.defaultValue, email.value],
-              [image.defaultValue, image.value],
-              [status.defaultChecked, status.checked]
-            ];
-            if(isDataChanges(array)){
-              var result = confirm("Are you sure want to edit ?");
-              if(result){
-                $("#btn-submit").attr('disabled', 'disabled');
-                $("#btn-submit").html("<i class='fa fa-spinner fa-spin'></i> Loading");
-                document.getElementById("form-admin").submit();
-              }
-            }else{
-              alert("There is no change");
+          var name = document.getElementById("input-name");
+          var email = document.getElementById("input-email");
+          var image = document.getElementById("input-image");
+          var status = document.getElementById("input-status");
+          var array = [
+            [name.defaultValue, name.value],
+            [email.defaultValue, email.value],
+            [image.defaultValue, image.value],
+            [status.defaultChecked, status.checked]
+          ];
+          if(isDataChanges(array)){
+            var result = confirm("Are you sure want to edit ?");
+            if(result){
+              $("#btn-submit").attr('disabled', 'disabled');
+              $("#btn-submit").html("<i class='fa fa-spinner fa-spin'></i> Loading");
+              document.getElementById("form-admin").submit();
             }
+          }else{
+            alert("There is no change");
+          }
         }
         return false;
       }

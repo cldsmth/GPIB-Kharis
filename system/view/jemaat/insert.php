@@ -321,15 +321,15 @@
 
       function confirmSubmit(){
         if(validateForm()){
-            var first_name = $("#input-first-name").val();
-            var middle_name = $("#input-middle-name").val();
-            var last_name = $("#input-last-name").val();
-            var result = confirm("Are you sure want to create \""+checkFullName(first_name, middle_name, last_name)+"\" ?");
-            if(result){
-              $("#btn-submit").attr('disabled', 'disabled');
-              $("#btn-submit").html("<i class='fa fa-spinner fa-spin'></i> Loading");
-              document.getElementById("form-jemaat").submit();
-            }
+          var first_name = $("#input-first-name").val();
+          var middle_name = $("#input-middle-name").val();
+          var last_name = $("#input-last-name").val();
+          var result = confirm("Are you sure want to create \""+checkFullName(first_name, middle_name, last_name)+"\" ?");
+          if(result){
+            $("#btn-submit").attr('disabled', 'disabled');
+            $("#btn-submit").html("<i class='fa fa-spinner fa-spin'></i> Loading");
+            document.getElementById("form-jemaat").submit();
+          }
         }
         return false;
       }

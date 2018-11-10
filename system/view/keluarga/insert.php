@@ -181,13 +181,13 @@
 
       function confirmSubmit(){
         if(validateForm()){
-            var name = $("#input-name").val();
-            var result = confirm("Are you sure want to create \""+name+"\" ?");
-            if(result){
-              $("#btn-submit").attr('disabled', 'disabled');
-              $("#btn-submit").html("<i class='fa fa-spinner fa-spin'></i> Loading");
-              document.getElementById("form-keluarga").submit();
-            }
+          var name = $("#input-name").val();
+          var result = confirm("Are you sure want to create \""+name+"\" ?");
+          if(result){
+            $("#btn-submit").attr('disabled', 'disabled');
+            $("#btn-submit").html("<i class='fa fa-spinner fa-spin'></i> Loading");
+            document.getElementById("form-keluarga").submit();
+          }
         }
         return false;
       }

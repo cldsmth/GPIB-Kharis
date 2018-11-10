@@ -8,6 +8,7 @@ $global = array(
 	'absolute-url' => PATH,
 	'absolute-url-admin' => ADMIN,
 	'root-url' => ROOT."gpib/",
+	'uploads-url' => PATH."uploads/",
 	'api' => PATH."api/",
 	'favicon' => ADMIN."assets/images/logo.png"
 );
@@ -32,7 +33,8 @@ $path = array(
 	'keluarga-edit' => ADMIN."view/keluarga/update/",
 	'jemaat' => ADMIN."view/jemaat/",
 	'jemaat-add' => ADMIN."view/jemaat/new/",
-	'jemaat-edit' => ADMIN."view/jemaat/update/"
+	'jemaat-edit' => ADMIN."view/jemaat/update/",
+	'jemaat-import' => ADMIN."view/jemaat/import/"
 );
 
 $title = array(

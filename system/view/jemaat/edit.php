@@ -346,42 +346,42 @@
       
       function confirmSubmit(){
         if(validateForm()){
-            var first_name = document.getElementById("input-first-name");
-            var middle_name = document.getElementById("input-middle-name");
-            var last_name = document.getElementById("input-last-name");
-            var keluarga = document.getElementById("input-keluarga");
-            var gender = document.getElementsByName("gender");
-            var birthday = document.getElementById("input-birthday");
-            var phone1 = document.getElementById("input-phone1");
-            var phone2 = document.getElementById("input-phone2");
-            var phone3 = document.getElementById("input-phone3");
-            var notes = document.getElementById("input-notes");
-            var status = document.getElementById("input-status");
-            var default_keluarga = "<?=$datas->keluarga_id;?>";
-            var array = [
-              [first_name.defaultValue, first_name.value],
-              [middle_name.defaultValue, middle_name.value],
-              [last_name.defaultValue, last_name.value],
-              [default_keluarga, keluarga.value],
-              [gender[0].defaultChecked, gender[0].checked],
-              [gender[1].defaultChecked, gender[1].checked],
-              [birthday.defaultValue, birthday.value],
-              [phone1.defaultValue, phone1.value],
-              [phone2.defaultValue, phone2.value],
-              [phone3.defaultValue, phone3.value],
-              [notes.defaultValue, notes.value],
-              [status.defaultChecked, status.checked]
-            ];
-            if(isDataChanges(array)){
-              var result = confirm("Are you sure want to edit ?");
-              if(result){
-                $("#btn-submit").attr('disabled', 'disabled');
-                $("#btn-submit").html("<i class='fa fa-spinner fa-spin'></i> Loading");
-                document.getElementById("form-jemaat").submit();
-              }
-            }else{
-              alert("There is no change");
+          var first_name = document.getElementById("input-first-name");
+          var middle_name = document.getElementById("input-middle-name");
+          var last_name = document.getElementById("input-last-name");
+          var keluarga = document.getElementById("input-keluarga");
+          var gender = document.getElementsByName("gender");
+          var birthday = document.getElementById("input-birthday");
+          var phone1 = document.getElementById("input-phone1");
+          var phone2 = document.getElementById("input-phone2");
+          var phone3 = document.getElementById("input-phone3");
+          var notes = document.getElementById("input-notes");
+          var status = document.getElementById("input-status");
+          var default_keluarga = "<?=$datas->keluarga_id;?>";
+          var array = [
+            [first_name.defaultValue, first_name.value],
+            [middle_name.defaultValue, middle_name.value],
+            [last_name.defaultValue, last_name.value],
+            [default_keluarga, keluarga.value],
+            [gender[0].defaultChecked, gender[0].checked],
+            [gender[1].defaultChecked, gender[1].checked],
+            [birthday.defaultValue, birthday.value],
+            [phone1.defaultValue, phone1.value],
+            [phone2.defaultValue, phone2.value],
+            [phone3.defaultValue, phone3.value],
+            [notes.defaultValue, notes.value],
+            [status.defaultChecked, status.checked]
+          ];
+          if(isDataChanges(array)){
+            var result = confirm("Are you sure want to edit ?");
+            if(result){
+              $("#btn-submit").attr('disabled', 'disabled');
+              $("#btn-submit").html("<i class='fa fa-spinner fa-spin'></i> Loading");
+              document.getElementById("form-jemaat").submit();
             }
+          }else{
+            alert("There is no change");
+          }
         }
         return false;
       }

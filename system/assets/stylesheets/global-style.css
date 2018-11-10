@@ -39,3 +39,32 @@
     font-size: 12px;
     font-style: italic;
 }
+.wrap-iexcel {
+    width: 250px;
+    margin: 0 auto;
+    max-width: 100%;
+}
+.box-iexcel {
+    display: block;
+    border: solid 1px #ddd;
+    border-radius: 5px;
+    padding: 5px;
+}
+.btn-iexcel {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 6px 10px;
+    border: solid 1px #ddd;
+    border-radius: 3px;
+    margin-right: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+.text-iexcel {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 13px;
+}
+.btn-iexcel:hover,.btn-iexcel:focus,.btn-iexcel:active {
+    background-color: #dddd;
+}

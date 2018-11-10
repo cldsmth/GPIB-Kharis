@@ -190,32 +190,33 @@
             <span class="menu-text">Tata Ibadah</span>
           </a>
         </li>
+        */?>
 
         <!-- Setting !-->
-        <li class="has-submenu">
+        <li class="has-submenu <?=(in_array_any(array($curpage), array("import-jemaat")) ? "active open" : "");?>">
           <a href="javascript:void(0)" class="submenu-toggle">
             <i class="menu-icon fa fa-cogs"></i>
             <span class="menu-text">Setting</span>
             <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
           </a>
-          <ul class="submenu">
+          <ul class="submenu" style="<?=(in_array_any(array($curpage), array("import-jemaat")) ? "display: block;" : "");?>">
             <!-- Module Role Access !-->
-            <li>
+            <!--<li>
               <a href="#">
                 <span class="menu-text">Role Access</span>
               </a>
-            </li>
+            </li>!-->
 
             <!-- Import !-->
-            <li class="has-submenu">
+            <li class="has-submenu <?=(in_array_any(array($curpage), array("import-jemaat")) ? "active open" : "");?>">
               <a href="javascript:void(0)" class="submenu-toggle">
                 <span class="menu-text">Import</span>
                 <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
               </a>
-              <ul class="submenu">
+              <ul class="submenu" style="<?=(in_array_any(array($curpage), array("import-jemaat")) ? "display: block;" : "");?>">
                 <!-- Module Import Jemaat !-->
-                <li>
-                  <a href="#">
+                <li class="<?=($curpage == "import-jemaat" ? "active" : "");?>">
+                  <a href="<?=$path['jemaat-import'];?>">
                     <span class="menu-text">Jemaat</span>
                   </a>
                 </li>
@@ -223,7 +224,6 @@
             </li>
           </ul>
         </li>
-        */?>
 
         <li class="menu-separator"><hr></li>
         

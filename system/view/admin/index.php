@@ -330,13 +330,13 @@
 
       function confirmSubmitChangePassword(){
         if(validateFormChangePassword()){
-            var name = $("#input-name").val();
-            var result = confirm("Are you sure want to change password \""+name+"\" ?");
-            if(result){
-              $("#btn-submit").attr('disabled', 'disabled');
-              $("#btn-submit").html("<i class='fa fa-spinner fa-spin'></i> Loading");
-              document.getElementById("form-change-password").submit();
-            }
+          var name = $("#input-name").val();
+          var result = confirm("Are you sure want to change password \""+name+"\" ?");
+          if(result){
+            $("#btn-submit").attr('disabled', 'disabled');
+            $("#btn-submit").html("<i class='fa fa-spinner fa-spin'></i> Loading");
+            document.getElementById("form-change-password").submit();
+          }
         }
         return false;
       }

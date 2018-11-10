@@ -34,8 +34,10 @@ if(!isset($_GET['action'])){
 	    } else {
 	        $alert = "";
 	    }
-    }else{
+    }else if($filename == "insert"){
         $keluargas = $keluarga->get_list($crud);
+    }else{
+    	//code import
     }
 }else{
 
@@ -86,7 +88,10 @@ if(!isset($_GET['action'])){
 	        $_SESSION['alert'] = $alert;
 	        header("Location:".$path['jemaat']);
 
-        } else {
+        } else if($_GET['action'] == "import" && isset($_FILES['file'])){
+	    	print_r($_FILES);
+	    
+	    } else {
 	    	$_SESSION['status'] = "Action Not Found.";
 	        $_SESSION['alert'] = "failed";
 	        header("Location:".$path['home']);

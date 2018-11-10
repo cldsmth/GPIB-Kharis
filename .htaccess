@@ -244,6 +244,7 @@ RewriteRule ^system/view/keluarga/update/$ system/view/keluarga/edit.php
 #code to redirect module jemaat
 RewriteRule ^system/view/jemaat/new/$ system/view/jemaat/insert.php
 RewriteRule ^system/view/jemaat/update/$ system/view/jemaat/edit.php
+RewriteRule ^system/view/jemaat/import/$ system/view/jemaat/import.php
 
 #code to redirect decrypt to decrypt-file.php
 RewriteRule ^file/(.*)/(.*)/(.*)/$ decrypt-file.php?module=$1&type=$2&data=$3
