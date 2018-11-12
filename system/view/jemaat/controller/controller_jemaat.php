@@ -52,7 +52,7 @@ if(!isset($_GET['action'])){
 			$jemaat->setLastName(check_input($_POST['last_name']));
 			$jemaat->setFullName(checkFullName($jemaat->getFirstName(), $jemaat->getMiddleName(), $jemaat->getLastName()));
 			$jemaat->setGender(check_input($_POST['gender']));
-			$jemaat->setBirthday($_POST['birthday'] != "" ? date("Y-m-d", strtotime(check_input($_POST['birthday']))) : "0000-00-00");
+			$jemaat->setBirthday(check_input(checkFormatDateValue($_POST['birthday'])));
 			$jemaat->setPhone1(check_input($_POST['phone1']));
 			$jemaat->setPhone2(check_input($_POST['phone2']));
 			$jemaat->setPhone3(check_input($_POST['phone3']));
@@ -97,26 +97,44 @@ if(!isset($_GET['action'])){
             $datas = "";
             $excels = save_excel("file", $global['root-url']."uploads/template/");
 			if($excels['status'] == 200){
-				$datas = array();
 				$file_location = $excels['data']['location'];
 				chmod($file_location, 0777);
+				$datas = array();
+				$num = 0;
 
 				$Reader = new SpreadsheetReader($file_location);
                 $totalSheet = count($Reader->sheets());
                 for($i=0; $i < $totalSheet; $i++){
                     $Reader->ChangeSheet($i);
                     $index = 0;
-                    $num = 0;
                     $isFormat = false;
                     foreach($Reader as $Row){
                         if($index > 0){
                         	if($isFormat){
                         		if($Row[0] != ""){
+                        			$sector = $Row[1];
                         			$first_name = $Row[2];
 	                        		$middle_name = $Row[3];
+	                        		$last_name = $Row[4];
+	                        		$keluarga_name = $Row[5];
+	                        		$gender = $Row[6];
+	                        		$phone = $Row[7];
+	                        		$status = $Row[8];
+	                        		$notes = $Row[9];
+	                        		$birthday = $Row[10];
+	                        		$address = $Row[11];
 	                        		//set array data
-	                        		$datas['data']['first_name'][$num] = $first_name;
-	                        		$datas['data']['middle_name'][$num] = $middle_name;
+	                        		$datas['data'][$num]['sector'] = check_input($sector);
+	                        		$datas['data'][$num]['first_name'] = check_input($first_name);
+	                        		$datas['data'][$num]['middle_name'] = check_input($middle_name);
+	                        		$datas['data'][$num]['last_name'] = check_input($last_name);
+	                        		$datas['data'][$num]['keluarga_name'] = check_input($keluarga_name);
+	                        		$datas['data'][$num]['gender'] = checkGenderValue($gender);
+	                        		$datas['data'][$num]['phone'] = check_input($phone);
+	                        		$datas['data'][$num]['status'] = check_input(checkStatusValue($status));
+	                        		$datas['data'][$num]['notes'] = check_input($notes);
+	                        		$datas['data'][$num]['birthday'] = check_input(checkFormatDateValue($birthday));
+	                        		$datas['data'][$num]['address'] = check_input($address);
 	                        		$num++;
                         		}
                         	}
@@ -152,8 +170,8 @@ if(!isset($_GET['action'])){
                 unlink($file_location);
 			}
 
-			//var_dump($datas);
-			if(is_array($datas)){
+			var_dump(json_encode($datas));
+			/*if(is_array($datas)){
 				if(isset($datas['data'])){
 					$message = "Import file excel success";
 					$alert = "success";
@@ -168,7 +186,7 @@ if(!isset($_GET['action'])){
 
 			$_SESSION['status'] = $message;
 	        $_SESSION['alert'] = $alert;
-	        header("Location:".$path['jemaat-import']);
+	        header("Location:".$path['jemaat-import']);*/
 	    
 	    } else {
 	    	$_SESSION['status'] = "Action Not Found.";

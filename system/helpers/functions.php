@@ -1,4 +1,11 @@
 <?php
+if(!function_exists('contains'))
+{
+    function contains($haystack, $needle){
+        return strpos($haystack, $needle) !== false;
+    }
+}
+
 if(!function_exists('hasProperty'))
 {
     function hasProperty($object, $property){
@@ -186,10 +193,38 @@ if(!function_exists('checkGender'))
     }
 }
 
+if(!function_exists('checkGenderValue'))
+{
+    function checkGenderValue($gender){
+        if(contains($gender, "L")){
+            $result = "m";
+        }else if(contains($gender, "P")){
+            $result = "f";
+        }else{
+            $result = "";
+        }
+        return $result;
+    }
+}
+
 if(!function_exists('checkStatus'))
 {
     function checkStatus($status){
         return $status == 1 ? "<span class='label label-success'>Active</span>" : "<span class='label label-danger'>Inactive</span>";
+    }
+}
+
+if(!function_exists('checkStatusValue'))
+{
+    function checkStatusValue($status){
+        return contains($status, "Aktif") ? 1 : 0;
+    }
+}
+
+if(!function_exists('checkFormatDateValue'))
+{
+    function checkFormatDateValue($date){
+        return $date != "" ? date("Y-m-d", strtotime($date)) : "0000-00-00";
     }
 }
 

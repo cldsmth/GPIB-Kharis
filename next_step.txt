@@ -1,6 +1,5 @@
 next step
--kalau sudah ada module jemaat/kepala keluarga, bikin satu module di dalam menu setting
- nama module nya import, trus ada submenu Jemaat, dll
+-prepare and connect import data jemaat
 -advanced search di module jemaat
 -export excel di module jemmat
 -nanti adjust validasi check name/email lagsung ajax
