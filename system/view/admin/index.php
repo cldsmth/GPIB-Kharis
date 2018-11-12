@@ -63,10 +63,10 @@
                         <tr>
                           <th class="text-left">#</th>
                           <th class="text-center">Action</th>
+                          <th class="text-center">Status</th>
                           <th class="text-center">Image</th>
                           <th>Name</th>
                           <th>E-mail</th>
-                          <th>Status</th>
                           <th>Create Date</th>
                           <th>Last Updated</th>
                         </tr>
@@ -83,6 +83,7 @@
                               </ul>
                             </div>
                           </td>
+                          <td class="text-center"><?=checkStatus($data->status);?></td>
                           <td class="text-center">
                             <a class="fancybox" data-url="<?=$global['absolute-url'];?>" data-module="admin" data-img="<?=($data->img != "" ? $encrypt->encrypt_decrypt("decrypt", $data->img) : "");?>" href="javascript:void(0)" onclick="previewImage(this)">
                               <img style="width: 40px;" class="img-circle" src="<?=$path['decrypt-fie']."admin/thmb/".($data->img != "" ? $data->img : "null")."/";?>">
@@ -90,7 +91,6 @@
                           </td>
                           <td><?=correctDisplay($data->name);?></td>
                           <td><?=$data->email;?></td>
-                          <td><?=checkStatus($data->status);?></td>
                           <td><?=date("d-M-Y, H:i:s", strtotime($data->datetime));?></td>
                           <td><?=($data->datetime != $data->timestamp ? time_ago($data->timestamp) : "-");?></td>
                         </tr>

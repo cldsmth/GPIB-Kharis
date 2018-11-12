@@ -42,7 +42,7 @@ if(!isset($_GET['action'])){
 	    	$keluarga->setId($generator->generate(32));
 			$keluarga->setName(check_input($_POST['name']));
 			$keluarga->setSector(check_input($_POST['sector']));
-			$keluarga->setWeddingDate($_POST['wedding_date'] != "" ? date("Y-m-d", strtotime(check_input($_POST['wedding_date']))) : "0000-00-00");
+			$keluarga->setWeddingDate(checkFormatDateValue(check_input($_POST['wedding_date'])));
 			$keluarga->setAddress(check_input(nl2br($_POST['address'], false)));
 			$keluarga->setStatus(isset($_POST['status']) ? check_input($_POST['status']) : 0);
 

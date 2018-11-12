@@ -25,7 +25,7 @@ if(!isset($_GET['action'])){
 			$jemaat->setLastName(check_input($_POST['last_name']));
 			$jemaat->setFullName(checkFullName($jemaat->getFirstName(), $jemaat->getMiddleName(), $jemaat->getLastName()));
 			$jemaat->setGender(check_input($_POST['gender']));
-			$jemaat->setBirthday(check_input(checkFormatDateValue($_POST['birthday'])));
+			$jemaat->setBirthday(checkFormatDateValue(check_input($_POST['birthday'])));
 			$jemaat->setPhone1(check_input($_POST['phone1']));
 			$jemaat->setPhone2(check_input($_POST['phone2']));
 			$jemaat->setPhone3(check_input($_POST['phone3']));

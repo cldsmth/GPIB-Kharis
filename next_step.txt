@@ -1,5 +1,6 @@
 next step
--prepare and connect import data jemaat
+-di module keluarga, category event, category article di tambahkan kolom counter
+ dan ada validasi kalau yang bisa di hapus cuma counter == 0, yang sudah terisi tidak bisa di hapus
 -advanced search di module jemaat
 -export excel di module jemmat
 -nanti adjust validasi check name/email lagsung ajax

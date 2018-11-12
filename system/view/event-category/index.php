@@ -61,8 +61,8 @@
                         <tr>
                           <th class="text-left">#</th>
                           <th class="text-center">Action</th>
+                          <th class="text-center">Status</th>
                           <th>Title</th>
-                          <th>Status</th>
                           <th>Create Date</th>
                           <th>Last Updated</th>
                         </tr>
@@ -73,8 +73,8 @@
                             <a href="javascript:void(0)" onclick="copyValue(this)" class="btn btn-xs btn-outline btn-success" data-id="<?=$data->id;?>" data-title="<?=correctDisplay($data->title);?>" data-status="<?=$data->status;?>" data-toggle="modal" data-target="#panel-input"><i class='fa fa-edit'></i> Edit</a>
                             <a href="javascript:void(0)" onclick="confirmDelete('<?=$data->id;?>', '<?=$data->title;?>' , 0);" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> Delete</a>
                           </td>
+                          <td class="text-center"><?=checkStatus($data->status);?></td>
                           <td><?=correctDisplay($data->title);?></td>
-                          <td><?=checkStatus($data->status);?></td>
                           <td><?=date("d-M-Y, H:i:s", strtotime($data->datetime));?></td>
                           <td><?=($data->datetime != $data->timestamp ? time_ago($data->timestamp) : "-");?></td>
                         </tr>

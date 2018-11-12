@@ -61,10 +61,10 @@
                         <tr>
                           <th class="text-left">#</th>
                           <th class="text-center">Action</th>
+                          <th class="text-center">Status</th>
                           <th>Nama Keluarga</th>
                           <th class="text-center">Sektor</th>
                           <th>Tanggal Pernikahan</th>
-                          <th>Status</th>
                           <th>Create Date</th>
                           <th>Last Updated</th>
                         </tr>
@@ -75,10 +75,10 @@
                             <a href="<?=$path['keluarga-edit']."?id=".$data->id;?>" class="btn btn-xs btn-outline btn-success"><i class='fa fa-edit'></i> Edit</a>
                             <a href="javascript:void(0)" onclick="confirmDelete('<?=$data->id;?>', '<?=$data->name;?>');" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> Delete</a>
                           </td>
+                          <td class="text-center"><?=checkStatus($data->status);?></td>
                           <td><?=correctDisplay($data->name);?></td>
                           <td class="text-center"><?=$data->sector;?></td>
                           <td><?=($data->wedding_date != "0000-00-00" ? date("d-M-Y", strtotime($data->wedding_date)) : "-");?></td>
-                          <td><?=checkStatus($data->status);?></td>
                           <td><?=date("d-M-Y, H:i:s", strtotime($data->datetime));?></td>
                           <td><?=($data->datetime != $data->timestamp ? time_ago($data->timestamp) : "-");?></td>
                         </tr>

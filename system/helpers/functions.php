@@ -217,7 +217,7 @@ if(!function_exists('checkStatus'))
 if(!function_exists('checkStatusValue'))
 {
     function checkStatusValue($status){
-        return contains($status, "Aktif") ? 1 : 0;
+        return $status == "Aktif" ? 1 : 0;
     }
 }
 

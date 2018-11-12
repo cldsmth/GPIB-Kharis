@@ -129,6 +129,25 @@ class Jemaat
     }
     
 //START FUNCTION FOR ADMIN PAGE
+    public function check_name($crud, $name){
+        $filter = [
+            'full_name' => $name
+        ];
+        $options = [
+            'projection' => [
+                '_id' => 0, 
+                'full_name' => 1
+            ],
+            'limit' => 1
+        ]; 
+        $query = new MongoDB\Driver\Query($filter, $options);
+        $result = $crud->find($this->table, $query);
+        if(!$result){
+            return false;
+        }
+        return is_array($result) ? true : false;
+    }
+
     public function get_all($crud, $page=1){
         //get total data
         $query_total = [];

@@ -52,7 +52,7 @@ if(!isset($_GET['action'])){
 			$jemaat->setLastName(check_input($_POST['last_name']));
 			$jemaat->setFullName(checkFullName($jemaat->getFirstName(), $jemaat->getMiddleName(), $jemaat->getLastName()));
 			$jemaat->setGender(check_input($_POST['gender']));
-			$jemaat->setBirthday(check_input(checkFormatDateValue($_POST['birthday'])));
+			$jemaat->setBirthday(checkFormatDateValue(check_input($_POST['birthday'])));
 			$jemaat->setPhone1(check_input($_POST['phone1']));
 			$jemaat->setPhone2(check_input($_POST['phone2']));
 			$jemaat->setPhone3(check_input($_POST['phone3']));
@@ -106,35 +106,40 @@ if(!isset($_GET['action'])){
                 $totalSheet = count($Reader->sheets());
                 for($i=0; $i < $totalSheet; $i++){
                     $Reader->ChangeSheet($i);
-                    $index = 0;
                     $isFormat = false;
+                    $index = 0;
                     foreach($Reader as $Row){
                         if($index > 0){
                         	if($isFormat){
                         		if($Row[0] != ""){
-                        			$sector = $Row[1];
-                        			$first_name = $Row[2];
-	                        		$middle_name = $Row[3];
-	                        		$last_name = $Row[4];
-	                        		$keluarga_name = $Row[5];
-	                        		$gender = $Row[6];
-	                        		$phone = $Row[7];
-	                        		$status = $Row[8];
-	                        		$notes = $Row[9];
-	                        		$birthday = $Row[10];
-	                        		$address = $Row[11];
+                        			$sector = check_input($Row[1]);
+                        			$first_name = check_input($Row[2]);
+	                        		$middle_name = check_input($Row[3]);
+	                        		$last_name = check_input($Row[4]);
+	                        		$full_name = checkFullName($first_name, $middle_name, $last_name);
+	                        		$keluarga_name = check_input($Row[5]);
+	                        		$gender = checkGenderValue(check_input($Row[6]));
+	                        		$phones = explode(" / ", check_input($Row[7]));
+	                        		$status = checkStatusValue(check_input($Row[8]));
+	                        		$notes = check_input($Row[9]);
+	                        		$birthday = checkFormatDateValue(check_input($Row[10]));
+	                        		$address = check_input($Row[11]);
 	                        		//set array data
-	                        		$datas['data'][$num]['sector'] = check_input($sector);
-	                        		$datas['data'][$num]['first_name'] = check_input($first_name);
-	                        		$datas['data'][$num]['middle_name'] = check_input($middle_name);
-	                        		$datas['data'][$num]['last_name'] = check_input($last_name);
-	                        		$datas['data'][$num]['keluarga_name'] = check_input($keluarga_name);
-	                        		$datas['data'][$num]['gender'] = checkGenderValue($gender);
-	                        		$datas['data'][$num]['phone'] = check_input($phone);
-	                        		$datas['data'][$num]['status'] = check_input(checkStatusValue($status));
-	                        		$datas['data'][$num]['notes'] = check_input($notes);
-	                        		$datas['data'][$num]['birthday'] = check_input(checkFormatDateValue($birthday));
-	                        		$datas['data'][$num]['address'] = check_input($address);
+	                        		$datas['data'][$num]['sector'] = $sector;
+	                        		$datas['data'][$num]['first_name'] = $first_name;
+	                        		$datas['data'][$num]['middle_name'] = $middle_name;
+	                        		$datas['data'][$num]['last_name'] = $last_name;
+	                        		$datas['data'][$num]['full_name'] = $full_name;
+	                        		$datas['data'][$num]['keluarga_name'] = $keluarga_name;
+	                        		$datas['data'][$num]['gender'] = $gender;
+	                        		for($i=0; $i < 3; $i++){
+	                        			$phone = isset($phones[$i]) ? $phones[$i] : "";
+	                        			$datas['data'][$num]['phone'.($i+1)] = $phone;
+	                        		}
+	                        		$datas['data'][$num]['status'] = $status;
+	                        		$datas['data'][$num]['notes'] = $notes;
+	                        		$datas['data'][$num]['birthday'] = $birthday;
+	                        		$datas['data'][$num]['address'] = $address;
 	                        		$num++;
                         		}
                         	}
@@ -170,11 +175,60 @@ if(!isset($_GET['action'])){
                 unlink($file_location);
 			}
 
-			var_dump(json_encode($datas));
-			/*if(is_array($datas)){
+			//var_dump(json_encode($datas));
+			if(is_array($datas)){
 				if(isset($datas['data'])){
 					$message = "Import file excel success";
 					$alert = "success";
+
+					foreach($datas['data'] as $data){
+						$sector = $data['sector'];
+						$first_name = $data['first_name'];
+						$middle_name = $data['middle_name'];
+						$last_name = $data['last_name'];
+						$full_name = $data['full_name'];
+						$keluarga_name = $data['keluarga_name'];
+						$gender = $data['gender'];
+						$phone1 = $data['phone1'];
+						$phone2 = $data['phone2'];
+						$phone3 = $data['phone3'];
+						$status = $data['status'];
+						$notes = $data['notes'];
+						$birthday = $data['birthday'];
+						$address = $data['address'];
+						//check keluarga
+						$keluarga_id = $keluarga->get_id_by_name($crud, $keluarga_name);
+						if($keluarga_id == ""){
+							$keluarga->setId($generator->generate(32));
+							$keluarga->setName($keluarga_name);
+							$keluarga->setSector($sector);
+							$keluarga->setWeddingDate("0000-00-00");
+							$keluarga->setAddress($address);
+							$keluarga->setStatus($status);
+							$result = $keluarga->insert_data($crud, $keluarga);
+							if($result){
+								$keluarga_id = $keluarga->getId();
+							}
+						}
+						//check jemaat
+						$check_jemmat = $jemaat->check_name($crud, $full_name);
+						if(!$check_jemmat){
+							$jemaat->setId($generator->generate(32));
+					    	$jemaat->setKeluargaId($keluarga_id);
+							$jemaat->setFirstName($first_name);
+							$jemaat->setMiddleName($middle_name);
+							$jemaat->setLastName($last_name);
+							$jemaat->setFullName($full_name);
+							$jemaat->setGender($gender);
+							$jemaat->setBirthday($birthday);
+							$jemaat->setPhone1($phone1);
+							$jemaat->setPhone2($phone2);
+							$jemaat->setPhone3($phone3);
+							$jemaat->setNotes($notes);
+							$jemaat->setStatus($status);
+							$jemaat->insert_data($crud, $jemaat);
+						}
+					}
 				}else{
 					$message = "Invalid format column file excel. Please check your file excel with the same format template";
 					$alert = "failed";
@@ -186,7 +240,7 @@ if(!isset($_GET['action'])){
 
 			$_SESSION['status'] = $message;
 	        $_SESSION['alert'] = $alert;
-	        header("Location:".$path['jemaat-import']);*/
+	        header("Location:".$path['jemaat-import']);
 	    
 	    } else {
 	    	$_SESSION['status'] = "Action Not Found.";

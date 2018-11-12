@@ -125,7 +125,7 @@ class Admin
         $query = new MongoDB\Driver\Query($filter, $options);
         $result = $crud->find($this->table, $query);
         if(!$result){
-            return false;
+            return "";
         }
         return is_array($result) ? $result[0]->salt_hash : "";
     }
