@@ -129,6 +129,19 @@ class Jemaat
     }
     
 //START FUNCTION FOR ADMIN PAGE
+    public function get_count_by_keluarga($crud, $keluarga_id){
+        $query = [
+            'keluarga_id' => $keluarga_id
+        ];
+        $result = $crud->count(
+            new MongoDB\Driver\Command([
+                'count' => $this->table, 
+                'query' => $query
+            ])
+        );
+        return $result;
+    }
+
     public function check_name($crud, $name){
         $filter = [
             'full_name' => $name
@@ -196,7 +209,8 @@ class Jemaat
                 ],
                 [
                     '$sort' => [
-                        'datetime' => -1
+                        'datetime' => -1,
+                        'keluarga.name' => 1
                     ]
                 ],
                 [

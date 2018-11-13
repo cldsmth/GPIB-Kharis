@@ -8,6 +8,9 @@ $generator = new RandomStringGenerator();
 include_once($global['root-url']."model/Keluarga.php");
 $keluarga = new Keluarga();
 
+include_once($global['root-url']."model/Jemaat.php");
+$jemaat = new Jemaat();
+
 if(!isset($_GET['action'])){
 	$_page = isset($_GET['page']) ? check_input($_GET['page']) : 1;
 	$filename = PHPFilename();
@@ -69,13 +72,18 @@ if(!isset($_GET['action'])){
             $_id = check_input($_GET['id']);
             $_name = check_input($_GET['name']);
 
-            $result = $keluarga->delete_data($crud, $_id);
-            if($result){
-                $message = "Keluarga '".$_name."' success to be deleted in system";
-                $alert = "success";
+            if($jemaat->get_count_by_keluarga($crud, $_id) == 0){
+            	$result = $keluarga->delete_data($crud, $_id);
+	            if($result){
+	                $message = "Keluarga '".$_name."' success to be deleted in system";
+	                $alert = "success";
+	            }else{
+	                $message = "Keluarga '".$_name."' failed to be deleted in system";
+	                $alert = "failed";
+	            }
             }else{
-                $message = "Keluarga '".$_name."' failed to be deleted in system";
-                $alert = "failed";
+            	$message = "You cannot delete '".$_name."' when used in another page";
+            	$alert = "failed";
             }
 
 	        $_SESSION['status'] = $message;

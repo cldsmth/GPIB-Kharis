@@ -125,16 +125,14 @@ if(!isset($_GET['action'])){
 	                $message = "Administrator '".$_name."' failed to be deleted in system";
 	                $alert = "failed";
 	            }
-	            $page = $path['admin'];
             }else{
             	$message = "You cannot delete '".$_name."' when you're logged in";
             	$alert = "failed";
-            	$page = $path['home'];
             }
 
 	        $_SESSION['status'] = $message;
 	        $_SESSION['alert'] = $alert;
-	        header("Location:".$page);
+	        header("Location:".$path['admin']);
 
         } else {
 	    	$_SESSION['status'] = "Action Not Found.";

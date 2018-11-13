@@ -12,6 +12,7 @@ class Keluarga
 
     function __construct(){
         $this->table = "keluarga";
+        $this->tableJemaat = "jemaat";
         $this->itemPerPageAdmin = 20;
     }
 
@@ -138,26 +139,73 @@ class Keluarga
         $total_page  = ceil($total_data / $this->itemPerPageAdmin);
         $limitBefore = $page <= 1 || $page == null ? 0 : ($page-1) * $this->itemPerPageAdmin;
 
-        $filter = [];
-        $options = [
-            'projection' => [
-                '_id' => 0, 
-                'id' => 1, 
-                'name' => 1, 
-                'sector' => 1, 
-                'wedding_date' => 1, 
-                'status' => 1,
-                'datetime' => 1,
-                'timestamp' => 1
+        $command = new MongoDB\Driver\Command([
+            'aggregate' => $this->table,
+            'pipeline' => [
+                [
+                    '$lookup' => [
+                        'from' => $this->tableJemaat,
+                        'let' => [
+                            'keluargaId' => '$id'
+                        ],
+                        'pipeline' => [
+                            [
+                                '$match' => [
+                                    '$expr' => [
+                                        '$eq' => [
+                                            '$$keluargaId',
+                                            '$keluarga_id'
+                                        ]
+                                    ]
+                                ]
+                            ],
+                            [
+                                '$count' => "count"
+                            ]
+                        ],
+                        'as' => "num_jemaat"
+                    ]
+                ],
+                [
+                    '$project' => [
+                        '_id' => 0, 
+                        'id' => 1, 
+                        'name' => 1, 
+                        'sector' => 1, 
+                        'wedding_date' => 1, 
+                        'status' => 1,
+                        'datetime' => 1,
+                        'timestamp' => 1,
+                        'num_jemaat' => [
+                            '$ifNull' => [
+                                [
+                                    '$arrayElemAt' => [
+                                        '$num_jemaat.count', 0
+                                    ]
+                                ],
+                                0
+                            ]
+                        ]
+                    ],
+                ],
+                [
+                    '$sort' => [
+                        'datetime' => -1,
+                        'name' => 1
+                    ]
+                ],
+                [
+                    '$skip' => $limitBefore
+                ],
+                [
+                    '$limit' => $this->itemPerPageAdmin
+                ]
             ],
-            'sort' => [
-                'datetime' => -1
-            ],
-            'skip' => $limitBefore,
-            'limit' => $this->itemPerPageAdmin
-        ];
-        $query = new MongoDB\Driver\Query($filter, $options);
-        $result = $crud->find($this->table, $query);
+            'cursor' => [
+                'batchSize' => 4
+            ]
+        ]);
+        $result = $crud->aggregate($command);
         if(!$result){
             return false;
         }else{
