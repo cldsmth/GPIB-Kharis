@@ -197,6 +197,7 @@
                         <div class="col-sm-12 text-right">
                           <div class="btn-group">
                             <input name="id" type="hidden" value="<?=$datas->id;?>">
+                            <input name="old_name" type="hidden" value="<?=inputDisplay($datas->full_name);?>">
                             <a href="<?=$path['jemaat'];?>" class="btn btn-default"><i class='fa fa-times'></i> Cancel</a>
                             <button id="btn-submit" type="submit" class="btn btn-primary btn-md"><i class="fa fa-check"></i> Submit</button>
                           </div>

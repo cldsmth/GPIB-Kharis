@@ -31,15 +31,22 @@ if(!isset($_GET['action'])){
 			$jemaat->setPhone3(check_input($_POST['phone3']));
 			$jemaat->setNotes(check_input(nl2br($_POST['notes'], false)));
 			$jemaat->setStatus(isset($_POST['status']) ? check_input($_POST['status']) : 0);
+			$_old_name = check_input($_POST['old_name']);
 
-			$result = $jemaat->update_data($crud, $jemaat);
-           	if($result){
-                $message = "Edit Jemaat '".$jemaat->getFullName()."' success";
-                $alert = "success";
-            }else{
-                $message = "Edit Jemaat '".$jemaat->getFullName()."' failed. Please try again";
-                $alert = "failed";
-            }
+			$check_name = $jemaat->getFullName() != $_old_name ? $jemaat->check_name($crud, $jemaat->getFullName()) : false;
+			if($check_name){
+				$message = "Name '".$jemaat->getFullName()."' already exist";
+				$alert = "failed";
+			}else{
+				$result = $jemaat->update_data($crud, $jemaat);
+	           	if($result){
+	                $message = "Edit Jemaat '".$jemaat->getFullName()."' success";
+	                $alert = "success";
+	            }else{
+	                $message = "Edit Jemaat '".$jemaat->getFullName()."' failed. Please try again";
+	                $alert = "failed";
+	            }
+			}
 
 	        $_SESSION['status'] = $message;
 	        $_SESSION['alert'] = $alert;
