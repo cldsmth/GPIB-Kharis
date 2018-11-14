@@ -55,6 +55,29 @@
                 </header><!-- .widget-header -->
                 <hr class="widget-separator">
                 <div class="widget-body">
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+                      <div class="form-group">
+                        <div class="search-wrap">
+                          <form action="" enctype="multipart/form-data" method="get">
+                            <div class="search-group">
+                              <div class="search-input">
+                                <input name="page" type="hidden" value="1">
+                                <input name="q" type="text" class="form-control input-style" placeholder="What are you looking for" autocomplete="off">
+                              </div>
+                              <span class="search-group-btn">
+                                <button class="btn btn-default" type="submit">Search</button>
+                              </span>
+                            </div>
+                            <div class="link-search">
+                              <a href="javascript:void(0)" onclick="alert('export excel')">Export Excel</a> <span>&nbsp;|&nbsp;</span> <a href="javascript:void(0)" onclick="alert('advanced search')">Advanced Search</a>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4"></div>
+                  </div>
                   <div class="table-responsive">
                     <table class="table table-striped table-horizontal-scroll">
                       <tbody>

@@ -52,7 +52,7 @@
                         <div class="row">
                           <div class="col-sm-offset-3 col-sm-6 col-xs-12">
                             <div class="text-center">
-                              <a target="_blank" href="<?=$global['uploads-url']."template/Sample.xls";?>" class="btn btn-outline btn-primary">Download Excel Template</a>
+                              <a target="_blank" href="<?=$global['uploads-url']."template/Sample.xls";?>" class="btn btn-outline btn-primary"><i class='fa fa-download'></i> Download Excel Template</a>
                             </div>
                           </div>
                         </div>
@@ -86,7 +86,7 @@
                       <div class="row">
                         <div class="col-sm-12 text-right">
                           <div class="btn-group">
-                            <a href="<?=$path['jemaat'];?>" class="btn btn-default"><i class='fa fa-times'></i> Cancel</a>
+                            <a href="<?=$path['jemaat-import'];?>" class="btn btn-default"><i class='fa fa-times'></i> Cancel</a>
                             <button id="btn-submit" type="submit" class="btn btn-primary btn-md"><i class="fa fa-check"></i> Submit</button>
                           </div>
                         </div>
