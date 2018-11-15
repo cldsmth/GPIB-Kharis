@@ -25,6 +25,50 @@ if(!function_exists('listSector'))
     }
 }
 
+if(!function_exists('listPelkat'))
+{
+    function listPelkat(){
+        $data = array(0 => array('value' => "pa", 'text' => "PA"),
+            1 => array('value' => "pt", 'text' => "PT"),
+            2 => array('value' => "gp", 'text' => "GP"),
+            3 => array('value' => "pkp", 'text' => "PKP"),
+            4 => array('value' => "pkb", 'text' => "PKB"),
+            5 => array('value' => "pklu", 'text' => "PKLU")
+        );
+        return $data;
+    }
+}
+
+if(!function_exists('listGender'))
+{
+    function listGender(){
+        $data = array(0 => array('value' => "m", 'text' => "Laki-laki"),
+            1 => array('value' => "f", 'text' => "Perempuan")
+        );
+        return $data;
+    }
+}
+
+if(!function_exists('listStatusMarriage'))
+{
+    function listStatusMarriage(){
+        $data = array(0 => array('value' => "1", 'text' => "Menikah"),
+            1 => array('value' => "0", 'text' => "Belum Menikah")
+        );
+        return $data;
+    }
+}
+
+if(!function_exists('listStatus'))
+{
+    function listStatus(){
+        $data = array(0 => array('value' => "1", 'text' => "Aktif"),
+            1 => array('value' => "0", 'text' => "Non Aktif")
+        );
+        return $data;
+    }
+}
+
 if(!function_exists('characterToHTMLEntity'))
 {
     function characterToHTMLEntity($str){

@@ -63,14 +63,14 @@
                             <div class="search-group">
                               <div class="search-input">
                                 <input name="page" type="hidden" value="1">
-                                <input name="q" type="text" class="form-control input-style" placeholder="What are you looking for" autocomplete="off">
+                                <input name="q" type="text" class="form-control input-style" placeholder="What are you looking for" autocomplete="off" value="<?=inputDisplay($_keyword);?>">
                               </div>
                               <span class="search-group-btn">
-                                <button class="btn btn-default" type="submit">Search</button>
+                                <button class="btn btn-default" type="submit"><i class='fa fa-search'></i> Search</button>
                               </span>
                             </div>
                             <div class="link-search">
-                              <a href="javascript:void(0)" onclick="alert('export excel')">Export Excel</a> <span>&nbsp;|&nbsp;</span> <a href="javascript:void(0)" onclick="alert('advanced search')">Advanced Search</a>
+                              <a href="javascript:void(0)" onclick="alert('export excel')">Export Excel</a> <span>&nbsp;|&nbsp;</span> <a href="javascript:void(0)" data-toggle="modal" data-target="#panel-advanced-search">Advanced Search</a>
                             </div>
                           </form>
                         </div>
@@ -159,6 +159,101 @@
               </div><!-- .widget -->
             </div>		
             <!-- end: PAGE CONTENT-->
+
+            <!-- start: PANEL SEARCH MODAL FORM -->
+            <div class="modal fade" id="panel-advanced-search" tabindex="-1" role="dialog" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                      &times;
+                    </button>
+                    <h4 class="modal-title">Advanced Search</h4>
+                  </div>
+                  <form name="form-advanced-search" action="" enctype="multipart/form-data" method="get">
+                    <div class="modal-body">
+                      <div class="row">
+                        <div class="col-sm-3 col-xs-12 form-label">Kata Kunci :</div>
+                        <div class="col-sm-8 col-xs-12">
+                          <input name="page" type="hidden" value="1">
+                          <input name="q" type="text" class="form-control input-style" placeholder="Cari berdasarkan Nama, Keluarga, No. HP, atau Alamat" value="<?=inputDisplay($_keyword);?>">
+                        </div>
+                      </div>
+                      <div class="row up1"></div>
+                      <div class="row">
+                        <div class="col-sm-3 col-xs-12 form-label">Sektor :</div>
+                        <div class="col-sm-8 col-xs-12">
+                          <select name="sector" class="form-control">
+                            <option value="">Pilih Sektor</option>
+                            <?php if(is_array($sectors)){ foreach($sectors as $sector){?>
+                            <option <?=isSelected($_sector, $sector['value']);?> value="<?=$sector['value'];?>"><?=$sector['text'];?></option>
+                            <?php }}?>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="row up1"></div>
+                      <div class="row">
+                        <div class="col-sm-3 col-xs-12 form-label">Pelkat :</div>
+                        <div class="col-sm-8 col-xs-12">
+                          <select name="pelkat" class="form-control">
+                            <option value="">Pilih Pelkat</option>
+                            <?php if(is_array($pelkats)){ foreach($pelkats as $pelkat){?>
+                            <option <?=isSelected($_pelkat, $pelkat['value']);?> value="<?=$pelkat['value'];?>"><?=$pelkat['text'];?></option>
+                            <?php }}?>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="row up1"></div>
+                      <div class="row">
+                        <div class="col-sm-3 col-xs-12 form-label">Jenis Kelamin :</div>
+                        <div class="col-sm-8 col-xs-12">
+                          <select name="gender" class="form-control">
+                            <option value="">Pilih Jenis Kelamin</option>
+                            <?php if(is_array($genders)){ foreach($genders as $gender){?>
+                            <option <?=isSelected($_gender, $gender['value']);?> value="<?=$gender['value'];?>"><?=$gender['text'];?></option>
+                            <?php }}?>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="row up1"></div>
+                      <div class="row">
+                        <div class="col-sm-3 col-xs-12 form-label">Status Menikah :</div>
+                        <div class="col-sm-8 col-xs-12">
+                          <select name="marriage" class="form-control">
+                            <option value="">Pilih Status Menikah</option>
+                            <?php if(is_array($marriages)){ foreach($marriages as $marriage){?>
+                            <option <?=isSelected($_marriage, $marriage['value']);?> value="<?=$marriage['value'];?>"><?=$marriage['text'];?></option>
+                            <?php }}?>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="row up1"></div>
+                      <div class="row">
+                        <div class="col-sm-3 col-xs-12 form-label">Status :</div>
+                        <div class="col-sm-8 col-xs-12">
+                          <select name="status" class="form-control">
+                            <option value="">Pilih Status</option>
+                            <?php if(is_array($statuss)){ foreach($statuss as $status){?>
+                            <option <?=isSelected($_status, $status['value']);?> value="<?=$status['value'];?>"><?=$status['text'];?></option>
+                            <?php }}?>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer f5-bg">
+                      <div class="btn-group">
+                        <button type="reset" class="btn btn-default" data-dismiss="modal"><i class='fa fa-times'></i> Cancel</button>
+                        <button type="submit" class="btn btn-primary btn-md"><i class="fa fa-check"></i> Submit</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <!-- /.modal-content -->
+              </div>
+              <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+            <!-- end: SPANEL CONFIGURATION MODAL FORM -->
       	
         	</div><!-- .row -->
       	</section><!-- #dash-content -->

@@ -13,8 +13,19 @@ $keluarga = new Keluarga();
 
 if(!isset($_GET['action'])){
 	$_page = isset($_GET['page']) ? check_input($_GET['page']) : 1;
+	$_keyword = isset($_GET['q']) ? check_input($_GET['q']) : "";
+	$_sector = isset($_GET['sector']) ? check_input($_GET['sector']) : "";
+	$_pelkat = isset($_GET['pelkat']) ? check_input($_GET['pelkat']) : "";
+	$_gender = isset($_GET['gender']) ? check_input($_GET['gender']) : "";
+	$_marriage = isset($_GET['marriage']) ? check_input($_GET['marriage']) : "";
+	$_status = isset($_GET['status']) ? check_input($_GET['status']) : "";
 	$filename = PHPFilename();
     if($filename == "index"){
+    	$sectors = listSector();
+    	$pelkats = listPelkat();
+    	$genders = listGender();
+    	$marriages = listStatusMarriage();
+    	$statuss = listStatus();
         $datas = $jemaat->get_all($crud, $_page);
 	    //var_dump($datas);
 	    $total_page = hasProperty($datas, "data") ? $datas->total_page : 0;
