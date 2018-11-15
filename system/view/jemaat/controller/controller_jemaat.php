@@ -19,6 +19,7 @@ if(!isset($_GET['action'])){
 	$_gender = isset($_GET['gender']) ? check_input($_GET['gender']) : "";
 	$_marriage = isset($_GET['marriage']) ? check_input($_GET['marriage']) : "";
 	$_status = isset($_GET['status']) ? check_input($_GET['status']) : "";
+	$_search = array_filter(array($_keyword, $_sector, $_pelkat, $_gender, $_marriage, $_status), "strlen");
 	$filename = PHPFilename();
     if($filename == "index"){
     	$sectors = listSector();

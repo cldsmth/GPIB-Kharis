@@ -4,6 +4,12 @@
   include("controller/controller_jemaat.php");
   $curpage = "jemaat";
   $navpage = "Master";
+  $param_keyword = "q=".$_keyword;
+  $param_sector = "sector=".$_sector;
+  $param_pelkat = "pelkat=".$_pelkat;
+  $param_gender = "gender=".$_gender;
+  $param_marriage = "marriage=".$_marriage;
+  $param_status = "status=".$_status;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -70,7 +76,7 @@
                               </span>
                             </div>
                             <div class="link-search">
-                              <a href="javascript:void(0)" onclick="alert('export excel')">Export Excel</a> <span>&nbsp;|&nbsp;</span> <a href="javascript:void(0)" data-toggle="modal" data-target="#panel-advanced-search">Advanced Search</a>
+                              <a href="javascript:void(0)" onclick="alert('export excel')">Export Excel</a> <span>&nbsp;|&nbsp;</span> <a href="javascript:void(0)" data-toggle="modal" data-target="#panel-advanced-search">Advanced Search</a> <?php if(!empty($_search)){?> <span>&nbsp;|&nbsp;</span> <a href="<?=$path['jemaat'];?>">Clear Advanced Search</a> <?php }?>
                             </div>
                           </form>
                         </div>
@@ -78,6 +84,62 @@
                     </div>
                     <div class="col-xs-12 col-sm-4"></div>
                   </div>
+                  <?php if(!empty($_search)){?>
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+                      <div class="form-group">
+                        <div class="table-responsive">
+                          <table class="table table-horizontal-scroll">
+                            <tbody>
+                              <?php if($_keyword != ""){?>
+                              <tr>
+                                <td><a href="<?=$path['jemaat']."?page=1&q=&".$param_sector."&".$param_pelkat."&".$param_gender."&".$param_marriage."&".$param_status;?>"><i class="fa fa-remove" style="color:#444;"></i></a></td>
+                                <td><?=TextAdvancedSearch("keyword", $_keyword);?></td>
+                              </tr>
+                              <?php }?>
+
+                              <?php if($_sector != ""){?>
+                              <tr>
+                                <td><a href="<?=$path['jemaat']."?page=1&".$param_keyword."&sector=&".$param_pelkat."&".$param_gender."&".$param_marriage."&".$param_status;?>"><i class="fa fa-remove" style="color:#444;"></i></a></td>
+                                <td><?=TextAdvancedSearch("sector", $_sector);?></td>
+                              </tr>
+                              <?php }?>
+
+                              <?php if($_pelkat != ""){?>
+                              <tr>
+                                <td><a href="<?=$path['jemaat']."?page=1&".$param_keyword."&".$param_sector."&pelkat=&".$param_gender."&".$param_marriage."&".$param_status;?>"><i class="fa fa-remove" style="color:#444;"></i></a></td>
+                                <td><?=TextAdvancedSearch("pelkat", $_pelkat);?></td>
+                              </tr>
+                              <?php }?>
+
+                              <?php if($_gender != ""){?>
+                              <tr>
+                                <td><a href="<?=$path['jemaat']."?page=1&".$param_keyword."&".$param_sector."&".$param_pelkat."&gender=&".$param_marriage."&".$param_status;?>"><i class="fa fa-remove" style="color:#444;"></i></a></td>
+                                <td><?=TextAdvancedSearch("gender", $_gender);?></td>
+                              </tr>
+                              <?php }?>
+                              
+                              <?php if($_marriage != ""){?>
+                              <tr>
+                                <td><a href="<?=$path['jemaat']."?page=1&".$param_keyword."&".$param_sector."&".$param_pelkat."&".$param_gender."&marriage=&".$param_status;?>"><i class="fa fa-remove" style="color:#444;"></i></a></td>
+                                <td><?=TextAdvancedSearch("marriage", $_marriage);?></td>
+                              </tr>
+                              <?php }?>
+                              
+                              <?php if($_status != ""){?>
+                              <tr>
+                                <td><a href="<?=$path['jemaat']."?page=1&".$param_keyword."&".$param_sector."&".$param_pelkat."&".$param_gender."&".$param_marriage."&status=";?>"><i class="fa fa-remove" style="color:#444;"></i></a></td>
+                                <td><?=TextAdvancedSearch("status", $_status);?></td>
+                              </tr>
+                              <?php }?>
+                            </tbody>
+                          </table>
+                        </div> 
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4"></div>
+                  </div>
+                  <?php }?>
                   <div class="table-responsive">
                     <table class="table table-striped table-horizontal-scroll">
                       <tbody>
@@ -138,16 +200,16 @@
                             }
                             if($_page > 1){
                               echo "<li id='default-datatable_previous' class='paginate_button previous'>";
-                              echo "<a href='".$path['jemaat']."?page=".($_page-1)."' aria-controls='default-datatable' data-dt-idx='0' tabindex='0'><i class='fa fa-chevron-left'></i> Previous</a>";
+                              echo "<a href='".$path['jemaat']."?page=".($_page-1)."&".$param_keyword."&".$param_sector."&".$param_pelkat."&".$param_gender."&".$param_marriage."&".$param_status."' aria-controls='default-datatable' data-dt-idx='0' tabindex='0'><i class='fa fa-chevron-left'></i> Previous</a>";
                               echo "</li>";
                             }
                             for($mon = $prevLimit; $mon <= $nextLimit;$mon++){?>
                               <li class="paginate_button <?php if($mon == $_page){echo 'active';}?>">
-                                <a href="<?=$path['jemaat']."?page=".$mon;?>" aria-controls="default-datatable" data-dt-idx="<?=$mon;?>" tabindex="0"><?=$mon;?></a>
+                                <a href="<?=$path['jemaat']."?page=".$mon."&".$param_keyword."&".$param_sector."&".$param_pelkat."&".$param_gender."&".$param_marriage."&".$param_status;?>" aria-controls="default-datatable" data-dt-idx="<?=$mon;?>" tabindex="0"><?=$mon;?></a>
                               </li>
                             <?php } if($total_page > 1 && $_page != $total_page){
                               echo "<li id='default-datatable_next' class='paginate_button next'>";
-                              echo "<a href='".$path['jemaat']."?page=".($_page+1)."' aria-controls='default-datatable' data-dt-idx='".($_page+1)."' tabindex='0'><i class='fa fa-chevron-right'></i> Next</a>";
+                              echo "<a href='".$path['jemaat']."?page=".($_page+1)."&".$param_keyword."&".$param_sector."&".$param_pelkat."&".$param_gender."&".$param_marriage."&".$param_status."' aria-controls='default-datatable' data-dt-idx='".($_page+1)."' tabindex='0'><i class='fa fa-chevron-right'></i> Next</a>";
                               echo "</li>";
                             } ?>
                           </ul>

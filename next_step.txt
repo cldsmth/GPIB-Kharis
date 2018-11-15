@@ -1,6 +1,8 @@
 next step
 //step 1
--advanced search di module jemaat
+-tambahin field status menikah/belum menikah di table jemaat (buat filter pelkat nanti kedepan)
+ => nama field nya status_marriage (0/1), adjust CRUD dan bagian import excel nya
+-connect advanced search di module jemaat
 -export excel di module jemmat
 //step 2
 -nanti untuk pakai library kayak datepicker, select2, itu include js nya di pakai mt_rand
@@ -8,8 +10,6 @@ next step
 -link untuk pakai select2 (http://localhost/Infinity-v2.0.0/default/form.plugins.html)
 -link untuk pakai datepicker (http://localhost/Infinity-v2.0.0/default/form.datetime.html)
 //step 3
--tambahin field status menikah/belum menikah di table jemaat (buat filter pelkat nanti kedepan)
- => nama field nya status_marriage (0/1)
 -cari pagination yang lebih bagus, mungkin ada first/last page, dll
 -import-in semua data-data jemaat (sektor 2, 3 dan 4) => Kalau sudah fix sesuai dengan yang terupdate di gereja
 -kalau sudah ada module event/article, di module category event/article di tambahkan kolom counter dan ada validasi 

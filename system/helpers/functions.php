@@ -1,4 +1,42 @@
 <?php
+if(!function_exists('TextAdvancedSearch'))
+{
+    function TextAdvancedSearch($param, $data){
+        $text = "";
+        switch ($param) {
+            case "keyword":
+                $text = "Keyword <i>contains</i>&nbsp;&nbsp;<code>\"".correctDisplay($data)."\"</code>&nbsp;from advanced search";
+                break;
+            case "sector":
+                $text = "Sector <i>is selected</i>&nbsp;&nbsp;<code>\"".$data."\"</code>&nbsp;from advanced search";
+                break;
+            case "pelkat":
+                $text = "Pelkat <i>is selected</i>&nbsp;&nbsp;<code>\"".strtoupper($data)."\"</code>&nbsp;from advanced search";
+                break;
+            case "gender":
+                if($data == "m"){
+                    $data = "Male";
+                }else if($data == "f"){
+                    $data = "Female";
+                }
+                $text = "Gender <i>is selected</i>&nbsp;&nbsp;<code>\"".$data."\"</code>&nbsp;from advanced search";
+                break;
+            case "marriage":
+                $data = $data == 1 ? "Married" : "Single";
+                $text = "Status Marriage <i>is selected</i>&nbsp;&nbsp;<code>\"".$data."\"</code>&nbsp;from advanced search";
+                break;
+            case "status":
+                $data = $data == 1 ? "Active" : "Inactive";
+                $text = "Status <i>is selected</i>&nbsp;&nbsp;<code>\"".$data."\"</code>&nbsp;from advanced search";
+                break;
+            default:
+                $text = "";
+                break;
+        }
+        return $text;
+    }
+}
+
 if(!function_exists('contains'))
 {
     function contains($haystack, $needle){
