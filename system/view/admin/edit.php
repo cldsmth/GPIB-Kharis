@@ -3,7 +3,7 @@
   include("../../helpers/auth.php");
   include("controller/controller_admin_detail.php");
   $curpage = "admin";
-  $navpage = "Master";
+  $navpage = "Administrator";
 ?>
 <!DOCTYPE html>
 <html lang="en">

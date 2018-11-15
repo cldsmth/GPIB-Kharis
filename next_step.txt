@@ -2,8 +2,6 @@ next step
 //step 1
 -advanced search di module jemaat
 -export excel di module jemmat
--controller index login taruh di folder controller/controller_index.php
--module admin di bikin jadi satu main menu, namanya Administrator
 //step 2
 -nanti untuk pakai library kayak datepicker, select2, itu include js nya di pakai mt_rand
  yg bagian library.js, plugins.js, app.js

@@ -1,6 +1,6 @@
 <?php
 	include("helpers/require.php");
-	include("controller_index.php");
+	include("controller/controller_index.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -56,13 +56,13 @@
         </li>
 
         <!-- Master !-->
-        <li class="has-submenu <?=(in_array_any(array($curpage), array("keluarga", "jemaat", "admin")) ? "active open" : "");?>">
+        <li class="has-submenu <?=(in_array_any(array($curpage), array("keluarga", "jemaat")) ? "active open" : "");?>">
           <a href="javascript:void(0)" class="submenu-toggle">
             <i class="menu-icon fa fa-tasks"></i>
             <span class="menu-text">Master</span>
             <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
           </a>
-          <ul class="submenu" style="<?=(in_array_any(array($curpage), array("keluarga", "jemaat", "admin")) ? "display: block;" : "");?>">
+          <ul class="submenu" style="<?=(in_array_any(array($curpage), array("keluarga", "jemaat")) ? "display: block;" : "");?>">
             <!-- Module Kepala Keluarga !-->
             <li class="<?=($curpage == "keluarga" ? "active" : "");?>">
               <a href="<?=$path['keluarga'];?>">
@@ -74,13 +74,6 @@
             <li class="<?=($curpage == "jemaat" ? "active" : "");?>">
               <a href="<?=$path['jemaat'];?>">
                 <span class="menu-text">Jemaat</span>
-              </a>
-            </li>
-
-            <!-- Module Admin !-->
-            <li class="<?=($curpage == "admin" ? "active" : "");?>">
-              <a href="<?=$path['admin'];?>">
-                <span class="menu-text">Admin</span>
               </a>
             </li>
           </ul>
@@ -223,6 +216,14 @@
               </ul>
             </li>
           </ul>
+        </li>
+
+        <!-- Administrator !-->
+        <li class="<?=($curpage == "admin" ? "active" : "");?>">
+          <a href="<?=$path['admin'];?>">
+            <i class="menu-icon fa fa-users"></i>
+            <span class="menu-text">Administrator</span>
+          </a>
         </li>
 
         <li class="menu-separator"><hr></li>
