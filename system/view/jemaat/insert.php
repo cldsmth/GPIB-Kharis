@@ -179,6 +179,17 @@
                         </div>
                         <div class="row up1"></div>
                         <div class="row">
+                          <div class="col-sm-4 col-xs-12 up1 form-label">Status Menikah :</div>
+                          <div class="col-sm-5 col-xs-12 up1">
+                            <div class="checkbox checkbox-primary">
+                              <input id="input-status-marriage" name="status_marriage" type="checkbox" value="1">
+                              <label for="input-status-marriage">
+                                <span class="note-input">Checked if status married</span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
                           <div class="col-sm-4 col-xs-12 up1 form-label">Status :</div>
                           <div class="col-sm-5 col-xs-12 up1">
                             <div class="checkbox checkbox-primary">

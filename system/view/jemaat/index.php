@@ -153,6 +153,7 @@
                           <th>Jenis Kelamin</th>
                           <th>No. HP</th>
                           <th>Tanggal Lahir</th>
+                          <th>Status Menikah</th>
                           <th>Create Date</th>
                           <th>Last Updated</th>
                         </tr>
@@ -170,12 +171,13 @@
                           <td><?=checkGender($data->gender);?></td>
                           <td><?=$data->phone1;?></td>
                           <td><?=($data->birthday != "0000-00-00" ? date("d-M-Y", strtotime($data->birthday)) : "-");?></td>
+                          <td><?=checkStatusMarriage($data->status_marriage);?></td>
                           <td><?=date("d-M-Y, H:i:s", strtotime($data->datetime));?></td>
                           <td><?=($data->datetime != $data->timestamp ? time_ago($data->timestamp) : "-");?></td>
                         </tr>
                         <?php $num++;}}else{?>
                         <tr>
-                          <td colspan="11">There is no data!</td>
+                          <td colspan="12">There is no data!</td>
                         </tr>
                         <?php }?>
                       </tbody>
@@ -184,7 +186,9 @@
                   <div id="default-datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap up2">
                     <div class="row">
                       <div class="col-sm-5">
+                        <?php if(hasProperty($datas, "data")){?>
                         <div class="dataTables_info" id="default-datatable_info" role="status" aria-live="polite"><?="Showing ".(($_page-1)*20+1)." to ".($total_data+(($_page-1)*20))." of ".$total_data_all." entries";?></div>
+                        <?php }?>
                       </div>
                       <div class="col-sm-7">
                         <div class="dataTables_paginate paging_simple_numbers" id="default-datatable_paginate">

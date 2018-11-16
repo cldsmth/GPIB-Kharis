@@ -289,6 +289,13 @@ if(!function_exists('checkGenderValue'))
     }
 }
 
+if(!function_exists('checkStatusMarriage'))
+{
+    function checkStatusMarriage($status){
+        return $status == 1 ? "Menikah" : "Belum Menikah";
+    }
+}
+
 if(!function_exists('checkStatus'))
 {
     function checkStatus($status){
