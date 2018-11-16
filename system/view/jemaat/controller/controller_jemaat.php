@@ -140,9 +140,10 @@ if(!isset($_GET['action'])){
 	                        		$gender = checkGenderValue(check_input($Row[6]));
 	                        		$phones = explode(" / ", check_input($Row[7]));
 	                        		$status = checkStatusValue(check_input($Row[8]));
-	                        		$notes = check_input($Row[9]);
-	                        		$birthday = checkFormatDateValue(check_input($Row[10]));
-	                        		$address = check_input($Row[11]);
+	                        		$status_marriage = checkStatusMarriageValue(check_input($Row[9]));
+	                        		$notes = check_input($Row[10]);
+	                        		$birthday = checkFormatDateValue(check_input($Row[11]));
+	                        		$address = check_input($Row[12]);
 	                        		//set array data
 	                        		$datas['data'][$num]['sector'] = $sector;
 	                        		$datas['data'][$num]['first_name'] = $first_name;
@@ -155,6 +156,7 @@ if(!isset($_GET['action'])){
 	                        			$phone = isset($phones[$i]) ? $phones[$i] : "";
 	                        			$datas['data'][$num]['phone'.($i+1)] = $phone;
 	                        		}
+	                        		$datas['data'][$num]['status_marriage'] = $status_marriage;
 	                        		$datas['data'][$num]['status'] = $status;
 	                        		$datas['data'][$num]['notes'] = $notes;
 	                        		$datas['data'][$num]['birthday'] = $birthday;
@@ -172,9 +174,10 @@ if(!isset($_GET['action'])){
 					            6 => array('value' => $Row[6], 'text' => "JENIS KELAMIN"),
 					            7 => array('value' => $Row[7], 'text' => "NO. TELP / HP"),
 					            8 => array('value' => $Row[8], 'text' => "STATUS AKTIF"),
-					            9 => array('value' => $Row[9], 'text' => "CATATAN"),
-					            10 => array('value' => $Row[10], 'text' => "TANGGAL LAHIR"),
-					            11 => array('value' => $Row[11], 'text' => "ALAMAT"),
+					            9 => array('value' => $Row[9], 'text' => "STATUS MENIKAH"),
+					            10 => array('value' => $Row[10], 'text' => "CATATAN"),
+					            11 => array('value' => $Row[11], 'text' => "TANGGAL LAHIR"),
+					            12 => array('value' => $Row[12], 'text' => "ALAMAT"),
 					        );
                         	$array_check = array();
                         	$index_check = 0;
@@ -211,6 +214,7 @@ if(!isset($_GET['action'])){
 						$phone1 = $data['phone1'];
 						$phone2 = $data['phone2'];
 						$phone3 = $data['phone3'];
+						$status_marriage = $data['status_marriage'];
 						$status = $data['status'];
 						$notes = $data['notes'];
 						$birthday = $data['birthday'];
@@ -244,6 +248,7 @@ if(!isset($_GET['action'])){
 							$jemaat->setPhone2($phone2);
 							$jemaat->setPhone3($phone3);
 							$jemaat->setNotes($notes);
+							$jemaat->setStatusMarriage($status_marriage);
 							$jemaat->setStatus($status);
 							$jemaat->insert_data($crud, $jemaat);
 						}

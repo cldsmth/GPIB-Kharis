@@ -303,6 +303,13 @@ if(!function_exists('checkStatus'))
     }
 }
 
+if(!function_exists('checkStatusMarriageValue'))
+{
+    function checkStatusMarriageValue($status){
+        return $status == "Menikah" ? 1 : 0;
+    }
+}
+
 if(!function_exists('checkStatusValue'))
 {
     function checkStatusValue($status){
