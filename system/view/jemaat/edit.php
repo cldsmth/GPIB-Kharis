@@ -183,8 +183,8 @@
                           <div class="col-sm-4 col-xs-12 up1 form-label">Status Menikah :</div>
                           <div class="col-sm-5 col-xs-12 up1">
                             <div class="checkbox checkbox-primary">
-                              <input <?=isChecked($datas->status_marriage, 1);?> id="input-status-marriage" name="status_marriage" type="checkbox" value="1">
-                              <label for="input-status-marriage">
+                              <input <?=isChecked($datas->married, 1);?> id="input-married" name="married" type="checkbox" value="1">
+                              <label for="input-married">
                                 <span class="note-input">Checked if status married</span>
                               </label>
                             </div>
@@ -368,7 +368,7 @@
           var phone2 = document.getElementById("input-phone2");
           var phone3 = document.getElementById("input-phone3");
           var notes = document.getElementById("input-notes");
-          var status_marriage = document.getElementById("input-status-marriage");
+          var married = document.getElementById("input-married");
           var status = document.getElementById("input-status");
           var default_keluarga = "<?=$datas->keluarga_id;?>";
           var array = [
@@ -383,7 +383,7 @@
             [phone2.defaultValue, phone2.value],
             [phone3.defaultValue, phone3.value],
             [notes.defaultValue, notes.value],
-            [status_marriage.defaultChecked, status_marriage.checked],
+            [married.defaultChecked, married.checked],
             [status.defaultChecked, status.checked]
           ];
           if(isDataChanges(array)){

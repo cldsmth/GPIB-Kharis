@@ -182,8 +182,8 @@
                           <div class="col-sm-4 col-xs-12 up1 form-label">Status Menikah :</div>
                           <div class="col-sm-5 col-xs-12 up1">
                             <div class="checkbox checkbox-primary">
-                              <input id="input-status-marriage" name="status_marriage" type="checkbox" value="1">
-                              <label for="input-status-marriage">
+                              <input id="input-married" name="married" type="checkbox" value="1">
+                              <label for="input-married">
                                 <span class="note-input">Checked if status married</span>
                               </label>
                             </div>

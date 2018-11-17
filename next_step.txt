@@ -1,7 +1,5 @@
 next step
 //step 1
--tambahin field status menikah/belum menikah di table jemaat (buat filter pelkat nanti kedepan)
- => nama field nya status_marriage (0/1), adjust CRUD dan bagian import excel nya
 -connect advanced search di module jemaat
 -export excel di module jemmat
 //step 2

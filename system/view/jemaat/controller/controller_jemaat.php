@@ -17,15 +17,15 @@ if(!isset($_GET['action'])){
 	$_sector = isset($_GET['sector']) ? check_input($_GET['sector']) : "";
 	$_pelkat = isset($_GET['pelkat']) ? check_input($_GET['pelkat']) : "";
 	$_gender = isset($_GET['gender']) ? check_input($_GET['gender']) : "";
-	$_marriage = isset($_GET['marriage']) ? check_input($_GET['marriage']) : "";
+	$_married = isset($_GET['married']) ? check_input($_GET['married']) : "";
 	$_status = isset($_GET['status']) ? check_input($_GET['status']) : "";
-	$_search = array_filter(array($_keyword, $_sector, $_pelkat, $_gender, $_marriage, $_status), "strlen");
+	$_search = array_filter(array($_keyword, $_sector, $_pelkat, $_gender, $_married, $_status), "strlen");
 	$filename = PHPFilename();
     if($filename == "index"){
     	$sectors = listSector();
     	$pelkats = listPelkat();
     	$genders = listGender();
-    	$marriages = listStatusMarriage();
+    	$marrieds = listMarried();
     	$statuss = listStatus();
         $datas = $jemaat->get_all($crud, $_page);
 	    //var_dump($datas);
@@ -69,7 +69,7 @@ if(!isset($_GET['action'])){
 			$jemaat->setPhone2(check_input($_POST['phone2']));
 			$jemaat->setPhone3(check_input($_POST['phone3']));
 			$jemaat->setNotes(check_input(nl2br($_POST['notes'], false)));
-			$jemaat->setStatusMarriage(isset($_POST['status_marriage']) ? check_input($_POST['status_marriage']) : 0);
+			$jemaat->setMarried(isset($_POST['married']) ? check_input($_POST['married']) : 0);
 			$jemaat->setStatus(isset($_POST['status']) ? check_input($_POST['status']) : 0);
 
 			$check_name = $jemaat->check_name($crud, $jemaat->getFullName());
@@ -140,7 +140,7 @@ if(!isset($_GET['action'])){
 	                        		$gender = checkGenderValue(check_input($Row[6]));
 	                        		$phones = explode(" / ", check_input($Row[7]));
 	                        		$status = checkStatusValue(check_input($Row[8]));
-	                        		$status_marriage = checkStatusMarriageValue(check_input($Row[9]));
+	                        		$married = checkMarriedValue(check_input($Row[9]));
 	                        		$notes = check_input($Row[10]);
 	                        		$birthday = checkFormatDateValue(check_input($Row[11]));
 	                        		$address = check_input($Row[12]);
@@ -156,7 +156,7 @@ if(!isset($_GET['action'])){
 	                        			$phone = isset($phones[$i]) ? $phones[$i] : "";
 	                        			$datas['data'][$num]['phone'.($i+1)] = $phone;
 	                        		}
-	                        		$datas['data'][$num]['status_marriage'] = $status_marriage;
+	                        		$datas['data'][$num]['married'] = $married;
 	                        		$datas['data'][$num]['status'] = $status;
 	                        		$datas['data'][$num]['notes'] = $notes;
 	                        		$datas['data'][$num]['birthday'] = $birthday;
@@ -214,7 +214,7 @@ if(!isset($_GET['action'])){
 						$phone1 = $data['phone1'];
 						$phone2 = $data['phone2'];
 						$phone3 = $data['phone3'];
-						$status_marriage = $data['status_marriage'];
+						$married = $data['married'];
 						$status = $data['status'];
 						$notes = $data['notes'];
 						$birthday = $data['birthday'];
@@ -248,7 +248,7 @@ if(!isset($_GET['action'])){
 							$jemaat->setPhone2($phone2);
 							$jemaat->setPhone3($phone3);
 							$jemaat->setNotes($notes);
-							$jemaat->setStatusMarriage($status_marriage);
+							$jemaat->setMarried($married);
 							$jemaat->setStatus($status);
 							$jemaat->insert_data($crud, $jemaat);
 						}

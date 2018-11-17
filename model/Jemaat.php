@@ -13,7 +13,7 @@ class Jemaat
     private $_phone2;
     private $_phone3;
     private $_notes;
-    private $_status_marriage;
+    private $_married;
     private $_status;
     private $table;
     private $tableKeluarga;
@@ -121,12 +121,12 @@ class Jemaat
         return $this->_notes;
     }
 
-    function setStatusMarriage($status_marriage){ 
-        $this->_status_marriage = $status_marriage;
+    function setMarried($married){ 
+        $this->_married = $married;
     }
     
-    function getStatusMarriage(){ 
-        return $this->_status_marriage;
+    function getMarried(){ 
+        return $this->_married;
     }
 
     function setStatus($status){ 
@@ -206,7 +206,7 @@ class Jemaat
                         'gender' => 1, 
                         'phone1' => 1, 
                         'birthday' => 1, 
-                        'status_marriage' => 1, 
+                        'married' => 1, 
                         'status' => 1, 
                         'datetime' => 1, 
                         'timestamp' => 1,
@@ -271,7 +271,7 @@ class Jemaat
             'phone2' => $jemaat->_phone2, 
             'phone3' => $jemaat->_phone3, 
             'notes' => $jemaat->_notes, 
-            'status_marriage' => (int) $jemaat->_status_marriage, 
+            'married' => (int) $jemaat->_married, 
             'status' => (int) $jemaat->_status, 
             'timestamp' => $now, 
             'datetime' => $now
@@ -304,7 +304,7 @@ class Jemaat
                     'phone2' => $jemaat->_phone2, 
                     'phone3' => $jemaat->_phone3, 
                     'notes' => $jemaat->_notes, 
-                    'status_marriage' => (int) $jemaat->_status_marriage, 
+                    'married' => (int) $jemaat->_married, 
                     'status' => (int) $jemaat->_status, 
                     'timestamp' => $now
                 ]

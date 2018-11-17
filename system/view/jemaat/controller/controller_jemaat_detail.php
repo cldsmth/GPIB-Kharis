@@ -30,7 +30,7 @@ if(!isset($_GET['action'])){
 			$jemaat->setPhone2(check_input($_POST['phone2']));
 			$jemaat->setPhone3(check_input($_POST['phone3']));
 			$jemaat->setNotes(check_input(nl2br($_POST['notes'], false)));
-			$jemaat->setStatusMarriage(isset($_POST['status_marriage']) ? check_input($_POST['status_marriage']) : 0);
+			$jemaat->setMarried(isset($_POST['married']) ? check_input($_POST['married']) : 0);
 			$jemaat->setStatus(isset($_POST['status']) ? check_input($_POST['status']) : 0);
 			$_old_name = check_input($_POST['old_name']);
 

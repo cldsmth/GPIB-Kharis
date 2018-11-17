@@ -8,7 +8,7 @@
   $param_sector = "sector=".$_sector;
   $param_pelkat = "pelkat=".$_pelkat;
   $param_gender = "gender=".$_gender;
-  $param_marriage = "marriage=".$_marriage;
+  $param_married = "married=".$_married;
   $param_status = "status=".$_status;
 ?>
 <!DOCTYPE html>
@@ -93,42 +93,42 @@
                             <tbody>
                               <?php if($_keyword != ""){?>
                               <tr>
-                                <td><a href="<?=$path['jemaat']."?page=1&q=&".$param_sector."&".$param_pelkat."&".$param_gender."&".$param_marriage."&".$param_status;?>"><i class="fa fa-remove" style="color:#444;"></i></a></td>
+                                <td><a href="<?=$path['jemaat']."?page=1&q=&".$param_sector."&".$param_pelkat."&".$param_gender."&".$param_married."&".$param_status;?>"><i class="fa fa-remove" style="color:#444;"></i></a></td>
                                 <td><?=TextAdvancedSearch("keyword", $_keyword);?></td>
                               </tr>
                               <?php }?>
 
                               <?php if($_sector != ""){?>
                               <tr>
-                                <td><a href="<?=$path['jemaat']."?page=1&".$param_keyword."&sector=&".$param_pelkat."&".$param_gender."&".$param_marriage."&".$param_status;?>"><i class="fa fa-remove" style="color:#444;"></i></a></td>
+                                <td><a href="<?=$path['jemaat']."?page=1&".$param_keyword."&sector=&".$param_pelkat."&".$param_gender."&".$param_married."&".$param_status;?>"><i class="fa fa-remove" style="color:#444;"></i></a></td>
                                 <td><?=TextAdvancedSearch("sector", $_sector);?></td>
                               </tr>
                               <?php }?>
 
                               <?php if($_pelkat != ""){?>
                               <tr>
-                                <td><a href="<?=$path['jemaat']."?page=1&".$param_keyword."&".$param_sector."&pelkat=&".$param_gender."&".$param_marriage."&".$param_status;?>"><i class="fa fa-remove" style="color:#444;"></i></a></td>
+                                <td><a href="<?=$path['jemaat']."?page=1&".$param_keyword."&".$param_sector."&pelkat=&".$param_gender."&".$param_married."&".$param_status;?>"><i class="fa fa-remove" style="color:#444;"></i></a></td>
                                 <td><?=TextAdvancedSearch("pelkat", $_pelkat);?></td>
                               </tr>
                               <?php }?>
 
                               <?php if($_gender != ""){?>
                               <tr>
-                                <td><a href="<?=$path['jemaat']."?page=1&".$param_keyword."&".$param_sector."&".$param_pelkat."&gender=&".$param_marriage."&".$param_status;?>"><i class="fa fa-remove" style="color:#444;"></i></a></td>
+                                <td><a href="<?=$path['jemaat']."?page=1&".$param_keyword."&".$param_sector."&".$param_pelkat."&gender=&".$param_married."&".$param_status;?>"><i class="fa fa-remove" style="color:#444;"></i></a></td>
                                 <td><?=TextAdvancedSearch("gender", $_gender);?></td>
                               </tr>
                               <?php }?>
                               
-                              <?php if($_marriage != ""){?>
+                              <?php if($_married != ""){?>
                               <tr>
-                                <td><a href="<?=$path['jemaat']."?page=1&".$param_keyword."&".$param_sector."&".$param_pelkat."&".$param_gender."&marriage=&".$param_status;?>"><i class="fa fa-remove" style="color:#444;"></i></a></td>
-                                <td><?=TextAdvancedSearch("marriage", $_marriage);?></td>
+                                <td><a href="<?=$path['jemaat']."?page=1&".$param_keyword."&".$param_sector."&".$param_pelkat."&".$param_gender."&married=&".$param_status;?>"><i class="fa fa-remove" style="color:#444;"></i></a></td>
+                                <td><?=TextAdvancedSearch("married", $_married);?></td>
                               </tr>
                               <?php }?>
                               
                               <?php if($_status != ""){?>
                               <tr>
-                                <td><a href="<?=$path['jemaat']."?page=1&".$param_keyword."&".$param_sector."&".$param_pelkat."&".$param_gender."&".$param_marriage."&status=";?>"><i class="fa fa-remove" style="color:#444;"></i></a></td>
+                                <td><a href="<?=$path['jemaat']."?page=1&".$param_keyword."&".$param_sector."&".$param_pelkat."&".$param_gender."&".$param_married."&status=";?>"><i class="fa fa-remove" style="color:#444;"></i></a></td>
                                 <td><?=TextAdvancedSearch("status", $_status);?></td>
                               </tr>
                               <?php }?>
@@ -171,7 +171,7 @@
                           <td><?=checkGender($data->gender);?></td>
                           <td><?=$data->phone1;?></td>
                           <td><?=($data->birthday != "0000-00-00" ? date("d-M-Y", strtotime($data->birthday)) : "-");?></td>
-                          <td><?=checkStatusMarriage($data->status_marriage);?></td>
+                          <td><?=checkMarried($data->married);?></td>
                           <td><?=date("d-M-Y, H:i:s", strtotime($data->datetime));?></td>
                           <td><?=($data->datetime != $data->timestamp ? time_ago($data->timestamp) : "-");?></td>
                         </tr>
@@ -204,16 +204,16 @@
                             }
                             if($_page > 1){
                               echo "<li id='default-datatable_previous' class='paginate_button previous'>";
-                              echo "<a href='".$path['jemaat']."?page=".($_page-1)."&".$param_keyword."&".$param_sector."&".$param_pelkat."&".$param_gender."&".$param_marriage."&".$param_status."' aria-controls='default-datatable' data-dt-idx='0' tabindex='0'><i class='fa fa-chevron-left'></i> Previous</a>";
+                              echo "<a href='".$path['jemaat']."?page=".($_page-1)."&".$param_keyword."&".$param_sector."&".$param_pelkat."&".$param_gender."&".$param_married."&".$param_status."' aria-controls='default-datatable' data-dt-idx='0' tabindex='0'><i class='fa fa-chevron-left'></i> Previous</a>";
                               echo "</li>";
                             }
                             for($mon = $prevLimit; $mon <= $nextLimit;$mon++){?>
                               <li class="paginate_button <?php if($mon == $_page){echo 'active';}?>">
-                                <a href="<?=$path['jemaat']."?page=".$mon."&".$param_keyword."&".$param_sector."&".$param_pelkat."&".$param_gender."&".$param_marriage."&".$param_status;?>" aria-controls="default-datatable" data-dt-idx="<?=$mon;?>" tabindex="0"><?=$mon;?></a>
+                                <a href="<?=$path['jemaat']."?page=".$mon."&".$param_keyword."&".$param_sector."&".$param_pelkat."&".$param_gender."&".$param_married."&".$param_status;?>" aria-controls="default-datatable" data-dt-idx="<?=$mon;?>" tabindex="0"><?=$mon;?></a>
                               </li>
                             <?php } if($total_page > 1 && $_page != $total_page){
                               echo "<li id='default-datatable_next' class='paginate_button next'>";
-                              echo "<a href='".$path['jemaat']."?page=".($_page+1)."&".$param_keyword."&".$param_sector."&".$param_pelkat."&".$param_gender."&".$param_marriage."&".$param_status."' aria-controls='default-datatable' data-dt-idx='".($_page+1)."' tabindex='0'><i class='fa fa-chevron-right'></i> Next</a>";
+                              echo "<a href='".$path['jemaat']."?page=".($_page+1)."&".$param_keyword."&".$param_sector."&".$param_pelkat."&".$param_gender."&".$param_married."&".$param_status."' aria-controls='default-datatable' data-dt-idx='".($_page+1)."' tabindex='0'><i class='fa fa-chevron-right'></i> Next</a>";
                               echo "</li>";
                             } ?>
                           </ul>
@@ -285,10 +285,10 @@
                       <div class="row">
                         <div class="col-sm-3 col-xs-12 form-label">Status Menikah :</div>
                         <div class="col-sm-8 col-xs-12">
-                          <select name="marriage" class="form-control">
+                          <select name="married" class="form-control">
                             <option value="">Pilih Status Menikah</option>
-                            <?php if(is_array($marriages)){ foreach($marriages as $marriage){?>
-                            <option <?=isSelected($_marriage, $marriage['value']);?> value="<?=$marriage['value'];?>"><?=$marriage['text'];?></option>
+                            <?php if(is_array($marrieds)){ foreach($marrieds as $married){?>
+                            <option <?=isSelected($_married, $married['value']);?> value="<?=$married['value'];?>"><?=$married['text'];?></option>
                             <?php }}?>
                           </select>
                         </div>

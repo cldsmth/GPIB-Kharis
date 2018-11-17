@@ -21,7 +21,7 @@ if(!function_exists('TextAdvancedSearch'))
                 }
                 $text = "Gender <i>is selected</i>&nbsp;&nbsp;<code>\"".$data."\"</code>&nbsp;from advanced search";
                 break;
-            case "marriage":
+            case "married":
                 $data = $data == 1 ? "Married" : "Single";
                 $text = "Status Marriage <i>is selected</i>&nbsp;&nbsp;<code>\"".$data."\"</code>&nbsp;from advanced search";
                 break;
@@ -87,9 +87,9 @@ if(!function_exists('listGender'))
     }
 }
 
-if(!function_exists('listStatusMarriage'))
+if(!function_exists('listMarried'))
 {
-    function listStatusMarriage(){
+    function listMarried(){
         $data = array(0 => array('value' => "1", 'text' => "Menikah"),
             1 => array('value' => "0", 'text' => "Belum Menikah")
         );
@@ -289,9 +289,9 @@ if(!function_exists('checkGenderValue'))
     }
 }
 
-if(!function_exists('checkStatusMarriage'))
+if(!function_exists('checkMarried'))
 {
-    function checkStatusMarriage($status){
+    function checkMarried($status){
         return $status == 1 ? "Menikah" : "Belum Menikah";
     }
 }
@@ -303,9 +303,9 @@ if(!function_exists('checkStatus'))
     }
 }
 
-if(!function_exists('checkStatusMarriageValue'))
+if(!function_exists('checkMarriedValue'))
 {
-    function checkStatusMarriageValue($status){
+    function checkMarriedValue($status){
         return $status == "Menikah" ? 1 : 0;
     }
 }
