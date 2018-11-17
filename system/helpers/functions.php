@@ -1,4 +1,19 @@
 <?php
+if(!function_exists('linkToPage'))
+{
+    function linkToPage($page, $query_string){
+        return str_replace("page=".$page, "", $query_string);
+    }
+}
+
+if(!function_exists('RemoveAdvancedSearch'))
+{
+    function RemoveAdvancedSearch($page, $param, $data, $query_string){
+        $query = str_replace("page=".$page, "page=1", $query_string);
+        return str_replace($param."=".$data, $param."=", $query);
+    }
+}
+
 if(!function_exists('TextAdvancedSearch'))
 {
     function TextAdvancedSearch($param, $data){

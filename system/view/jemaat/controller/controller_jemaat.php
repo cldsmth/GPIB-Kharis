@@ -13,25 +13,33 @@ $keluarga = new Keluarga();
 
 if(!isset($_GET['action'])){
 	$_page = isset($_GET['page']) ? check_input($_GET['page']) : 1;
-	$_keyword = isset($_GET['q']) ? check_input($_GET['q']) : "";
+	$_keyword = isset($_GET['keyword']) ? check_input($_GET['keyword']) : "";
 	$_sector = isset($_GET['sector']) ? check_input($_GET['sector']) : "";
 	$_pelkat = isset($_GET['pelkat']) ? check_input($_GET['pelkat']) : "";
 	$_gender = isset($_GET['gender']) ? check_input($_GET['gender']) : "";
 	$_married = isset($_GET['married']) ? check_input($_GET['married']) : "";
 	$_status = isset($_GET['status']) ? check_input($_GET['status']) : "";
-	$_search = array_filter(array($_keyword, $_sector, $_pelkat, $_gender, $_married, $_status), "strlen");
 	$filename = PHPFilename();
     if($filename == "index"){
-    	$sectors = listSector();
-    	$pelkats = listPelkat();
-    	$genders = listGender();
-    	$marrieds = listMarried();
-    	$statuss = listStatus();
         $datas = $jemaat->get_all($crud, $_page);
 	    //var_dump($datas);
 	    $total_page = hasProperty($datas, "data") ? $datas->total_page : 0;
 	    $total_data = hasProperty($datas, "data") ? $datas->total_data : 0;
 	    $total_data_all = hasProperty($datas, "data") ? $datas->total_data_all : 0;
+	    //advanced search
+	    $sectors = listSector();
+    	$pelkats = listPelkat();
+    	$genders = listGender();
+    	$marrieds = listMarried();
+    	$statuss = listStatus();
+	    $searchs = array_filter(array($_keyword, $_sector, $_pelkat, $_gender, $_married, $_status), "strlen");
+		$filters = array(0 => array('param' => "keyword", 'value' => $_keyword),
+	        1 => array('param' => "sector", 'value' => $_sector),
+	        2 => array('param' => "pelkat", 'value' => $_pelkat),
+	        3 => array('param' => "gender", 'value' => $_gender),
+	        4 => array('param' => "married", 'value' => $_married),
+	        5 => array('param' => "status", 'value' => $_status)
+	    );
     }else if($filename == "insert"){
         $keluargas = $keluarga->get_list($crud);
     }else{

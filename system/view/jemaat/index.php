@@ -4,12 +4,6 @@
   include("controller/controller_jemaat.php");
   $curpage = "jemaat";
   $navpage = "Master";
-  $param_keyword = "q=".$_keyword;
-  $param_sector = "sector=".$_sector;
-  $param_pelkat = "pelkat=".$_pelkat;
-  $param_gender = "gender=".$_gender;
-  $param_married = "married=".$_married;
-  $param_status = "status=".$_status;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,14 +63,14 @@
                             <div class="search-group">
                               <div class="search-input">
                                 <input name="page" type="hidden" value="1">
-                                <input name="q" type="text" class="form-control input-style" placeholder="What are you looking for" autocomplete="off" value="<?=inputDisplay($_keyword);?>">
+                                <input name="keyword" type="text" class="form-control input-style" placeholder="What are you looking for" autocomplete="off" value="<?=inputDisplay($_keyword);?>">
                               </div>
                               <span class="search-group-btn">
                                 <button class="btn btn-default" type="submit"><i class='fa fa-search'></i> Search</button>
                               </span>
                             </div>
                             <div class="link-search">
-                              <a href="javascript:void(0)" onclick="alert('export excel')">Export Excel</a> <span>&nbsp;|&nbsp;</span> <a href="javascript:void(0)" data-toggle="modal" data-target="#panel-advanced-search">Advanced Search</a> <?php if(!empty($_search)){?> <span>&nbsp;|&nbsp;</span> <a href="<?=$path['jemaat'];?>">Clear Advanced Search</a> <?php }?>
+                              <a href="javascript:void(0)" onclick="alert('export excel')">Export Excel</a> <span>&nbsp;|&nbsp;</span> <a href="javascript:void(0)" data-toggle="modal" data-target="#panel-advanced-search">Advanced Search</a> <?php if(!empty($searchs)){?> <span>&nbsp;|&nbsp;</span> <a href="<?=$path['jemaat'];?>">Clear Advanced Search</a> <?php }?>
                             </div>
                           </form>
                         </div>
@@ -84,54 +78,19 @@
                     </div>
                     <div class="col-xs-12 col-sm-4"></div>
                   </div>
-                  <?php if(!empty($_search)){?>
+                  <?php if(!empty($searchs)){?>
                   <div class="row">
                     <div class="col-xs-12 col-sm-8 col-sm-offset-2">
                       <div class="form-group">
                         <div class="table-responsive">
                           <table class="table table-horizontal-scroll">
                             <tbody>
-                              <?php if($_keyword != ""){?>
+                              <?php if(is_array($filters)){ foreach($filters as $filter){ if($filter['value'] != ""){?>
                               <tr>
-                                <td><a href="<?=$path['jemaat']."?page=1&q=&".$param_sector."&".$param_pelkat."&".$param_gender."&".$param_married."&".$param_status;?>"><i class="fa fa-remove" style="color:#444;"></i></a></td>
-                                <td><?=TextAdvancedSearch("keyword", $_keyword);?></td>
+                                <td><a href="<?=$path['jemaat']."?".RemoveAdvancedSearch($_page, $filter['param'], $filter['value'], $_SERVER['QUERY_STRING']);?>"><i class="fa fa-remove" style="color:#444;"></i></a></td>
+                                <td><?=TextAdvancedSearch($filter['param'], $filter['value']);?></td>
                               </tr>
-                              <?php }?>
-
-                              <?php if($_sector != ""){?>
-                              <tr>
-                                <td><a href="<?=$path['jemaat']."?page=1&".$param_keyword."&sector=&".$param_pelkat."&".$param_gender."&".$param_married."&".$param_status;?>"><i class="fa fa-remove" style="color:#444;"></i></a></td>
-                                <td><?=TextAdvancedSearch("sector", $_sector);?></td>
-                              </tr>
-                              <?php }?>
-
-                              <?php if($_pelkat != ""){?>
-                              <tr>
-                                <td><a href="<?=$path['jemaat']."?page=1&".$param_keyword."&".$param_sector."&pelkat=&".$param_gender."&".$param_married."&".$param_status;?>"><i class="fa fa-remove" style="color:#444;"></i></a></td>
-                                <td><?=TextAdvancedSearch("pelkat", $_pelkat);?></td>
-                              </tr>
-                              <?php }?>
-
-                              <?php if($_gender != ""){?>
-                              <tr>
-                                <td><a href="<?=$path['jemaat']."?page=1&".$param_keyword."&".$param_sector."&".$param_pelkat."&gender=&".$param_married."&".$param_status;?>"><i class="fa fa-remove" style="color:#444;"></i></a></td>
-                                <td><?=TextAdvancedSearch("gender", $_gender);?></td>
-                              </tr>
-                              <?php }?>
-                              
-                              <?php if($_married != ""){?>
-                              <tr>
-                                <td><a href="<?=$path['jemaat']."?page=1&".$param_keyword."&".$param_sector."&".$param_pelkat."&".$param_gender."&married=&".$param_status;?>"><i class="fa fa-remove" style="color:#444;"></i></a></td>
-                                <td><?=TextAdvancedSearch("married", $_married);?></td>
-                              </tr>
-                              <?php }?>
-                              
-                              <?php if($_status != ""){?>
-                              <tr>
-                                <td><a href="<?=$path['jemaat']."?page=1&".$param_keyword."&".$param_sector."&".$param_pelkat."&".$param_gender."&".$param_married."&status=";?>"><i class="fa fa-remove" style="color:#444;"></i></a></td>
-                                <td><?=TextAdvancedSearch("status", $_status);?></td>
-                              </tr>
-                              <?php }?>
+                              <?php }}}?>
                             </tbody>
                           </table>
                         </div> 
@@ -204,16 +163,16 @@
                             }
                             if($_page > 1){
                               echo "<li id='default-datatable_previous' class='paginate_button previous'>";
-                              echo "<a href='".$path['jemaat']."?page=".($_page-1)."&".$param_keyword."&".$param_sector."&".$param_pelkat."&".$param_gender."&".$param_married."&".$param_status."' aria-controls='default-datatable' data-dt-idx='0' tabindex='0'><i class='fa fa-chevron-left'></i> Previous</a>";
+                              echo "<a href='".$path['jemaat']."?page=".($_page-1).linkToPage($_page, $_SERVER['QUERY_STRING'])."' aria-controls='default-datatable' data-dt-idx='0' tabindex='0'><i class='fa fa-chevron-left'></i> Previous</a>";
                               echo "</li>";
                             }
                             for($mon = $prevLimit; $mon <= $nextLimit;$mon++){?>
                               <li class="paginate_button <?php if($mon == $_page){echo 'active';}?>">
-                                <a href="<?=$path['jemaat']."?page=".$mon."&".$param_keyword."&".$param_sector."&".$param_pelkat."&".$param_gender."&".$param_married."&".$param_status;?>" aria-controls="default-datatable" data-dt-idx="<?=$mon;?>" tabindex="0"><?=$mon;?></a>
+                                <a href="<?=$path['jemaat']."?page=".$mon.linkToPage($_page, $_SERVER['QUERY_STRING']);?>" aria-controls="default-datatable" data-dt-idx="<?=$mon;?>" tabindex="0"><?=$mon;?></a>
                               </li>
                             <?php } if($total_page > 1 && $_page != $total_page){
                               echo "<li id='default-datatable_next' class='paginate_button next'>";
-                              echo "<a href='".$path['jemaat']."?page=".($_page+1)."&".$param_keyword."&".$param_sector."&".$param_pelkat."&".$param_gender."&".$param_married."&".$param_status."' aria-controls='default-datatable' data-dt-idx='".($_page+1)."' tabindex='0'><i class='fa fa-chevron-right'></i> Next</a>";
+                              echo "<a href='".$path['jemaat']."?page=".($_page+1).linkToPage($_page, $_SERVER['QUERY_STRING'])."' aria-controls='default-datatable' data-dt-idx='".($_page+1)."' tabindex='0'><i class='fa fa-chevron-right'></i> Next</a>";
                               echo "</li>";
                             } ?>
                           </ul>
@@ -242,7 +201,7 @@
                         <div class="col-sm-3 col-xs-12 form-label">Kata Kunci :</div>
                         <div class="col-sm-8 col-xs-12">
                           <input name="page" type="hidden" value="1">
-                          <input name="q" type="text" class="form-control input-style" placeholder="Cari berdasarkan Nama, Keluarga, No. HP, atau Alamat" value="<?=inputDisplay($_keyword);?>">
+                          <input name="keyword" type="text" class="form-control input-style" placeholder="Cari berdasarkan Nama, Keluarga, No. HP, atau Alamat" value="<?=inputDisplay($_keyword);?>">
                         </div>
                       </div>
                       <div class="row up1"></div>
