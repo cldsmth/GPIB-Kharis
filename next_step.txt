@@ -1,6 +1,6 @@
 next step
 //step 1
--connect advanced search di module jemaat
+-connect advanced search di module jemaat (sisa keyword, pelkat)
 -export excel di module jemmat
 //step 2
 -nanti untuk pakai library kayak datepicker, select2, itu include js nya di pakai mt_rand

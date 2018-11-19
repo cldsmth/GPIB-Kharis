@@ -17,11 +17,18 @@ class Jemaat
     private $_status;
     private $table;
     private $tableKeluarga;
+    private $joinKeluarga;
     private $itemPerPageAdmin;
 
     function __construct(){
         $this->table = "jemaat";
         $this->tableKeluarga = "keluarga";
+        $this->joinKeluarga = [
+            'from' => $this->tableKeluarga,
+            'localField' => "keluarga_id",
+            'foreignField' => "id",
+            'as' => "keluarga"
+        ];
         $this->itemPerPageAdmin = 20;
     }
 
@@ -170,15 +177,42 @@ class Jemaat
         return is_array($result) ? true : false;
     }
 
-    public function get_all($crud, $page=1){
+    public function get_all($crud, $page=1, $keyword, $sector, $pelkat, $gender, $married, $status){
+        $query = [];
+        if($sector != ""){
+            $query['keluarga.sector'] = (int) $sector;
+        }
+        if($gender != ""){
+            $query['gender'] = $gender;
+        }
+        if($married != ""){
+            $query['married'] = (int) $married;
+        }
+        if($status != ""){
+            $query['status'] = (int) $status;
+        }
+
         //get total data
-        $query_total = [];
-        $total_data = $crud->count(
+        $result_total = $crud->aggregate(
             new MongoDB\Driver\Command([
-                'count' => $this->table, 
-                'query' => $query_total
+                'aggregate' => $this->table,
+                'pipeline' => [
+                    [
+                        '$lookup' => $this->joinKeluarga
+                    ],
+                    [
+                        '$match' => $query ?: (object) []
+                    ],
+                    [
+                        '$count' => "count"
+                    ]
+                ],
+                'cursor' => [
+                    'batchSize' => 4
+                ]
             ])
         );
+        $total_data = isset($result_total[0]) ? $result_total[0]->count : 0;
 
         //get total page
         $total_page  = ceil($total_data / $this->itemPerPageAdmin);
@@ -188,15 +222,13 @@ class Jemaat
             'aggregate' => $this->table,
             'pipeline' => [
                 [
-                    '$lookup' => [
-                        'from' => $this->tableKeluarga,
-                        'localField' => "keluarga_id",
-                        'foreignField' => "id",
-                        'as' => "keluarga"
-                    ]
+                    '$lookup' => $this->joinKeluarga
                 ],
                 [
                     '$unwind' => '$keluarga'
+                ],
+                [
+                    '$match' => $query ?: (object) []
                 ],
                 [
                     '$project' => [

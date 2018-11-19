@@ -12,11 +12,8 @@ if(issetVar(array('module', 'type', 'data'))){
 	$_module = check_input($_GET['module']);
 	$_type = check_input($_GET['type']);
 	$_data = check_input($_GET['data']);
-	$msg = $validation->check_empty($_GET, array('module', 'type', 'data'));
-
-	if($msg != null){
-		echo "Empty Data";
-	}else{
+	
+	if($validation->check_empty($_GET, array('module', 'type', 'data')) == null){
 		$thmb = $_type == "thmb" ? "thmb/" : "";
 		$data = $_data == "null" ? "" : $encrypt->encrypt_decrypt("decrypt", $_data);
 		$image = getUploadFile($global['root-url'], $_module, $thmb, $data);
@@ -39,6 +36,8 @@ if(issetVar(array('module', 'type', 'data'))){
 	    header('Content-Length: '.$filesize);
 	    readfile($image);
 	    exit; //All done, get out!
+	}else{
+		echo "Empty Data";
 	}
 }else{
 	echo "No data";
