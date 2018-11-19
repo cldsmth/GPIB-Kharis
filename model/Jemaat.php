@@ -179,6 +179,35 @@ class Jemaat
 
     public function get_all($crud, $page=1, $keyword, $sector, $pelkat, $gender, $married, $status){
         $query = [];
+        if($keyword != ""){
+            $keywords = explode(" ", $keyword);
+            if(is_array($keywords)){
+                for($i = 0; $i < count($keywords); $i++){
+                    $like = [
+                        '$regex' => $keywords[$i],
+                        '$options' => "i"
+                    ];
+                    $query['$or'][] = [
+                        'full_name' => $like
+                    ];
+                    $query['$or'][] = [
+                        'keluarga.name' => $like
+                    ];
+                    $query['$or'][] = [
+                        'phone1' => $like
+                    ];
+                    $query['$or'][] = [
+                        'phone2' => $like
+                    ];
+                    $query['$or'][] = [
+                        'phone3' => $like
+                    ];
+                    $query['$or'][] = [
+                        'keluarga.address' => $like
+                    ];
+                }
+            }
+        }
         if($sector != ""){
             $query['keluarga.sector'] = (int) $sector;
         }

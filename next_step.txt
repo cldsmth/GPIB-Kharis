@@ -1,6 +1,12 @@
 next step
 //step 1
--connect advanced search di module jemaat (sisa keyword, pelkat)
+-connect advanced search di module jemaat (sisa pelkat)
+ PA => dibawah 12 tahun (berarti mulai dari 0-11)
+ PT => 12 - 14 tahun
+ GP => diatas 14 tahun (berarti mulai dari 15 tahun) dan belum menikah
+ PKP => wanita, sudah menikah dan umur di bawah 60 tahun (mulai dari 59)
+ PKB => pria, sudah menikah dan umur di bawah 60 tahun (mulai dari 59)
+ PKLU => range umur 60-100++
 -export excel di module jemmat
 //step 2
 -nanti untuk pakai library kayak datepicker, select2, itu include js nya di pakai mt_rand
