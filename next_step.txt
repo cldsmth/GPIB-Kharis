@@ -1,20 +1,14 @@
 next step
 //step 1
--connect advanced search di module jemaat (sisa pelkat)
- PA => dibawah 12 tahun (berarti mulai dari 0-11)
- PT => 12 - 14 tahun
- GP => diatas 14 tahun (berarti mulai dari 15 tahun) dan belum menikah
- PKP => wanita, sudah menikah dan umur di bawah 60 tahun (mulai dari 59)
- PKB => pria, sudah menikah dan umur di bawah 60 tahun (mulai dari 59)
- PKLU => range umur 60-100++
--export excel di module jemmat
-//step 2
 -nanti untuk pakai library kayak datepicker, select2, itu include js nya di pakai mt_rand
  yg bagian library.js, plugins.js, app.js
 -link untuk pakai select2 (http://localhost/Infinity-v2.0.0/default/form.plugins.html)
 -link untuk pakai datepicker (http://localhost/Infinity-v2.0.0/default/form.datetime.html)
-//step 3
+//step 2
+-link to edit page, link to index page
+-export excel di module jemmat
 -cari pagination yang lebih bagus, mungkin ada first/last page, dll
+-bikin file cron job untuk perubahan umur
 -import-in semua data-data jemaat (sektor 2, 3 dan 4) => Kalau sudah fix sesuai dengan yang terupdate di gereja
 -kalau sudah ada module event/article, di module category event/article di tambahkan kolom counter dan ada validasi 
  kalau yang bisa di hapus cuma counter == 0, yang sudah terisi tidak bisa di hapus (seperti module keluarga)

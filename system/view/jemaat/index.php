@@ -203,14 +203,14 @@
                         <div class="col-sm-3 col-xs-12 form-label">Kata Kunci :</div>
                         <div class="col-sm-8 col-xs-12">
                           <input name="page" type="hidden" value="1">
-                          <input name="keyword" type="text" class="form-control input-style" placeholder="Cari berdasarkan Nama, Keluarga, No. HP, atau Alamat" value="<?=inputDisplay($_keyword);?>">
+                          <input id="input-keyword" name="keyword" type="text" class="form-control input-style" placeholder="Cari berdasarkan Nama, Keluarga, No. HP, atau Alamat" value="<?=inputDisplay($_keyword);?>">
                         </div>
                       </div>
                       <div class="row up1"></div>
                       <div class="row">
                         <div class="col-sm-3 col-xs-12 form-label">Sektor :</div>
                         <div class="col-sm-8 col-xs-12">
-                          <select name="sector" class="form-control">
+                          <select id="input-sector" name="sector" class="form-control">
                             <option value="">Pilih Sektor</option>
                             <?php if(is_array($sectors)){ foreach($sectors as $sector){?>
                             <option <?=isSelected($_sector, $sector['value']);?> value="<?=$sector['value'];?>"><?=$sector['text'];?></option>
@@ -222,7 +222,7 @@
                       <div class="row">
                         <div class="col-sm-3 col-xs-12 form-label">Pelkat :</div>
                         <div class="col-sm-8 col-xs-12">
-                          <select name="pelkat" class="form-control">
+                          <select id="input-pelkat" name="pelkat" class="form-control">
                             <option value="">Pilih Pelkat</option>
                             <?php if(is_array($pelkats)){ foreach($pelkats as $pelkat){?>
                             <option <?=isSelected($_pelkat, $pelkat['value']);?> value="<?=$pelkat['value'];?>"><?=$pelkat['text'];?></option>
@@ -234,7 +234,7 @@
                       <div class="row">
                         <div class="col-sm-3 col-xs-12 form-label">Jenis Kelamin :</div>
                         <div class="col-sm-8 col-xs-12">
-                          <select name="gender" class="form-control">
+                          <select id="input-gender" name="gender" class="form-control">
                             <option value="">Pilih Jenis Kelamin</option>
                             <?php if(is_array($genders)){ foreach($genders as $gender){?>
                             <option <?=isSelected($_gender, $gender['value']);?> value="<?=$gender['value'];?>"><?=$gender['text'];?></option>
@@ -246,7 +246,7 @@
                       <div class="row">
                         <div class="col-sm-3 col-xs-12 form-label">Status Menikah :</div>
                         <div class="col-sm-8 col-xs-12">
-                          <select name="married" class="form-control">
+                          <select id="input-married" name="married" class="form-control">
                             <option value="">Pilih Status Menikah</option>
                             <?php if(is_array($marrieds)){ foreach($marrieds as $married){?>
                             <option <?=isSelected($_married, $married['value']);?> value="<?=$married['value'];?>"><?=$married['text'];?></option>
@@ -258,7 +258,7 @@
                       <div class="row">
                         <div class="col-sm-3 col-xs-12 form-label">Status :</div>
                         <div class="col-sm-8 col-xs-12">
-                          <select name="status" class="form-control">
+                          <select id="input-status" name="status" class="form-control">
                             <option value="">Pilih Status</option>
                             <?php if(is_array($statuss)){ foreach($statuss as $status){?>
                             <option <?=isSelected($_status, $status['value']);?> value="<?=$status['value'];?>"><?=$status['text'];?></option>
@@ -292,6 +292,11 @@
     </main>
   	<?php include("../../parts/part-footer-js.php");?>
     <script type="text/javascript">
+      $(document).ready(function() {
+        clear();
+        change($("#input-pelkat").val());
+      });
+
       <?php if($message != ""){?>
         //use session here for alert success/failed
         var alertText = "<?=$message;?>"; //text for alert
@@ -303,6 +308,38 @@
           successAlert(alertText);
         <?php } ?>
       <?php } ?>
+
+      $("#input-pelkat").change(function(){
+        clear();
+        change(this.value);        
+      });
+
+      function clear(){
+        $("#input-gender").val("");
+        $("#input-married").val("");
+        $("#input-gender").removeClass("disable-state");
+        $("#input-married").removeClass("disable-state");
+      }
+
+      function change(pelkat){
+        if(pelkat == "pa" || pelkat == "pt" || pelkat == "gp"){
+          $("#input-married").val("0");
+          $("#input-married").addClass("disable-state");
+        }else if(pelkat == "pkp"){
+          $("#input-gender").val("f");
+          $("#input-married").val("1");
+          $("#input-gender").addClass("disable-state");
+          $("#input-married").addClass("disable-state");
+        }else if(pelkat == "pkb"){
+          $("#input-gender").val("m");
+          $("#input-married").val("1");
+          $("#input-gender").addClass("disable-state");
+          $("#input-married").addClass("disable-state");
+        }else if(pelkat == "pklu"){
+          $("#input-married").val("1");
+          $("#input-married").addClass("disable-state");
+        }
+      }
 
       function confirmDelete(id, name){
         var x = confirm("Are you sure want to delete \""+name+"\" ?");

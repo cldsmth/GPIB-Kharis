@@ -220,6 +220,43 @@ class Jemaat
         if($sector != ""){
             $query['keluarga.sector'] = (int) $sector;
         }
+        if($pelkat != ""){
+            if($pelkat == "pa"){
+                $query['age'] = [
+                    '$gte' => 0,
+                    '$lte' => 11
+                ];
+                $query['married'] = 0;
+            }else if($pelkat == "pt"){
+                $query['age'] = [
+                    '$gte' => 12,
+                    '$lte' => 14
+                ];
+                $query['married'] = 0;
+            }else if($pelkat == "gp"){
+                $query['age'] = [
+                    '$gte' => 15
+                ];
+                $query['married'] = 0;
+            }else if($pelkat == "pkp"){
+                $query['gender'] = "f";
+                $query['married'] = 1;
+                $query['age'] = [
+                    '$lte' => 59
+                ];
+            }else if($pelkat == "pkb"){
+                $query['gender'] = "m";
+                $query['married'] = 1;
+                $query['age'] = [
+                    '$lte' => 59
+                ];
+            }else if($pelkat == "pklu"){
+                $query['age'] = [
+                    '$gte' => 60
+                ];
+                $query['married'] = 1;
+            }
+        }
         if($gender != ""){
             $query['gender'] = $gender;
         }
