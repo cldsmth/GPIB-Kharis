@@ -112,6 +112,7 @@
                           <th>Jenis Kelamin</th>
                           <th>No. HP</th>
                           <th>Tanggal Lahir</th>
+                          <th class="text-center">Umur</th>
                           <th>Status Menikah</th>
                           <th>Create Date</th>
                           <th>Last Updated</th>
@@ -130,13 +131,14 @@
                           <td><?=checkGender($data->gender);?></td>
                           <td><?=$data->phone1;?></td>
                           <td><?=($data->birthday != "0000-00-00" ? date("d-M-Y", strtotime($data->birthday)) : "-");?></td>
+                          <td class="text-center"><?=((string) $data->age != null ? $data->age : "-");?></td>
                           <td><?=checkMarried($data->married);?></td>
                           <td><?=date("d-M-Y, H:i:s", strtotime($data->datetime));?></td>
                           <td><?=($data->datetime != $data->timestamp ? time_ago($data->timestamp) : "-");?></td>
                         </tr>
                         <?php $num++;}}else{?>
                         <tr>
-                          <td colspan="12">There is no data!</td>
+                          <td colspan="13">There is no data!</td>
                         </tr>
                         <?php }?>
                       </tbody>

@@ -469,13 +469,13 @@ if(!function_exists('cleanSpace'))
 if(!function_exists('calculate_age'))
 {
     function calculate_age($date){
-        list($day, $month, $year) = explode("-",$date);
-        $year_diff  = date("Y") - $year;
-        $month_diff = date("m") - $month;
-        $day_diff   = date("d") - $day;
-        if ($day_diff < 0 && $month_diff==0) $year_diff--;
-        if ($day_diff < 0 && $month_diff < 0) $year_diff--;
-        return $year_diff;
+        if($date == "0000-00-00"){
+            return null;
+        }
+        $today = new DateTime(nowDate());
+        $birthdate = new DateTime($date);
+        $interval = $today->diff($birthdate);
+        return $interval->format('%y');
     }
 }
 

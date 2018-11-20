@@ -9,6 +9,7 @@ class Jemaat
     private $_full_name;
     private $_gender;
     private $_birthday;
+    private $_age;
     private $_phone1;
     private $_phone2;
     private $_phone3;
@@ -94,6 +95,14 @@ class Jemaat
     
     function getBirthday(){ 
         return $this->_birthday;
+    }
+
+    function setAge($age){ 
+        $this->_age = $age;
+    }
+    
+    function getAge(){ 
+        return $this->_age;
     }
 
     function setPhone1($phone1){ 
@@ -267,6 +276,7 @@ class Jemaat
                         'gender' => 1, 
                         'phone1' => 1, 
                         'birthday' => 1, 
+                        'age' => 1, 
                         'married' => 1, 
                         'status' => 1, 
                         'datetime' => 1, 
@@ -328,6 +338,7 @@ class Jemaat
             'full_name' => $jemaat->_full_name,
             'gender' => $jemaat->_gender,
             'birthday' => $jemaat->_birthday, 
+            'age' => $jemaat->_age != null ? (int) $jemaat->_age : null, 
             'phone1' => $jemaat->_phone1, 
             'phone2' => $jemaat->_phone2, 
             'phone3' => $jemaat->_phone3, 
@@ -359,8 +370,9 @@ class Jemaat
                     'middle_name' => $jemaat->_middle_name,
                     'last_name' => $jemaat->_last_name,
                     'full_name' => $jemaat->_full_name,
-                    'gender' => $jemaat->_gender,
+                    'gender' => $jemaat->_gender, 
                     'birthday' => $jemaat->_birthday, 
+                    'age' => $jemaat->_age != null ? (int) $jemaat->_age : null, 
                     'phone1' => $jemaat->_phone1, 
                     'phone2' => $jemaat->_phone2, 
                     'phone3' => $jemaat->_phone3, 

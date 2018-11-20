@@ -73,6 +73,7 @@ if(!isset($_GET['action'])){
 			$jemaat->setFullName(checkFullName($jemaat->getFirstName(), $jemaat->getMiddleName(), $jemaat->getLastName()));
 			$jemaat->setGender(check_input($_POST['gender']));
 			$jemaat->setBirthday(checkFormatDateValue(check_input($_POST['birthday'])));
+			$jemaat->setAge(calculate_age($jemaat->getBirthday()));
 			$jemaat->setPhone1(check_input($_POST['phone1']));
 			$jemaat->setPhone2(check_input($_POST['phone2']));
 			$jemaat->setPhone3(check_input($_POST['phone3']));
@@ -151,6 +152,7 @@ if(!isset($_GET['action'])){
 	                        		$married = checkMarriedValue(check_input($Row[9]));
 	                        		$notes = check_input($Row[10]);
 	                        		$birthday = checkFormatDateValue(check_input($Row[11]));
+	                        		$age = calculate_age($birthday);
 	                        		$address = check_input($Row[12]);
 	                        		//set array data
 	                        		$datas['data'][$num]['sector'] = $sector;
@@ -168,6 +170,7 @@ if(!isset($_GET['action'])){
 	                        		$datas['data'][$num]['status'] = $status;
 	                        		$datas['data'][$num]['notes'] = $notes;
 	                        		$datas['data'][$num]['birthday'] = $birthday;
+	                        		$datas['data'][$num]['age'] = $age;
 	                        		$datas['data'][$num]['address'] = $address;
 	                        		$num++;
                         		}
@@ -226,6 +229,7 @@ if(!isset($_GET['action'])){
 						$status = $data['status'];
 						$notes = $data['notes'];
 						$birthday = $data['birthday'];
+						$age = $data['age'];
 						$address = $data['address'];
 						//check keluarga
 						$keluarga_id = $keluarga->get_id_by_name($crud, $keluarga_name);
@@ -252,6 +256,7 @@ if(!isset($_GET['action'])){
 							$jemaat->setFullName($full_name);
 							$jemaat->setGender($gender);
 							$jemaat->setBirthday($birthday);
+							$jemaat->setAge($age);
 							$jemaat->setPhone1($phone1);
 							$jemaat->setPhone2($phone2);
 							$jemaat->setPhone3($phone3);
