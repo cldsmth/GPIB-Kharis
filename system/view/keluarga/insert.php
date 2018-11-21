@@ -81,7 +81,7 @@
                           <div class="col-sm-4 col-xs-12 up1 form-label">Tanggal Pernikahan :</div>
                           <div class="col-sm-5 col-xs-12 up1">
                             <div class="input-group">
-                              <input id="input-wedding-date" name="wedding_date" type="date" class="form-control input-style" placeholder="Tanggal Pernikahan">
+                              <input id="input-wedding-date" name="wedding_date" type="text" class="form-control input-style" data-plugin="datetimepicker" data-options="{format: 'DD-MMM-YYYY'}" placeholder="Tanggal Pernikahan">
                               <span class="input-group-addon"> <i class="fa fa-calendar"></i> </span>
                             </div>
                             <div id="error-wedding-date" class="is-error"></div>
@@ -153,6 +153,7 @@
       function validateForm(){
         var name = $("#input-name").val();
         var sector = $("#input-sector").val();
+        var wedding_date = $("#input-wedding-date").val();
         
         if(name != ""){
           $("#error-name").html("");
@@ -175,6 +176,19 @@
           $("#input-sector").addClass("input-error");
           $("#input-sector").focus();
           return false;
+        }
+        if(wedding_date != ""){
+          if(moment(wedding_date, "DD-MMM-YYYY", true).isValid()){
+            $("#error-wedding-date").html("");
+            $("#error-wedding-date").hide();
+            $("#input-wedding-date").removeClass("input-error");
+          } else {
+            $("#error-wedding-date").show();
+            $("#error-wedding-date").html("<i class='fa fa-warning'></i> Invalid date format.");
+            $("#input-wedding-date").addClass("input-error");
+            $("#input-wedding-date").focus();
+            return false;
+          }
         }
         return true;
       }

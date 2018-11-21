@@ -125,7 +125,7 @@
                           <div class="col-sm-4 col-xs-12 up1 form-label">Tanggal Lahir :</div>
                           <div class="col-sm-5 col-xs-12 up1">
                             <div class="input-group">
-                              <input id="input-birthday" name="birthday" type="date" class="form-control input-style" placeholder="Tanggal Lahir" value="<?=($datas->birthday != "0000-00-00" ? $datas->birthday : "");?>">
+                              <input id="input-birthday" name="birthday" type="text" class="form-control input-style" data-plugin="datetimepicker" data-options="{format: 'DD-MMM-YYYY'}" placeholder="Tanggal Lahir" value="<?=($datas->birthday != "0000-00-00" ? date("d-M-Y", strtotime($datas->birthday)) : "");?>">
                               <span class="input-group-addon"> <i class="fa fa-calendar"></i> </span>
                             </div>
                             <div id="error-birthday" class="is-error"></div>
@@ -254,16 +254,21 @@
     </main>
   	<?php include("../../parts/part-footer-js.php");?>
     <script type="text/javascript">
+      $(document).ready(function(){
+        $("#input-keluarga").select2();
+      });
+      
       function validateForm(){
         var first_name = $("#input-first-name").val();
         var last_name = $("#input-last-name").val();
         var keluarga = $("#input-keluarga").val();
         var gender = document.getElementsByName('gender');
-        var is_gender = false;
+        var birthday = $("#input-birthday").val();
         var phone1 = $("#input-phone1").val();
         var phone2 = $("#input-phone2").val();
         var phone3 = $("#input-phone3").val();        
         var phoneformat = /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g;
+        var is_gender = false;
 
         for(var i=0; i < gender.length; i++){
             if(gender[i].checked == true){
@@ -313,6 +318,19 @@
           $("#input-gender").addClass("input-error");
           $("#input-gender").focus();
           return false;
+        }
+        if(birthday != ""){
+          if(moment(birthday, "DD-MMM-YYYY", true).isValid()){
+            $("#error-birthday").html("");
+            $("#error-birthday").hide();
+            $("#input-birthday").removeClass("input-error");
+          } else {
+            $("#error-birthday").show();
+            $("#error-birthday").html("<i class='fa fa-warning'></i> Invalid date format.");
+            $("#input-birthday").addClass("input-error");
+            $("#input-birthday").focus();
+            return false;
+          }
         }
         if(phone1 != ""){
           if(phone1.match(phoneformat)){

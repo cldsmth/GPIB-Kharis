@@ -18,6 +18,7 @@
 <!-- endbuild -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900,300">
 <link rel="stylesheet" href="<?=$global['absolute-url-admin'];?>assets/plugins/toastr/toastr.min.css">
+<link rel="stylesheet" href="<?=$global['absolute-url-admin'];?>assets/plugins/select2/select2.css">
 <link rel="stylesheet" href="<?=$global['absolute-url-admin'];?>assets/stylesheets/global-style.css?<?=mt_rand();?>">
 <link rel="stylesheet" href="<?=$global['absolute-url-admin'];?>assets/stylesheets/libcvm.css?<?=mt_rand();?>">
 <script src="<?=$global['absolute-url-admin'];?>libs/bower/breakpoints.js/dist/breakpoints.min.js"></script>

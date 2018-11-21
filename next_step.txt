@@ -1,10 +1,5 @@
 next step
 //step 1
--nanti untuk pakai library kayak datepicker, select2, itu include js nya di pakai mt_rand
- yg bagian library.js, plugins.js, app.js
--link untuk pakai select2 (http://localhost/Infinity-v2.0.0/default/form.plugins.html)
--link untuk pakai datepicker (http://localhost/Infinity-v2.0.0/default/form.datetime.html)
-//step 2
 -link to edit page, link to index page
 -export excel di module jemmat
 -cari pagination yang lebih bagus, mungkin ada first/last page, dll
