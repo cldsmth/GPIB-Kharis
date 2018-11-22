@@ -213,24 +213,6 @@ if(!function_exists('time_ago'))
     }
 }
 
-if(!function_exists('getBatch'))
-{
-    function getBatch($page){
-        $test = 5;
-        $batch = 1;
-        $flag = false;
-        while(!$flag){
-          if($page > $test){
-              $test = $test + 5;
-              $batch++;
-          }else{
-              $flag = true;
-          }
-      }
-      return $batch;
-  }
-}
-
 if(!function_exists('clean'))
 {
     function clean($string) {

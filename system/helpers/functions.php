@@ -35,7 +35,7 @@ if(!function_exists('RemoveAdvancedSearch'))
 {
     function RemoveAdvancedSearch($page, $param, $data, $query_string){
         $query = str_replace("page=".$page, "page=1", $query_string);
-        return str_replace($param."=".$data, $param."=", $query);
+        return str_replace($param."=".$data, $param."=", check_input(urldecode($query)));
     }
 }
 
@@ -559,24 +559,6 @@ if(!function_exists('time_ago'))
             }
         }
     }
-}
-
-if(!function_exists('getBatch'))
-{
-    function getBatch($page){
-        $test = 5;
-        $batch = 1;
-        $flag = false;
-        while(!$flag){
-          if($page > $test){
-              $test = $test + 5;
-              $batch++;
-          }else{
-              $flag = true;
-          }
-      }
-      return $batch;
-  }
 }
 
 if(!function_exists('clean'))

@@ -100,33 +100,7 @@
                         <?php }?>
                       </div>
                       <div class="col-sm-7">
-                        <div class="dataTables_paginate paging_simple_numbers" id="default-datatable_paginate">
-                          <ul class="pagination">
-                            <?php
-                            $batch = getBatch($_page);
-                            if($batch < 1){$batch = 1;}
-                            $prevLimit = 1 +(5*($batch-1));
-                            $nextLimit = 5 * $batch;
-
-                            if($nextLimit > $total_page){
-                              $nextLimit = $total_page;
-                            }
-                            if($_page > 1){
-                              echo "<li id='default-datatable_previous' class='paginate_button previous'>";
-                              echo "<a href='".$path['keluarga']."?page=".($_page-1)."' aria-controls='default-datatable' data-dt-idx='0' tabindex='0'><i class='fa fa-chevron-left'></i> Previous</a>";
-                              echo "</li>";
-                            }
-                            for($mon = $prevLimit; $mon <= $nextLimit;$mon++){?>
-                              <li class="paginate_button <?php if($mon == $_page){echo 'active';}?>">
-                                <a href="<?=$path['keluarga']."?page=".$mon;?>" aria-controls="default-datatable" data-dt-idx="<?=$mon;?>" tabindex="0"><?=$mon;?></a>
-                              </li>
-                            <?php } if($total_page > 1 && $_page != $total_page){
-                              echo "<li id='default-datatable_next' class='paginate_button next'>";
-                              echo "<a href='".$path['keluarga']."?page=".($_page+1)."' aria-controls='default-datatable' data-dt-idx='".($_page+1)."' tabindex='0'><i class='fa fa-chevron-right'></i> Next</a>";
-                              echo "</li>";
-                            } ?>
-                          </ul>
-                        </div>
+                        <?php include("../../parts/part-pagination.php");?>
                       </div>
                     </div>
                   </div>                  
