@@ -12,15 +12,15 @@ include_once($global['root-url']."model/Keluarga.php");
 $keluarga = new Keluarga();
 
 if(!isset($_GET['action'])){
-	$_page = isset($_GET['page']) ? check_input($_GET['page']) : 1;
-	$_keyword = isset($_GET['keyword']) ? check_input($_GET['keyword']) : "";
-	$_sector = isset($_GET['sector']) ? check_input($_GET['sector']) : "";
-	$_pelkat = isset($_GET['pelkat']) ? check_input($_GET['pelkat']) : "";
-	$_gender = isset($_GET['gender']) ? check_input($_GET['gender']) : "";
-	$_married = isset($_GET['married']) ? check_input($_GET['married']) : "";
-	$_status = isset($_GET['status']) ? check_input($_GET['status']) : "";
 	$filename = PHPFilename();
     if($filename == "index"){
+    	$_page = isset($_GET['page']) ? check_input($_GET['page']) : 1;
+		$_keyword = isset($_GET['keyword']) ? check_input($_GET['keyword']) : "";
+		$_sector = isset($_GET['sector']) ? check_input($_GET['sector']) : "";
+		$_pelkat = isset($_GET['pelkat']) ? check_input($_GET['pelkat']) : "";
+		$_gender = isset($_GET['gender']) ? check_input($_GET['gender']) : "";
+		$_married = isset($_GET['married']) ? check_input($_GET['married']) : "";
+		$_status = isset($_GET['status']) ? check_input($_GET['status']) : "";
         $datas = $jemaat->get_all($crud, $_page, $_keyword, $_sector, $_pelkat, $_gender, $_married, $_status);
 	    //var_dump($datas);
 	    $total_page = hasProperty($datas, "data") ? $datas->total_page : 0;

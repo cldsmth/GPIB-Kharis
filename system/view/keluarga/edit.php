@@ -29,7 +29,7 @@
       			<div class="col-md-12 pad0">
               <ol class="breadcrumb" style="background: none;">
                 <li><a href="<?=$path['home'];?>">Home</a></li>
-                <li><a href="<?=$path['keluarga'];?>">Keluarga Management</a></li>
+                <li><a href="<?=$path['keluarga'].linkToIndex($_id, $_SERVER['QUERY_STRING']);?>">Keluarga Management</a></li>
                 <li class="active">Edit</li>
               </ol>
       			</div>
@@ -132,7 +132,8 @@
                           <div class="btn-group">
                             <input name="id" type="hidden" value="<?=$datas->id;?>">
                             <input id="default-sector" name="default_sector" type="hidden" value="<?=$datas->sector;?>">
-                            <a href="<?=$path['keluarga'];?>" class="btn btn-default"><i class='fa fa-times'></i> Cancel</a>
+                            <input name="url" type="hidden" name="url" value="<?=$path['keluarga'].linkToIndex($_id, $_SERVER['QUERY_STRING']);?>">
+                            <a href="<?=$path['keluarga'].linkToIndex($_id, $_SERVER['QUERY_STRING']);?>" class="btn btn-default"><i class='fa fa-times'></i> Cancel</a>
                             <button id="btn-submit" type="submit" class="btn btn-primary btn-md"><i class="fa fa-check"></i> Submit</button>
                           </div>
                         </div>

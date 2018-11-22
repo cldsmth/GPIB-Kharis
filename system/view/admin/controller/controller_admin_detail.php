@@ -25,6 +25,7 @@ if(!isset($_GET['action'])){
 			$admin->setEmail(check_input($_POST['new_email']));
 			$admin->setStatus(isset($_POST['status']) ? check_input($_POST['status']) : 0);
 			$_old_email = check_input($_POST['old_email']);
+			$_url = $_POST['url'];
 
 			$check_email = $admin->getEmail() != $_old_email ? $admin->check_email($crud, $admin->getEmail()) : false;
 			if($check_email){
@@ -47,7 +48,7 @@ if(!isset($_GET['action'])){
 
 	        $_SESSION['status'] = $message;
 	        $_SESSION['alert'] = $alert;
-	        header("Location:".$path['admin']);
+	        header("Location:".$_url);
 	    
 	    } else {
 	    	$_SESSION['status'] = "Action Not Found.";

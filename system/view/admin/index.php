@@ -78,7 +78,7 @@
                               <button type="button" class="btn btn-outline btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-gear"></i></button>
                               <ul class="dropdown-menu">
                                 <li><a href="javascript:void(0)" onclick="copyValue(this)" data-id="<?=$data->id;?>" data-name="<?=correctDisplay($data->name);?>" data-toggle="modal" data-target="#panel-change-password"><i class="fa fa-lock"></i> Change Password</a></li>
-                                <li><a href="<?=$path['admin-edit']."?id=".$data->id;?>"><i class='fa fa-edit'></i> Edit</a></li>
+                                <li><a href="<?=$path['admin-edit']."?id=".$data->id.linkToEdit($_SERVER['QUERY_STRING']);?>"><i class='fa fa-edit'></i> Edit</a></li>
                                 <li><a href="javascript:void(0)" onclick="confirmDelete('<?=$data->id;?>', '<?=$data->name;?>');"><i class="fa fa-trash"></i> Delete</a></li>
                               </ul>
                             </div>

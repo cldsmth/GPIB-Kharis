@@ -1,6 +1,4 @@
 next step
-//step 1
--link to edit page, link to index page
 -export excel di module jemmat
 -cari pagination yang lebih bagus, mungkin ada first/last page, dll
 -bikin file cron job untuk perubahan umur

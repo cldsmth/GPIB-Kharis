@@ -121,7 +121,7 @@
                         <tr>
                           <td class="text-left"><?=($_page-1)*20+$num;?>.</td>
                           <td class="text-center">
-                            <a href="<?=$path['jemaat-edit']."?id=".$data->id;?>" class="btn btn-xs btn-outline btn-success"><i class='fa fa-edit'></i> Edit</a>
+                            <a href="<?=$path['jemaat-edit']."?id=".$data->id.linkToEdit($_SERVER['QUERY_STRING']);?>" class="btn btn-xs btn-outline btn-success"><i class='fa fa-edit'></i> Edit</a>
                             <a href="javascript:void(0)" onclick="confirmDelete('<?=$data->id;?>', '<?=$data->full_name;?>');" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> Delete</a>
                           </td>
                           <td class="text-center"><?=checkStatus($data->status);?></td>

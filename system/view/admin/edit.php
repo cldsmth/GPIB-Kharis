@@ -31,7 +31,7 @@
       			<div class="col-md-12 pad0">
               <ol class="breadcrumb" style="background: none;">
                 <li><a href="<?=$path['home'];?>">Home</a></li>
-                <li><a href="<?=$path['admin'];?>">Admin Management</a></li>
+                <li><a href="<?=$path['admin'].linkToIndex($_id, $_SERVER['QUERY_STRING']);?>">Admin Management</a></li>
                 <li class="active">Edit</li>
               </ol>
       			</div>
@@ -123,7 +123,8 @@
                         <div class="col-sm-12 text-right">
                           <div class="btn-group">
                             <input name="id" type="hidden" value="<?=$datas->id;?>">
-                            <a href="<?=$path['admin'];?>" class="btn btn-default"><i class='fa fa-times'></i> Cancel</a>
+                            <input name="url" type="hidden" value="<?=$path['admin'].linkToIndex($_id, $_SERVER['QUERY_STRING']);?>">
+                            <a href="<?=$path['admin'].linkToIndex($_id, $_SERVER['QUERY_STRING']);?>" class="btn btn-default"><i class='fa fa-times'></i> Cancel</a>
                             <button id="btn-submit" type="submit" class="btn btn-primary btn-md"><i class="fa fa-check"></i> Submit</button>
                           </div>
                         </div>

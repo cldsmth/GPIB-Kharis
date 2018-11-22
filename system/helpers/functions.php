@@ -6,6 +6,31 @@ if(!function_exists('linkToPage'))
     }
 }
 
+if(!function_exists('linkToEdit'))
+{
+    function linkToEdit($query_string){
+        return $query_string != "" ? "&".$query_string : "";
+    }
+}
+
+if(!function_exists('linkToIndex'))
+{
+    function linkToIndex($id, $query_string){
+        if($query_string != ""){
+            $query = str_replace("id=".$id, "", $query_string);
+            if($query != ""){
+                $query = str_replace("&page=", "page=", $query);
+                $query = "?".$query;
+            }else{
+                $query = str_replace("&", "", $query);
+            }
+        }else{
+            $query = "";
+        }
+        return $query;
+    }
+}
+
 if(!function_exists('RemoveAdvancedSearch'))
 {
     function RemoveAdvancedSearch($page, $param, $data, $query_string){

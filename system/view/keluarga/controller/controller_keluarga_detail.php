@@ -22,6 +22,7 @@ if(!isset($_GET['action'])){
 			$keluarga->setAddress(check_input(nl2br($_POST['address'], false)));
 			$keluarga->setStatus(isset($_POST['status']) ? check_input($_POST['status']) : 0);
 			$_old_name = check_input($_POST['old_name']);
+			$_url = $_POST['url'];
 
 			$check_name = $keluarga->getName() != $_old_name ? $keluarga->check_name($crud, $keluarga->getName()) : false;
 			if($check_name){
@@ -40,7 +41,7 @@ if(!isset($_GET['action'])){
 
 	        $_SESSION['status'] = $message;
 	        $_SESSION['alert'] = $alert;
-	        header("Location:".$path['keluarga']);
+	        header("Location:".$_url);
 	    
 	    } else {
 	    	$_SESSION['status'] = "Action Not Found.";

@@ -12,9 +12,9 @@ include_once($global['root-url']."model/Jemaat.php");
 $jemaat = new Jemaat();
 
 if(!isset($_GET['action'])){
-	$_page = isset($_GET['page']) ? check_input($_GET['page']) : 1;
 	$filename = PHPFilename();
     if($filename == "index"){
+    	$_page = isset($_GET['page']) ? check_input($_GET['page']) : 1;
         $datas = $keluarga->get_all($crud, $_page);
 	    //var_dump($datas);
 	    $total_page = hasProperty($datas, "data") ? $datas->total_page : 0;
