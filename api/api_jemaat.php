@@ -85,7 +85,7 @@ if(isset($_GET['action'])){//start gate
 						$jemaats[$num]['cells'][5]['value'] = checkGender($data->gender);
 						$jemaats[$num]['cells'][5]['fontSize'] = 12;
 						//phone
-						$jemaats[$num]['cells'][6]['value'] = $data->phone1;
+						$jemaats[$num]['cells'][6]['value'] = checkPhone(array($data->phone1, $data->phone2, $data->phone3));
 						$jemaats[$num]['cells'][6]['fontSize'] = 12;
 						//birthday
 						$jemaats[$num]['cells'][7]['value'] = $data->birthday != "0000-00-00" ? date("d-M-Y", strtotime($data->birthday)) : "-";

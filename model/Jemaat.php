@@ -319,6 +319,8 @@ class Jemaat
                         'full_name' => 1, 
                         'gender' => 1, 
                         'phone1' => 1, 
+                        'phone2' => 1, 
+                        'phone3' => 1, 
                         'birthday' => 1, 
                         'age' => 1, 
                         'married' => 1, 

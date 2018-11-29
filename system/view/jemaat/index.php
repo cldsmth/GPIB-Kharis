@@ -129,7 +129,7 @@
                           <td><?=correctDisplay($data->keluarga->name);?></td>
                           <td class="text-center"><?=$data->keluarga->sector;?></td>
                           <td><?=checkGender($data->gender);?></td>
-                          <td><?=$data->phone1;?></td>
+                          <td><?=charLength(checkPhone(array($data->phone1, $data->phone2, $data->phone3)), 20);?></td>
                           <td><?=($data->birthday != "0000-00-00" ? date("d-M-Y", strtotime($data->birthday)) : "-");?></td>
                           <td class="text-center"><?=((string) $data->age != null ? $data->age : "-");?></td>
                           <td><?=checkMarried($data->married);?></td>

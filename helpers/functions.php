@@ -38,6 +38,24 @@ if(!function_exists('characterToHTMLEntity'))
     }
 }
 
+if(!function_exists('checkPhone'))
+{
+    function checkPhone($phones){
+        $phone = "";
+        if(is_array($phones)){
+            $num = 1;
+            for($i=0; $i < count($phones); $i++){
+                if($phones[$i] != ""){
+                    $slash = $num == 1 ? "" : " / ";
+                    $phone .= $slash.$phones[$i];
+                    $num++;
+                }
+            }
+        }
+        return $phone;
+    }
+}
+
 if(!function_exists('checkGender'))
 {
     function checkGender($gender){
