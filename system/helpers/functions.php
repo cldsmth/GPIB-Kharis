@@ -315,20 +315,6 @@ if(!function_exists('checkGender'))
     }
 }
 
-if(!function_exists('checkGenderValue'))
-{
-    function checkGenderValue($gender){
-        if(contains($gender, "L")){
-            $result = "m";
-        }else if(contains($gender, "P")){
-            $result = "f";
-        }else{
-            $result = "";
-        }
-        return $result;
-    }
-}
-
 if(!function_exists('checkMarried'))
 {
     function checkMarried($status){
@@ -340,6 +326,20 @@ if(!function_exists('checkStatus'))
 {
     function checkStatus($status){
         return $status == 1 ? "<span class='label label-success'>Active</span>" : "<span class='label label-danger'>Inactive</span>";
+    }
+}
+
+if(!function_exists('checkGenderValue'))
+{
+    function checkGenderValue($gender){
+        if(contains($gender, "L")){
+            $result = "m";
+        }else if(contains($gender, "P")){
+            $result = "f";
+        }else{
+            $result = "";
+        }
+        return $result;
     }
 }
 

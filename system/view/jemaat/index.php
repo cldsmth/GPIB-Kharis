@@ -265,6 +265,10 @@
 
     </main>
   	<?php include("../../parts/part-footer-js.php");?>
+    <!-- JS Kendo UI !-->
+    <script src="<?=$global['absolute-url-admin'];?>libraries/kendo-ui/2017.3.1026/js/jszip.min.js"></script>
+    <script src="<?=$global['absolute-url-admin'];?>libraries/cloudflare/cdnjs/ajax/libs/jszip/2.4.0/jszip.js"></script>
+    <script src="<?=$global['absolute-url-admin'];?>libraries/kendo-ui/2017.3.1026/js/kendo.all.min.js"></script>
     <script type="text/javascript">
       $(document).ready(function() {
         clear();

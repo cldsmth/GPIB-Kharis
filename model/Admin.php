@@ -92,6 +92,26 @@ class Admin
     }
     
 //START FUNCTION FOR ADMIN PAGE
+    public function check_code($crud, $id, $auth_code){
+        $filter = [
+            'id' => $id, 
+            'auth_code' => $auth_code
+        ];
+        $options = [
+            'projection' => [
+                '_id' => 0, 
+                'id' => 1
+            ],
+            'limit' => 1
+        ]; 
+        $query = new MongoDB\Driver\Query($filter, $options);
+        $result = $crud->find($this->table, $query);
+        if(!$result){
+            return false;
+        }
+        return is_array($result) ? true : false;
+    }
+
     public function check_email($crud, $email){
         $filter = [
             'email' => $email

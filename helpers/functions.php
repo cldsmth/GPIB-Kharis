@@ -1,4 +1,11 @@
 <?php
+if(!function_exists('hasProperty'))
+{
+    function hasProperty($object, $property){
+        return isset($object->$property) ? true : false;
+    }
+}
+
 if(!function_exists('characterToHTMLEntity'))
 {
     function characterToHTMLEntity($str){
@@ -28,6 +35,45 @@ if(!function_exists('characterToHTMLEntity'))
             '&bull;', '&asymp;', '&quot;', '&rsquo;', '<br>');
         $str = str_replace($search, $replace, $str); //REPLACE VALUES
         return $str; //RETURN FORMATED STRING
+    }
+}
+
+if(!function_exists('checkGender'))
+{
+    function checkGender($gender){
+        switch ($gender) {
+            case "m":
+                $result = "Laki-laki";
+                break;
+            case "f":
+                $result = "Perempuan";
+                break;
+            default:
+                $result = "-";
+                break;
+        }
+        return $result;
+    }
+}
+
+if(!function_exists('checkMarried'))
+{
+    function checkMarried($status){
+        return $status == 1 ? "Menikah" : "Belum Menikah";
+    }
+}
+
+if(!function_exists('checkStatus'))
+{
+    function checkStatus($status){
+        return $status == 1 ? "<span class='label label-success'>Active</span>" : "<span class='label label-danger'>Inactive</span>";
+    }
+}
+
+if(!function_exists('checkStatusText'))
+{
+    function checkStatusText($status){
+        return $status == 1 ? "Active" : "Inactive";
     }
 }
 
