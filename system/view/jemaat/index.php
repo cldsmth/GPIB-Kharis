@@ -70,7 +70,7 @@
                               </span>
                             </div>
                             <div class="link-search">
-                              <a href="javascript:void(0)" onclick="alert('export excel')">Export Excel</a> <span>&nbsp;|&nbsp;</span> <a href="javascript:void(0)" data-toggle="modal" data-target="#panel-advanced-search">Advanced Search</a> <?php if(!empty($searchs)){?> <span>&nbsp;|&nbsp;</span> <a href="<?=$path['jemaat'];?>">Clear Advanced Search</a> <?php }?>
+                              <a href="javascript:void(0)" onclick="exportExcel('<?=$_keyword;?>', '<?=$_sector;?>', '<?=$_pelkat;?>', '<?=$_gender;?>', '<?=$_married;?>', '<?=$_status;?>')">Export Excel</a> <span>&nbsp;|&nbsp;</span> <a href="javascript:void(0)" data-toggle="modal" data-target="#panel-advanced-search">Advanced Search</a> <?php if(!empty($searchs)){?> <span>&nbsp;|&nbsp;</span> <a href="<?=$path['jemaat'];?>">Clear Advanced Search</a> <?php }?>
                             </div>
                           </form>
                         </div>
@@ -317,6 +317,65 @@
           $("#input-married").val("1");
           $("#input-married").addClass("disable-state");
         }
+      }
+
+      function exportExcel(keyword, sector, pelkat, gender, married, status){
+        var admin_id = "<?=$_SESSION['GpibKharis']['admin']['id'];?>";
+        var auth_code = "<?=$_SESSION['GpibKharis']['admin']['auth_code'];?>";
+        var url = "<?=$global['api'];?>jemaat/export/";
+
+        //form data
+        var data = new FormData();
+        data.append('admin_id', admin_id);
+        data.append('auth_code', auth_code);
+        data.append('keyword', keyword);
+        data.append('sector', sector);
+        data.append('pelkat', pelkat);
+        data.append('gender', gender);
+        data.append('married', married);
+        data.append('status', status);
+
+        $.ajax({
+          url: url, 
+          data: data, 
+          processData: false,
+          contentType: false,
+          type: 'POST', 
+          success:function(result){
+          var status = result.status;
+          if(status != 400){
+            if(result.data != null){
+              var rows = result.data;
+              var workbook = new kendo.ooxml.Workbook({
+              sheets: [
+                {
+                  columns: [ //column settings (width)
+                    { width: 35 }, //no
+                    { width: 100 }, //status
+                    { width: 300 }, //full name
+                    { width: 300 }, //family name
+                    { width: 75 }, //sector
+                    { width: 120 }, //gender
+                    { width: 150 }, //phone
+                    { width: 150 }, //birthday
+                    { width: 75 }, //age
+                    { width: 150 }, //married
+                  ],
+                  title: "Jemaat", //title of the sheet
+                  rows: rows
+                }
+              ]});
+              kendo.saveAs({
+                  dataURI: workbook.toDataURL(),
+                  fileName: "Jemaat-" + formatDatePicker(new Date()) + ".xlsx"
+              });
+            } else {
+              errorAlert("Something is wrong with your export data");
+            }
+          } else {
+            errorAlert("Something is wrong with your export data");
+          }
+        }});
       }
 
       function confirmDelete(id, name){

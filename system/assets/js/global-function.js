@@ -1,3 +1,22 @@
+function formatDatePicker(param) {
+  var date = new Date(param);
+  var monthNames = [
+    "Jan", "Feb", "Mar",
+    "Apr", "May", "Jun", "Jul",
+    "Aug", "Sep", "Oct",
+    "Nov", "Dec"
+  ];
+
+  var day = date.getDate();
+  var monthIndex = date.getMonth();
+  var year = date.getFullYear().toString().substr(-2);
+  var hour = date.getHours();
+  var minutes = date.getMinutes();
+  var seconds = date.getSeconds();
+
+  return day + "-" + monthNames[monthIndex] + "-" + year;
+}
+
 function checkFullName(first_name, middle_name, last_name){
   return first_name + (middle_name != "" ? " " + middle_name + " " + last_name : " " + last_name);
 }

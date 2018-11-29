@@ -28,15 +28,15 @@ if(isset($_GET['action'])){//start gate
 
 		if($admin->check_code($crud, $_admin_id, $_auth_code)){
 			$columns = array(0 => array('value' => "No", 'vAlign' => "center", 'hAlign' => "center"),
-	            1 => array('value' => "Status"),
+	            1 => array('value' => "Status", 'vAlign' => "center", 'hAlign' => "center"),
 	            2 => array('value' => "Nama Jemaat"),
 	            3 => array('value' => "Nama Keluarga"),
 	            4 => array('value' => "Sektor", 'vAlign' => "center", 'hAlign' => "center"),
 	            5 => array('value' => "Jenis Kelamin"),
 	            6 => array('value' => "No. HP"),
-	            7 => array('value' => "Tanggal Lahir"),
-	            8 => array('value' => "Umur"),
-	            9 => array('value' => "Status Menikah")
+	            7 => array('value' => "Tanggal Lahir", 'vAlign' => "center", 'hAlign' => "center"),
+	            8 => array('value' => "Umur", 'vAlign' => "center", 'hAlign' => "center"),
+	            9 => array('value' => "Status Menikah", 'vAlign' => "center", 'hAlign' => "center")
 	        );
 	        if(is_array($columns)){
 	        	$jemaats = array();
@@ -49,8 +49,8 @@ if(isset($_GET['action'])){//start gate
 	        		if(isset($column['hAlign'])){
 	        			$jemaats[0]['cells'][$i]['hAlign'] = $column['hAlign'];
 	        		}
-					$jemaats[0]['cells'][$i]['color'] = "#ffffff";
-					$jemaats[0]['cells'][$i]['background'] = "#e0301e";
+					$jemaats[0]['cells'][$i]['color'] = "#000000";
+					$jemaats[0]['cells'][$i]['background'] = "#a2a2a2";
 					$jemaats[0]['cells'][$i]['fontSize'] = 14;
 					$jemaats[0]['cells'][$i]['bold'] = true;
 	        		$i++;
@@ -67,6 +67,8 @@ if(isset($_GET['action'])){//start gate
 						$jemaats[$num]['cells'][0]['fontSize'] = 12;
 						//sector
 						$jemaats[$num]['cells'][1]['value'] = checkStatusText($data->status);
+						$jemaats[$num]['cells'][1]['vAlign'] = "center";
+						$jemaats[$num]['cells'][1]['hAlign'] = "center";
 						$jemaats[$num]['cells'][1]['fontSize'] = 12;
 						//full name
 						$jemaats[$num]['cells'][2]['value'] = $data->full_name;
@@ -87,12 +89,18 @@ if(isset($_GET['action'])){//start gate
 						$jemaats[$num]['cells'][6]['fontSize'] = 12;
 						//birthday
 						$jemaats[$num]['cells'][7]['value'] = $data->birthday != "0000-00-00" ? date("d-M-Y", strtotime($data->birthday)) : "-";
+						$jemaats[$num]['cells'][7]['vAlign'] = "center";
+						$jemaats[$num]['cells'][7]['hAlign'] = "center";
 						$jemaats[$num]['cells'][7]['fontSize'] = 12;
 						//age
 						$jemaats[$num]['cells'][8]['value'] = (string) $data->age != null ? $data->age : "-";
+						$jemaats[$num]['cells'][8]['vAlign'] = "center";
+						$jemaats[$num]['cells'][8]['hAlign'] = "center";
 						$jemaats[$num]['cells'][8]['fontSize'] = 12;
 						//married
 						$jemaats[$num]['cells'][9]['value'] = checkMarried($data->married);
+						$jemaats[$num]['cells'][9]['vAlign'] = "center";
+						$jemaats[$num]['cells'][9]['hAlign'] = "center";
 						$jemaats[$num]['cells'][9]['fontSize'] = 12;
 						$num++;
 					}

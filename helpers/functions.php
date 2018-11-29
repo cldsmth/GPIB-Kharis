@@ -73,7 +73,7 @@ if(!function_exists('checkStatus'))
 if(!function_exists('checkStatusText'))
 {
     function checkStatusText($status){
-        return $status == 1 ? "Active" : "Inactive";
+        return $status == 1 ? "Aktif" : "Non Aktif";
     }
 }
 
