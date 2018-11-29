@@ -55,7 +55,7 @@ if(isset($_GET['action'])){//start gate
 					$jemaats[0]['cells'][$i]['bold'] = true;
 	        		$i++;
 	        	}
-	        	$result = $jemaat->get_all($crud, 1, $_keyword, $_sector, $_pelkat, $_gender, $_married, $_status);
+	        	$result = $jemaat->get_all($crud, "", $_keyword, $_sector, $_pelkat, $_gender, $_married, $_status);
 				//var_dump($result);
 				if(hasProperty($result, "data")){
 					$num = 1;

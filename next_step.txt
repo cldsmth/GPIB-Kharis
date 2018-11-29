@@ -1,5 +1,4 @@
 next step
--export excel di module jemmat
 -bikin file cron job untuk perubahan umur
 -import-in semua data-data jemaat (sektor 2, 3 dan 4) => Kalau sudah fix sesuai dengan yang terupdate di gereja
 -kalau sudah ada module event/article, di module category event/article di tambahkan kolom counter dan ada validasi 

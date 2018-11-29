@@ -289,9 +289,16 @@ class Jemaat
         );
         $total_data = isset($result_total[0]) ? $result_total[0]->count : 0;
 
-        //get total page
-        $total_page  = ceil($total_data / $this->itemPerPageAdmin);
-        $limitBefore = $page <= 1 || $page == null ? 0 : ($page-1) * $this->itemPerPageAdmin;
+        if($page != ""){
+            //get total page
+            $total_page  = ceil($total_data / $this->itemPerPageAdmin);
+            $limitBefore = $page <= 1 || $page == null ? 0 : ($page-1) * $this->itemPerPageAdmin;
+            $limit = $this->itemPerPageAdmin;
+        }else{
+            $total_page = $total_data;
+            $limitBefore = 0;
+            $limit = $total_page;
+        }
 
         $command = new MongoDB\Driver\Command([
             'aggregate' => $this->table,
@@ -335,7 +342,7 @@ class Jemaat
                     '$skip' => $limitBefore
                 ],
                 [
-                    '$limit' => $this->itemPerPageAdmin
+                    '$limit' => $limit
                 ]
             ],
             'cursor' => [

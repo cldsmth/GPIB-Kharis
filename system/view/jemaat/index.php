@@ -70,7 +70,7 @@
                               </span>
                             </div>
                             <div class="link-search">
-                              <a href="javascript:void(0)" onclick="exportExcel('<?=$_keyword;?>', '<?=$_sector;?>', '<?=$_pelkat;?>', '<?=$_gender;?>', '<?=$_married;?>', '<?=$_status;?>')">Export Excel</a> <span>&nbsp;|&nbsp;</span> <a href="javascript:void(0)" data-toggle="modal" data-target="#panel-advanced-search">Advanced Search</a> <?php if(!empty($searchs)){?> <span>&nbsp;|&nbsp;</span> <a href="<?=$path['jemaat'];?>">Clear Advanced Search</a> <?php }?>
+                              <a href="javascript:void(0)" onclick="exportExcel('<?=$_keyword;?>', '<?=$_sector;?>', '<?=$_pelkat;?>', '<?=$_gender;?>', '<?=$_married;?>', '<?=$_status;?>')"><span id="loading-export" class="hide"><i class='fa fa-spinner fa-spin'></i></span> Export Excel</a> <span>&nbsp;|&nbsp;</span> <a href="javascript:void(0)" data-toggle="modal" data-target="#panel-advanced-search">Advanced Search</a> <?php if(!empty($searchs)){?> <span>&nbsp;|&nbsp;</span> <a href="<?=$path['jemaat'];?>">Clear Advanced Search</a> <?php }?>
                             </div>
                           </form>
                         </div>
@@ -320,6 +320,7 @@
       }
 
       function exportExcel(keyword, sector, pelkat, gender, married, status){
+        $("#loading-export").removeClass("hide");
         var admin_id = "<?=$_SESSION['GpibKharis']['admin']['id'];?>";
         var auth_code = "<?=$_SESSION['GpibKharis']['admin']['auth_code'];?>";
         var url = "<?=$global['api'];?>jemaat/export/";
@@ -345,6 +346,7 @@
           var status = result.status;
           if(status != 400){
             if(result.data != null){
+              $("#loading-export").addClass("hide");
               var rows = result.data;
               var workbook = new kendo.ooxml.Workbook({
               sheets: [
@@ -370,9 +372,11 @@
                   fileName: "Jemaat-" + formatDatePicker(new Date()) + ".xlsx"
               });
             } else {
+              $("#loading-export").addClass("hide");
               errorAlert("Something is wrong with your export data");
             }
           } else {
+            $("#loading-export").addClass("hide");
             errorAlert("Something is wrong with your export data");
           }
         }});
