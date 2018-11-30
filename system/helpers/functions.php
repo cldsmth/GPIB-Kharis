@@ -1,4 +1,42 @@
 <?php
+if(!function_exists('smtpmailer'))
+{
+    function smtpmailer($to, $from_url, $from, $from_password, $from_name, $subject, $body){
+        global $error;
+        $mail = new PHPMailer(); // create a new object
+        $mail->CharSet = "UTF-8";
+        //Server settings
+        $mail->IsSMTP(); // enable SMTP
+        $mail->SMTPDebug = ""; // debugging: 1 = errors and messages, 2 = messages only
+        $mail->SMTPAuth = true; // authentication enabled
+        $mail->SMTPSecure = ""; // secure transfer enabled REQUIRED for Gmail
+        $mail->Host = $from_url;
+        $mail->Port = 587;
+        $mail->Username = $from;
+        $mail->Password = $from_password;
+        //Recipients
+        $mail->SetFrom($from, $from_name);
+        $mail->Subject = html_entity_decode($subject);
+        $mail->isHTML(true); //Send HTML or Plain Text email
+        $mail->Body = $body;
+        if(is_array($to)){
+            for($i=0; $i<count($to); $i++){
+                $mail->AddAddress($to[$i]);
+            }
+        }else{
+            $mail->AddAddress($to);
+        }
+        //check email send
+        if(!$mail->Send()) {
+            $error = 'Mail error: '.$mail->ErrorInfo;
+            return false;
+        } else {
+            $error = 'Message sent!';
+            return true;
+        }
+    }
+}
+
 if(!function_exists('linkToPage'))
 {
     function linkToPage($page, $query_string){

@@ -238,6 +238,7 @@ class Admin
             'email' => $admin->_email, 
             'password' => $admin->_password, 
             'salt_hash' => $admin->_salt_hash, 
+            'reset_code' => "", 
             'auth_code' => $admin->_auth_code, 
             'status' => (int) $admin->_status, 
             'img' => $admin->_image, 
@@ -247,6 +248,53 @@ class Admin
         $bulk = new MongoDB\Driver\BulkWrite;
         $bulk->insert($query);
         $result = $crud->post($this->table, $bulk);
+        return $result;
+    }
+
+    public function update_data($crud, $admin, $encrypt, $path){
+        date_default_timezone_set('Asia/Jakarta');
+        $now = date("Y-m-d H:i:s");
+
+        $bulk = new MongoDB\Driver\BulkWrite;
+        $bulk->update(
+            [
+                'id' => $admin->_id
+            ], 
+            [
+                '$set' => [
+                    'name' => $admin->_name, 
+                    'email' => $admin->_email, 
+                    'reset_code' => "", 
+                    'status' => (int) $admin->_status, 
+                    'timestamp' => $now
+                ]
+            ]
+        );
+        if($admin->_image != ""){
+            $this->remove_image($crud, $admin->_id, $encrypt, $path);
+            $bulk->update(['id' => $admin->_id], ['$set' => ['img' => $admin->_image]]);
+        }
+        $result = $crud->put($this->table, $bulk);
+        return $result;
+    }
+
+    public function update_reset_code($crud, $email, $reset_code){
+        date_default_timezone_set('Asia/Jakarta');
+        $now = date("Y-m-d H:i:s");
+
+        $bulk = new MongoDB\Driver\BulkWrite;
+        $bulk->update(
+            [
+                'email' => $email
+            ], 
+            [
+                '$set' => [
+                    'reset_code' => $reset_code, 
+                    'timestamp' => $now
+                ]
+            ]
+        );
+        $result = $crud->put($this->table, $bulk);
         return $result;
     }
 
@@ -267,32 +315,6 @@ class Admin
                 ]
             ]
         );
-        $result = $crud->put($this->table, $bulk);
-        return $result;
-    }
-
-    public function update_data($crud, $admin, $encrypt, $path){
-        date_default_timezone_set('Asia/Jakarta');
-        $now = date("Y-m-d H:i:s");
-
-        $bulk = new MongoDB\Driver\BulkWrite;
-        $bulk->update(
-            [
-                'id' => $admin->_id
-            ], 
-            [
-                '$set' => [
-                    'name' => $admin->_name, 
-                    'email' => $admin->_email,
-                    'status' => (int) $admin->_status, 
-                    'timestamp' => $now
-                ]
-            ]
-        );
-        if($admin->_image != ""){
-            $this->remove_image($crud, $admin->_id, $encrypt, $path);
-            $bulk->update(['id' => $admin->_id], ['$set' => ['img' => $admin->_image]]);
-        }
         $result = $crud->put($this->table, $bulk);
         return $result;
     }

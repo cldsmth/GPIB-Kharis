@@ -18,9 +18,18 @@ $seo = array(
 	'copyright' => "Copyright ".NAME." ".date('Y')." &copy;"
 );
 
+$smtp = array(
+	'url' => "www.eannovate.com",
+	'to' => "dean11.cliff@gmail.com",
+	'from' => "cliff.dean@eannovate.com",
+	'from-name' => "Developer",
+	'password' => "Cliff123"
+);
+
 $path = array(
 	'login' => ADMIN,
 	'logout' => ADMIN."?action=logout",
+	'reset-password' => ADMIN."reset-password/",
 	'decrypt-fie' => PATH."file/",
 	'home' => ADMIN."view/home/",
 	'admin' => ADMIN."view/admin/",
