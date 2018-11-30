@@ -48,6 +48,7 @@ $path = array(
 
 $title = array(
 	'login' => NAME." | Login",
+	'reset-password' => NAME." | Reset Password",
 	'home' => NAME." | Home",
 	'admin' => NAME." | Admin",
 	'article-category' => NAME." | Article Category",
