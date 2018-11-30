@@ -433,6 +433,26 @@ class Jemaat
         return $result;
     }
 
+    public function update_age($crud, $id, $age){
+        date_default_timezone_set('Asia/Jakarta');
+        $now = date("Y-m-d H:i:s");
+
+        $bulk = new MongoDB\Driver\BulkWrite;
+        $bulk->update(
+            [
+                'id' => $id
+            ], 
+            [
+                '$set' => [
+                    'age' => (int) $age,  
+                    'timestamp' => $now
+                ]
+            ]
+        );
+        $result = $crud->put($this->table, $bulk);
+        return $result;
+    }
+
     public function delete_data($crud, $id){
         return $crud->removeById($this->table, $id);
     }

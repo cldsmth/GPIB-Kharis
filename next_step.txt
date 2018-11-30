@@ -1,11 +1,13 @@
 next step
--bikin file cron job untuk perubahan umur
--import-in semua data-data jemaat (sektor 2, 3 dan 4) => Kalau sudah fix sesuai dengan yang terupdate di gereja
--kalau sudah ada module event/article, di module category event/article di tambahkan kolom counter dan ada validasi 
- kalau yang bisa di hapus cuma counter == 0, yang sudah terisi tidak bisa di hapus (seperti module keluarga)
+-connect forget password system
+ 1. forget password nya dalam bentuk modal box
+ 2. link untuk reset password di enkripsi. jadi parameter email => p1 dan reset_code => p2
+ 3. halaman reset-password.php taru di dalam folder system
 -nanti adjust validasi check name/email lagsung ajax
  referensi link untuk loading dan icon valid/invalid => https://www.w3schools.com/howto/howto_js_password_validation.asp
--connect forget password system
+-kalau sudah ada module event/article, di module category event/article di tambahkan kolom counter dan ada validasi 
+ kalau yang bisa di hapus cuma counter == 0, yang sudah terisi tidak bisa di hapus (seperti module keluarga)
+-import-in semua data-data jemaat (sektor 2, 3 dan 4) => Kalau sudah fix sesuai dengan yang terupdate di gereja
 
 next improvement
 -ada pengecekan last login, jadi setiap kali login, insert di table log untuk loginnya dan tempat loginnya
