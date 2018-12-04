@@ -92,6 +92,26 @@ class Admin
     }
     
 //START FUNCTION FOR ADMIN PAGE
+    public function check_reset_code($crud, $email, $reset_code){
+        $filter = [
+            'email' => $email, 
+            'reset_code' => $reset_code
+        ];
+        $options = [
+            'projection' => [
+                '_id' => 0, 
+                'id' => 1
+            ],
+            'limit' => 1
+        ]; 
+        $query = new MongoDB\Driver\Query($filter, $options);
+        $result = $crud->find($this->table, $query);
+        if(!$result){
+            return false;
+        }
+        return is_array($result) ? true : false;
+    }
+
     public function check_code($crud, $id, $auth_code){
         $filter = [
             'id' => $id, 
@@ -311,6 +331,29 @@ class Admin
                 '$set' => [
                     'password' => $password, 
                     'salt_hash' => $salt_hash, 
+                    'timestamp' => $now
+                ]
+            ]
+        );
+        $result = $crud->put($this->table, $bulk);
+        return $result;
+    }
+
+    public function reset_password($crud, $email, $reset_code, $password, $salt_hash){
+        date_default_timezone_set('Asia/Jakarta');
+        $now = date("Y-m-d H:i:s");
+
+        $bulk = new MongoDB\Driver\BulkWrite;
+        $bulk->update(
+            [
+                'email' => $email, 
+                'reset_code' => $reset_code
+            ], 
+            [
+                '$set' => [
+                    'password' => $password, 
+                    'salt_hash' => $salt_hash, 
+                    'reset_code' => "", 
                     'timestamp' => $now
                 ]
             ]

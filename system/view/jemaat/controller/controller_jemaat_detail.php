@@ -34,7 +34,7 @@ if(!isset($_GET['action'])){
 			$jemaat->setMarried(isset($_POST['married']) ? check_input($_POST['married']) : 0);
 			$jemaat->setStatus(isset($_POST['status']) ? check_input($_POST['status']) : 0);
 			$_old_name = check_input($_POST['old_name']);
-			$_url = $_POST['url'];
+			$_url = check_input($_POST['url']);
 
 			$check_name = $jemaat->getFullName() != $_old_name ? $jemaat->check_name($crud, $jemaat->getFullName()) : false;
 			if($check_name){

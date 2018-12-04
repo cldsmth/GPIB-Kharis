@@ -25,7 +25,7 @@ if(!isset($_GET['action'])){
 			$admin->setEmail(check_input($_POST['new_email']));
 			$admin->setStatus(isset($_POST['status']) ? check_input($_POST['status']) : 0);
 			$_old_email = check_input($_POST['old_email']);
-			$_url = $_POST['url'];
+			$_url = check_input($_POST['url']);
 
 			$check_email = $admin->getEmail() != $_old_email ? $admin->check_email($crud, $admin->getEmail()) : false;
 			if($check_email){
