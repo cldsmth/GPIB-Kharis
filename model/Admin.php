@@ -92,7 +92,7 @@ class Admin
     }
     
 //START FUNCTION FOR ADMIN PAGE
-    public function check_reset_code($crud, $email, $reset_code){
+    /*public function check_reset_code($crud, $email, $reset_code){
         $filter = [
             'email' => $email, 
             'reset_code' => $reset_code
@@ -149,53 +149,28 @@ class Admin
             return false;
         }
         return is_array($result) ? true : false;
-    }
+    }*/
 
     public function get_salt($crud, $email){
-        $filter = [
-            'email' => $email
-        ];
-        $options = [
-            'projection' => [
-                '_id' => 0, 
-                'salt_hash' => 1
-            ],
-            'limit' => 1
-        ]; 
-        $query = new MongoDB\Driver\Query($filter, $options);
-        $result = $crud->find($this->table, $query);
+        $query = "SELECT salt_hash FROM $this->table WHERE email = '$email'";
+        $result = $crud->getData($query);
         if(!$result){
-            return "";
+            return false;
         }
-        return is_array($result) ? $result[0]->salt_hash : "";
+        return is_array($result) ? $result[0]['salt_hash'] : "";
     }
 
     public function login($crud, $email, $password){
-        $filter = [
-            'email' => $email, 
-            'password' => $password
-        ];
-        $options = [
-            'projection' => [
-                '_id' => 0, 
-                'id' => 1, 
-                'name' => 1, 
-                'email' => 1, 
-                'img' => 1, 
-                'auth_code' => 1, 
-                'status' => 1
-            ],
-            'limit' => 1
-        ]; 
-        $query = new MongoDB\Driver\Query($filter, $options);
-        $result = $crud->find($this->table, $query);
+        $query = "SELECT id, name, email, img, auth_code, status FROM 
+            $this->table WHERE email = '$email' AND password = '$password'";
+        $result = $crud->getData($query);
         if(!$result){
             return false;
         }
         return is_array($result) ? $result[0] : false;
     }
 
-    public function get_all($crud, $page=1){
+    /*public function get_all($crud, $page=1){
         //get total data
         $query_total = [];
         $total_data = $crud->count(
@@ -397,7 +372,7 @@ class Admin
             $result = false;
         }
         return $result;
-    }
+    }*/
 //END FUNCTION FOR ADMIN PAGE
 }
 ?>

@@ -459,11 +459,11 @@ if(!function_exists('create_session'))
 {
     function create_session($datas){
         end_session();
-        $_SESSION['GpibKharis']['admin']['id'] = $datas->id;
-        $_SESSION['GpibKharis']['admin']['name'] = $datas->name;
-        $_SESSION['GpibKharis']['admin']['email'] = $datas->email;
-        $_SESSION['GpibKharis']['admin']['img'] = $datas->img;
-        $_SESSION['GpibKharis']['admin']['auth_code'] = $datas->auth_code;
+        $_SESSION['GpibKharis']['admin']['id'] = $datas['id'];
+        $_SESSION['GpibKharis']['admin']['name'] = $datas['name'];
+        $_SESSION['GpibKharis']['admin']['email'] = $datas['email'];
+        $_SESSION['GpibKharis']['admin']['img'] = $datas['img'];
+        $_SESSION['GpibKharis']['admin']['auth_code'] = $datas['auth_code'];
     }
 }
 

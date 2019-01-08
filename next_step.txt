@@ -1,5 +1,13 @@
 task migrate php 7.2
--start from login system
+-migrate php 7 for each modules:
+	-admin
+	-article-category
+	-event-category
+	-home
+	-jemaat
+	-keluarga
+-migrate semua yang masih ada mongodb ke mysql
+-tambahin mysql real escape string yang ada di class crud di setiap method get/post
 
 next step
 -nanti adjust validasi check name/email lagsung ajax
