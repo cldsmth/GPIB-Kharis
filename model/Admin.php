@@ -130,26 +130,16 @@ class Admin
             return false;
         }
         return is_array($result) ? true : false;
-    }
+    }*/
 
     public function check_email($crud, $email){
-        $filter = [
-            'email' => $email
-        ];
-        $options = [
-            'projection' => [
-                '_id' => 0, 
-                'email' => 1
-            ],
-            'limit' => 1
-        ]; 
-        $query = new MongoDB\Driver\Query($filter, $options);
-        $result = $crud->find($this->table, $query);
+        $query = "SELECT email FROM $this->table WHERE email = '$email'";
+        $result = $crud->getData($query);
         if(!$result){
             return false;
         }
         return is_array($result) ? true : false;
-    }*/
+    }
 
     public function get_salt($crud, $email){
         $query = "SELECT salt_hash FROM $this->table WHERE email = '$email'";
@@ -170,49 +160,28 @@ class Admin
         return is_array($result) ? $result[0] : false;
     }
 
-    /*public function get_all($crud, $page=1){
+    public function get_all($crud, $page=1){
         //get total data
-        $query_total = [];
-        $total_data = $crud->count(
-            new MongoDB\Driver\Command([
-                'count' => $this->table, 
-                'query' => $query_total
-            ])
-        );
+        $query_total = "SELECT id FROM $this->table";
+        $result_total = $crud->getData($query_total);
+        $total_data = !$result_total ? 0 : count($result_total);
 
         //get total page
         $total_page  = ceil($total_data / $this->itemPerPageAdmin);
         $limitBefore = $page <= 1 || $page == null ? 0 : ($page-1) * $this->itemPerPageAdmin;
 
-        $filter = [];
-        $options = [
-            'projection' => [
-                '_id' => 0, 
-                'id' => 1, 
-                'name' => 1, 
-                'email' => 1, 
-                'img' => 1, 
-                'status' => 1,
-                'datetime' => 1,
-                'timestamp' => 1
-            ],
-            'sort' => [
-                'datetime' => -1
-            ],
-            'skip' => $limitBefore,
-            'limit' => $this->itemPerPageAdmin
-        ];
-        $query = new MongoDB\Driver\Query($filter, $options);
-        $result = $crud->find($this->table, $query);
+        $query = "SELECT id, name, email, img, status, datetime, timestamp FROM $this->table
+            ORDER BY datetime DESC LIMIT $limitBefore, $this->itemPerPageAdmin";
+        $result = $crud->getData($query);
         if(!$result){
             return false;
         }else{
             if(is_array($result)){
-                $obj = new stdClass;
-                $obj->total_page = $total_page;
-                $obj->total_data = count($result);
-                $obj->total_data_all = $total_data;
-                $obj->data = $result;
+                $obj = array();
+                $obj['total_page'] = $total_page;
+                $obj['total_data'] = count($result);
+                $obj['total_data_all'] = $total_data;
+                $obj['data'] = $result;
                 $result = $obj;
             }
         }
@@ -220,29 +189,18 @@ class Admin
     }
 
     public function get_detail($crud, $id){
-        return $crud->findById($this->table, $id);
+        $result = $crud->detail($id, $this->table);
+        return !$result ? false : is_array($result) ? $result[0] : false;
     }
 
     public function insert_data($crud, $admin){
         date_default_timezone_set('Asia/Jakarta');
         $now = date("Y-m-d H:i:s");
-        
-        $query = [
-            'id' => $admin->_id, 
-            'name' => $admin->_name, 
-            'email' => $admin->_email, 
-            'password' => $admin->_password, 
-            'salt_hash' => $admin->_salt_hash, 
-            'reset_code' => "", 
-            'auth_code' => $admin->_auth_code, 
-            'status' => (int) $admin->_status, 
-            'img' => $admin->_image, 
-            'timestamp' => $now, 
-            'datetime' => $now
-        ];
-        $bulk = new MongoDB\Driver\BulkWrite;
-        $bulk->insert($query);
-        $result = $crud->post($this->table, $bulk);
+
+        $query = "INSERT INTO $this->table (id, name, email, password, salt_hash, auth_code, status, img, datetime, 
+            timestamp) VALUES ('$admin->_id', '$admin->_name', '$admin->_email', '$admin->_password', '$admin->_salt_hash', 
+            '$admin->_auth_code', '$admin->_status', '$admin->_image', '$now', '$now')";
+        $result = $crud->execute($query);
         return $result;
     }
 
@@ -250,30 +208,19 @@ class Admin
         date_default_timezone_set('Asia/Jakarta');
         $now = date("Y-m-d H:i:s");
 
-        $bulk = new MongoDB\Driver\BulkWrite;
-        $bulk->update(
-            [
-                'id' => $admin->_id
-            ], 
-            [
-                '$set' => [
-                    'name' => $admin->_name, 
-                    'email' => $admin->_email, 
-                    'reset_code' => "", 
-                    'status' => (int) $admin->_status, 
-                    'timestamp' => $now
-                ]
-            ]
-        );
+        $cond = "";
         if($admin->_image != ""){
             $this->remove_image($crud, $admin->_id, $encrypt, $path);
-            $bulk->update(['id' => $admin->_id], ['$set' => ['img' => $admin->_image]]);
+            $cond = "img = '$admin->_image', ";
         }
-        $result = $crud->put($this->table, $bulk);
+
+        $query = "UPDATE $this->table SET name = '$admin->_name', email = '$admin->_email', $cond 
+            status = '$admin->_status', timestamp = '$now' WHERE id = '$admin->_id'";
+        $result = $crud->execute($query);
         return $result;
     }
 
-    public function update_reset_code($crud, $email, $reset_code){
+    /*public function update_reset_code($crud, $email, $reset_code){
         date_default_timezone_set('Asia/Jakarta');
         $now = date("Y-m-d H:i:s");
 
@@ -291,30 +238,19 @@ class Admin
         );
         $result = $crud->put($this->table, $bulk);
         return $result;
-    }
+    }*/
 
     public function change_password($crud, $id, $password, $salt_hash){
         date_default_timezone_set('Asia/Jakarta');
         $now = date("Y-m-d H:i:s");
 
-        $bulk = new MongoDB\Driver\BulkWrite;
-        $bulk->update(
-            [
-                'id' => $id
-            ], 
-            [
-                '$set' => [
-                    'password' => $password, 
-                    'salt_hash' => $salt_hash, 
-                    'timestamp' => $now
-                ]
-            ]
-        );
-        $result = $crud->put($this->table, $bulk);
+        $query = "UPDATE $this->table SET password = '$password', salt_hash = '$salt_hash', 
+            timestamp = '$now' WHERE id = '$id'";
+        $result = $crud->execute($query);
         return $result;
     }
 
-    public function reset_password($crud, $email, $reset_code, $password, $salt_hash){
+    /*public function reset_password($crud, $email, $reset_code, $password, $salt_hash){
         date_default_timezone_set('Asia/Jakarta');
         $now = date("Y-m-d H:i:s");
 
@@ -335,44 +271,40 @@ class Admin
         );
         $result = $crud->put($this->table, $bulk);
         return $result;
-    }
+    }*/
 
     public function delete_data($crud, $id, $encrypt, $path){
         $this->remove_image($crud, $id, $encrypt, $path);
-        return $crud->removeById($this->table, $id);
+        $result = $crud->delete($id, $this->table);
+        return $result;
     }
 
     public function remove_image($crud, $id, $encrypt, $path){
-        $filter = [
-            'id' => $id
-        ];
-        $options = [
-            'projection' => [
-                '_id' => 0, 
-                'img' => 1
-            ]
-        ]; 
-        $query = new MongoDB\Driver\Query($filter, $options);
-        $result = $crud->find($this->table, $query);
-        if(is_array($result)){
-            foreach($result as $data){
-                if($data->img != ""){
-                    $deleteImg = $path.$encrypt->encrypt_decrypt("decrypt", $data->img);
-                    if(file_exists($deleteImg)){
-                        unlink($deleteImg);
-                    }
-                    $deleteImgThmb = $path."thmb/".$encrypt->encrypt_decrypt("decrypt", $data->img);
-                    if(file_exists($deleteImgThmb)){
-                        unlink($deleteImgThmb);
-                    }
-                    $result = true;
-                }
-            }
+        $query = "SELECT img FROM $this->table WHERE id = '$id'";
+        $result = $crud->getData($query);
+        if(!$result){
+            return false;
         }else{
-            $result = false;
+            if(is_array($result)){
+                foreach($result as $data){
+                    if($data['img'] != ""){
+                        $deleteImg = $path.$encrypt->encrypt_decrypt("decrypt", $data['img']);
+                        if(file_exists($deleteImg)){
+                            unlink($deleteImg);
+                        }
+                        $deleteImgThmb = $path."thmb/".$encrypt->encrypt_decrypt("decrypt", $data['img']);
+                        if(file_exists($deleteImgThmb)){
+                            unlink($deleteImgThmb);
+                        }
+                        $result = true;
+                    }
+                }
+            }else{
+                $result = false;
+            }
         }
         return $result;
-    }*/
+    }
 //END FUNCTION FOR ADMIN PAGE
 }
 ?>

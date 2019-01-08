@@ -1,6 +1,5 @@
 task migrate php 7.2
 -migrate php 7 for each modules:
-	-admin
 	-article-category
 	-event-category
 	-home
