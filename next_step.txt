@@ -1,8 +1,5 @@
 task migrate php 7.2
 -migrate php 7 for each modules:
-	-article-category
-	-event-category
-	-home
 	-jemaat
 	-keluarga
 -migrate semua yang masih ada mongodb ke mysql
