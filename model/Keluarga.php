@@ -12,7 +12,7 @@ class Keluarga
 
     function __construct(){
         $this->table = "keluarga";
-        $this->tableJemaat = "jemaat";
+        $this->joinJemaat = "LEFT JOIN jemaat j ON j.keluarga_id = k.id";
         $this->itemPerPageAdmin = 20;
     }
 
@@ -65,7 +65,7 @@ class Keluarga
     }
     
 //START FUNCTION FOR ADMIN PAGE
-    public function get_list($crud){
+    /*public function get_list($crud){
         $filter = [
             'status' => 1
         ];
@@ -104,21 +104,11 @@ class Keluarga
             return "";
         }
         return is_array($result) ? $result[0]->id : "";
-    }
+    }*/
 
     public function check_name($crud, $name){
-        $filter = [
-            'name' => $name
-        ];
-        $options = [
-            'projection' => [
-                '_id' => 0, 
-                'name' => 1
-            ],
-            'limit' => 1
-        ]; 
-        $query = new MongoDB\Driver\Query($filter, $options);
-        $result = $crud->find($this->table, $query);
+        $query = "SELECT name FROM $this->table WHERE name = '$name'";
+        $result = $crud->getData($query);
         if(!$result){
             return false;
         }
@@ -127,94 +117,26 @@ class Keluarga
 
     public function get_all($crud, $page=1){
         //get total data
-        $query_total = [];
-        $total_data = $crud->count(
-            new MongoDB\Driver\Command([
-                'count' => $this->table, 
-                'query' => $query_total
-            ])
-        );
+        $query_total = "SELECT id FROM $this->table";
+        $total_data = $crud->count($query_total);
 
         //get total page
         $total_page  = ceil($total_data / $this->itemPerPageAdmin);
         $limitBefore = $page <= 1 || $page == null ? 0 : ($page-1) * $this->itemPerPageAdmin;
 
-        $command = new MongoDB\Driver\Command([
-            'aggregate' => $this->table,
-            'pipeline' => [
-                [
-                    '$lookup' => [
-                        'from' => $this->tableJemaat,
-                        'let' => [
-                            'keluargaId' => '$id'
-                        ],
-                        'pipeline' => [
-                            [
-                                '$match' => [
-                                    '$expr' => [
-                                        '$eq' => [
-                                            '$$keluargaId',
-                                            '$keluarga_id'
-                                        ]
-                                    ]
-                                ]
-                            ],
-                            [
-                                '$count' => "count"
-                            ]
-                        ],
-                        'as' => "num_jemaat"
-                    ]
-                ],
-                [
-                    '$project' => [
-                        '_id' => 0, 
-                        'id' => 1, 
-                        'name' => 1, 
-                        'sector' => 1, 
-                        'wedding_date' => 1, 
-                        'status' => 1,
-                        'datetime' => 1,
-                        'timestamp' => 1,
-                        'num_jemaat' => [
-                            '$ifNull' => [
-                                [
-                                    '$arrayElemAt' => [
-                                        '$num_jemaat.count', 0
-                                    ]
-                                ],
-                                0
-                            ]
-                        ]
-                    ],
-                ],
-                [
-                    '$sort' => [
-                        'datetime' => -1,
-                        'name' => 1
-                    ]
-                ],
-                [
-                    '$skip' => $limitBefore
-                ],
-                [
-                    '$limit' => $this->itemPerPageAdmin
-                ]
-            ],
-            'cursor' => [
-                'batchSize' => 4
-            ]
-        ]);
-        $result = $crud->aggregate($command);
+        $query = "SELECT COUNT(j.id) AS num_jemaat, k.id, k.name, k.sector, k.wedding_date, k.status, 
+            k.datetime, k.timestamp FROM $this->table k $this->joinJemaat GROUP BY k.id ORDER BY k.datetime DESC, 
+            k.name ASC LIMIT $limitBefore, $this->itemPerPageAdmin";
+        $result = $crud->getData($query);
         if(!$result){
             return false;
         }else{
             if(is_array($result)){
-                $obj = new stdClass;
-                $obj->total_page = $total_page;
-                $obj->total_data = count($result);
-                $obj->total_data_all = $total_data;
-                $obj->data = $result;
+                $obj = array();
+                $obj['total_page'] = $total_page;
+                $obj['total_data'] = count($result);
+                $obj['total_data_all'] = $total_data;
+                $obj['data'] = $result;
                 $result = $obj;
             }
         }
@@ -222,26 +144,18 @@ class Keluarga
     }
 
     public function get_detail($crud, $id){
-        return $crud->findById($this->table, $id);
+        $result = $crud->detail($id, $this->table);
+        return !$result ? false : is_array($result) ? $result[0] : false;
     }
 
     public function insert_data($crud, $keluarga){
         date_default_timezone_set('Asia/Jakarta');
         $now = date("Y-m-d H:i:s");
 
-        $query = [
-            'id' => $keluarga->_id, 
-            'name' => $keluarga->_name, 
-            'sector' => (int) $keluarga->_sector, 
-            'wedding_date' => $keluarga->_wedding_date, 
-            'address' => $keluarga->_address, 
-            'status' => (int) $keluarga->_status, 
-            'timestamp' => $now, 
-            'datetime' => $now
-        ];
-        $bulk = new MongoDB\Driver\BulkWrite;
-        $bulk->insert($query);
-        $result = $crud->post($this->table, $bulk);
+        $query = "INSERT INTO $this->table (id, name, sector, wedding_date, address, status, datetime, timestamp) 
+            VALUES ('$keluarga->_id', '$keluarga->_name', '$keluarga->_sector', '$keluarga->_wedding_date', 
+            '$keluarga->_address', '$keluarga->_status', '$now', '$now')";
+        $result = $crud->execute($query);
         return $result;
     }
 
@@ -249,28 +163,16 @@ class Keluarga
         date_default_timezone_set('Asia/Jakarta');
         $now = date("Y-m-d H:i:s");
 
-        $bulk = new MongoDB\Driver\BulkWrite;
-        $bulk->update(
-            [
-                'id' => $keluarga->_id
-            ], 
-            [
-                '$set' => [
-                    'name' => $keluarga->_name, 
-                    'sector' => (int) $keluarga->_sector,
-                    'wedding_date' => $keluarga->_wedding_date,
-                    'address' => $keluarga->_address,
-                    'status' => (int) $keluarga->_status, 
-                    'timestamp' => $now
-                ]
-            ]
-        );
-        $result = $crud->put($this->table, $bulk);
+        $query = "UPDATE $this->table SET name = '$keluarga->_name', sector = '$keluarga->_sector',
+            wedding_date = '$keluarga->_wedding_date', address = '$keluarga->_address', 
+            status = '$keluarga->_status', timestamp = '$now' WHERE id = '$keluarga->_id'";
+        $result = $crud->execute($query);
         return $result;
     }
 
     public function delete_data($crud, $id){
-        return $crud->removeById($this->table, $id);
+        $result = $crud->delete($id, $this->table);
+        return $result;
     }
 //END FUNCTION FOR ADMIN PAGE
 }

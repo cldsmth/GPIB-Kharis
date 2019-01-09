@@ -163,8 +163,7 @@ class Admin
     public function get_all($crud, $page=1){
         //get total data
         $query_total = "SELECT id FROM $this->table";
-        $result_total = $crud->getData($query_total);
-        $total_data = !$result_total ? 0 : count($result_total);
+        $total_data = $crud->count($query_total);
 
         //get total page
         $total_page  = ceil($total_data / $this->itemPerPageAdmin);

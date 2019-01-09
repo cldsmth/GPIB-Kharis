@@ -17,9 +17,9 @@ if(!isset($_GET['action'])){
     	$_page = isset($_GET['page']) ? check_input($_GET['page']) : 1;
         $datas = $keluarga->get_all($crud, $_page);
 	    //var_dump($datas);
-	    $total_page = hasProperty($datas, "data") ? $datas->total_page : 0;
-	    $total_data = hasProperty($datas, "data") ? $datas->total_data : 0;
-	    $total_data_all = hasProperty($datas, "data") ? $datas->total_data_all : 0;
+	    $total_page = isset($datas['data']) ? $datas['total_page'] : 0;
+	    $total_data = isset($datas['data']) ? $datas['total_data'] : 0;
+	    $total_data_all = isset($datas['data']) ? $datas['total_data_all'] : 0;
 
 	    if(isset($_SESSION['status'])){
 	        $message = $_SESSION['status'];

@@ -6,6 +6,11 @@ class Crud extends Database
     public function __construct(){
         parent::__construct();
     }
+
+    public function count($query){
+        $result = $this->connection->query($query);
+        return $result ? $result->num_rows : 0;
+    }
     
     public function getData($query){        
         $result = $this->connection->query($query);
