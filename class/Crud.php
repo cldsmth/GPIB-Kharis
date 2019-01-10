@@ -7,6 +7,10 @@ class Crud extends Database
         parent::__construct();
     }
 
+    public function conn(){
+        return $this->connection;
+    }
+
     public function count($query){
         $result = $this->connection->query($query);
         return $result ? $result->num_rows : 0;
@@ -21,6 +25,16 @@ class Crud extends Database
         while($row = $result->fetch_assoc()){
             $rows[] = $row;
         }
+        return $rows;
+    }
+
+    public function getById($query){
+        $result = $this->connection->query($query);
+        if($result == false){
+            return false;
+        }
+        $rows = array();
+        $rows = $result->fetch_assoc();
         return $rows;
     }
         

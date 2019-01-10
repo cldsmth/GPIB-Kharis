@@ -117,24 +117,24 @@
                           <th>Create Date</th>
                           <th>Last Updated</th>
                         </tr>
-                        <?php $num=1; if(hasProperty($datas, "data")){ foreach($datas->data as $data){?>
+                        <?php $num=1; if(isset($datas['data'])){ foreach($datas['data'] as $data){?>
                         <tr>
                           <td class="text-left"><?=($_page-1)*20+$num;?>.</td>
                           <td class="text-center">
-                            <a href="<?=$path['jemaat-edit']."?id=".$data->id.linkToEdit($_SERVER['QUERY_STRING']);?>" class="btn btn-xs btn-outline btn-success"><i class='fa fa-edit'></i> Edit</a>
-                            <a href="javascript:void(0)" onclick="confirmDelete('<?=$data->id;?>', '<?=$data->full_name;?>');" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> Delete</a>
+                            <a href="<?=$path['jemaat-edit']."?id=".$data['id'].linkToEdit($_SERVER['QUERY_STRING']);?>" class="btn btn-xs btn-outline btn-success"><i class='fa fa-edit'></i> Edit</a>
+                            <a href="javascript:void(0)" onclick="confirmDelete('<?=$data['id'];?>', '<?=$data['full_name'];?>');" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-trash"></i> Delete</a>
                           </td>
-                          <td class="text-center"><?=checkStatus($data->status);?></td>
-                          <td><?=correctDisplay($data->full_name);?></td>
-                          <td><?=correctDisplay($data->keluarga->name);?></td>
-                          <td class="text-center"><?=$data->keluarga->sector;?></td>
-                          <td><?=checkGender($data->gender);?></td>
-                          <td><?=charLength(checkPhone(array($data->phone1, $data->phone2, $data->phone3)), 20);?></td>
-                          <td><?=($data->birthday != "0000-00-00" ? date("d-M-Y", strtotime($data->birthday)) : "-");?></td>
-                          <td class="text-center"><?=((string) $data->age != null ? $data->age : "-");?></td>
-                          <td><?=checkMarried($data->married);?></td>
-                          <td><?=date("d-M-Y, H:i:s", strtotime($data->datetime));?></td>
-                          <td><?=($data->datetime != $data->timestamp ? time_ago($data->timestamp) : "-");?></td>
+                          <td class="text-center"><?=checkStatus($data['status']);?></td>
+                          <td><?=correctDisplay($data['full_name']);?></td>
+                          <td><?=correctDisplay($data['keluarga']['name']);?></td>
+                          <td class="text-center"><?=$data['keluarga']['sector'];?></td>
+                          <td><?=checkGender($data['gender']);?></td>
+                          <td><?=charLength(checkPhone(array($data['phone1'], $data['phone2'], $data['phone3'])), 20);?></td>
+                          <td><?=($data['birthday'] != "0000-00-00" ? date("d-M-Y", strtotime($data['birthday'])) : "-");?></td>
+                          <td class="text-center"><?=($data['birthday'] != "0000-00-00" ? calculate_age($data['birthday']) : "-");?></td>
+                          <td><?=checkMarried($data['married']);?></td>
+                          <td><?=date("d-M-Y, H:i:s", strtotime($data['datetime']));?></td>
+                          <td><?=($data['datetime'] != $data['timestamp'] ? time_ago($data['timestamp']) : "-");?></td>
                         </tr>
                         <?php $num++;}}else{?>
                         <tr>
@@ -147,9 +147,7 @@
                   <div id="default-datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap up2">
                     <div class="row">
                       <div class="col-sm-5">
-                        <?php if(hasProperty($datas, "data")){?>
                         <div class="dataTables_info" id="default-datatable_info" role="status" aria-live="polite"><?="Showing ".(($_page-1)*20+1)." to ".($total_data+(($_page-1)*20))." of ".$total_data_all." entries";?></div>
-                        <?php }?>
                       </div>
                       <div class="col-sm-7">
                         <?php include("../../parts/part-pagination.php");?>

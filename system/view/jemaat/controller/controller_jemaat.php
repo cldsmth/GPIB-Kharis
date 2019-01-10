@@ -23,9 +23,9 @@ if(!isset($_GET['action'])){
 		$_status = isset($_GET['status']) ? check_input($_GET['status']) : "";
         $datas = $jemaat->get_all($crud, $_page, $_keyword, $_sector, $_pelkat, $_gender, $_married, $_status);
 	    //var_dump($datas);
-	    $total_page = hasProperty($datas, "data") ? $datas->total_page : 0;
-	    $total_data = hasProperty($datas, "data") ? $datas->total_data : 0;
-	    $total_data_all = hasProperty($datas, "data") ? $datas->total_data_all : 0;
+	    $total_page = isset($datas['data']) ? $datas['total_page'] : 0;
+	    $total_data = isset($datas['data']) ? $datas['total_data'] : 0;
+	    $total_data_all = isset($datas['data']) ? $datas['total_data_all'] : 0;
 	    //advanced search
 	    $sectors = listSector();
     	$pelkats = listPelkat();

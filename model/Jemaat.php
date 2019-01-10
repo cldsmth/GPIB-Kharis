@@ -23,13 +23,7 @@ class Jemaat
 
     function __construct(){
         $this->table = "jemaat";
-        $this->tableKeluarga = "keluarga";
-        $this->joinKeluarga = [
-            'from' => $this->tableKeluarga,
-            'localField' => "keluarga_id",
-            'foreignField' => "id",
-            'as' => "keluarga"
-        ];
+        $this->joinKeluarga = "LEFT JOIN keluarga k ON k.id = j.keluarga_id";
         $this->itemPerPageAdmin = 20;
     }
 
@@ -167,6 +161,46 @@ class Jemaat
             return false;
         }
         return is_array($result) ? true : false;
+    }
+
+    public function get_all($crud, $page=1, $keyword, $sector, $pelkat, $gender, $married, $status){
+        //get total data
+        $query_total = "SELECT id FROM $this->table";
+        $total_data = $crud->count($query_total);
+
+        //get total page
+        $total_page  = ceil($total_data / $this->itemPerPageAdmin);
+        $limitBefore = $page <= 1 || $page == null ? 0 : ($page-1) * $this->itemPerPageAdmin;
+
+        $query = "SELECT j.id, j.keluarga_id, j.full_name, j.gender, j.phone1, j.phone2, j.phone3, j.birthday, 
+            j.married, j.status, j.datetime, j.timestamp FROM $this->table j $this->joinKeluarga ORDER BY 
+            j.datetime DESC, k.name ASC LIMIT $limitBefore, $this->itemPerPageAdmin";
+        $result = $crud->conn()->query($query);
+        if(!$result){
+            return false;
+        }else{
+            $rows = array();
+            $loop = 0;
+            while($row = $result->fetch_assoc()){
+                $rows[$loop] = $row;
+
+                //query keluarga
+                $query_detail = "SELECT id, name, sector FROM keluarga WHERE id = '{$row['keluarga_id']}'";
+                $result_detail = $crud->getById($query_detail);
+                if($result_detail){
+                    $rows[$loop]['keluarga'] = $result_detail;
+                }
+                unset($rows[$loop]['keluarga_id']);
+                $loop++;
+            }
+            $obj = array();
+            $obj['total_page'] = $total_page;
+            $obj['total_data'] = count($rows);
+            $obj['total_data_all'] = $total_data;
+            $obj['data'] = $rows;
+            $result = $obj;
+        }
+        return $result;
     }
 
     /*public function get_all($crud, $page=1, $keyword, $sector, $pelkat, $gender, $married, $status){

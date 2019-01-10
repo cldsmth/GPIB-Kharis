@@ -5,6 +5,8 @@ task migrate php 7.2
 -tambahin mysql real escape string yang ada di class crud di setiap method get/post
 
 next step
+-nanti coba ganti struktur login. Coba cari encrypt yang terbaru untuk php7, yang mungkin juga bisa
+ cocok untuk di javascript atau node js (encrypt pake AES klo yang di node js)
 -nanti adjust validasi check name/email lagsung ajax
  referensi link untuk loading dan icon valid/invalid => https://www.w3schools.com/howto/howto_js_password_validation.asp
 -kalau sudah ada module event/article, di module category event/article di tambahkan kolom counter dan ada validasi 
