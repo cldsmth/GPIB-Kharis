@@ -85,27 +85,17 @@ class Keluarga
             return false;
         }
         return $result;
-    }
-
-    public function get_id_by_name($crud, $name){
-        $filter = [
-            'name' => $name
-        ];
-        $options = [
-            'projection' => [
-                '_id' => 0, 
-                'id' => 1
-            ],
-            'limit' => 1
-        ]; 
-        $query = new MongoDB\Driver\Query($filter, $options);
-        $result = $crud->find($this->table, $query);
-        if(!$result){
-            return "";
-        }
-        return is_array($result) ? $result[0]->id : "";
     }*/
 
+    public function get_id_by_name($crud, $name){
+        $query = "SELECT id FROM $this->table WHERE name = '$name'";
+        $result = $crud->getData($query);
+        if(!$result){
+            return false;
+        }
+        return is_array($result) ? $result[0]['id'] : "";
+    }
+    
     public function check_name($crud, $name){
         $query = "SELECT name FROM $this->table WHERE name = '$name'";
         $result = $crud->getData($query);

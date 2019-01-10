@@ -161,25 +161,15 @@ class Jemaat
     }
 
     public function check_name($crud, $name){
-        $filter = [
-            'full_name' => $name
-        ];
-        $options = [
-            'projection' => [
-                '_id' => 0, 
-                'full_name' => 1
-            ],
-            'limit' => 1
-        ]; 
-        $query = new MongoDB\Driver\Query($filter, $options);
-        $result = $crud->find($this->table, $query);
+        $query = "SELECT full_name FROM $this->table WHERE full_name = '$name'";
+        $result = $crud->getData($query);
         if(!$result){
             return false;
         }
         return is_array($result) ? true : false;
     }
 
-    public function get_all($crud, $page=1, $keyword, $sector, $pelkat, $gender, $married, $status){
+    /*public function get_all($crud, $page=1, $keyword, $sector, $pelkat, $gender, $married, $status){
         $query = [];
         if($keyword != ""){
             $keywords = explode(" ", $keyword);
@@ -362,38 +352,22 @@ class Jemaat
 
     public function get_detail($crud, $id){
         return $crud->findById($this->table, $id);
-    }
+    }*/
 
     public function insert_data($crud, $jemaat){
         date_default_timezone_set('Asia/Jakarta');
         $now = date("Y-m-d H:i:s");
 
-        $query = [
-            'id' => $jemaat->_id, 
-            'keluarga_id' => $jemaat->_keluarga_id, 
-            'first_name' => $jemaat->_first_name,
-            'middle_name' => $jemaat->_middle_name,
-            'last_name' => $jemaat->_last_name,
-            'full_name' => $jemaat->_full_name,
-            'gender' => $jemaat->_gender,
-            'birthday' => $jemaat->_birthday, 
-            'age' => $jemaat->_age != null ? (int) $jemaat->_age : null, 
-            'phone1' => $jemaat->_phone1, 
-            'phone2' => $jemaat->_phone2, 
-            'phone3' => $jemaat->_phone3, 
-            'notes' => $jemaat->_notes, 
-            'married' => (int) $jemaat->_married, 
-            'status' => (int) $jemaat->_status, 
-            'timestamp' => $now, 
-            'datetime' => $now
-        ];
-        $bulk = new MongoDB\Driver\BulkWrite;
-        $bulk->insert($query);
-        $result = $crud->post($this->table, $bulk);
+        $query = "INSERT INTO $this->table (id, keluarga_id, first_name, middle_name, last_name, full_name,
+            gender, birthday, phone1, phone2, phone3, notes, married, status, datetime, timestamp) 
+            VALUES ('$jemaat->_id', '$jemaat->_keluarga_id', '$jemaat->_first_name', '$jemaat->_middle_name', 
+            '$jemaat->_last_name', '$jemaat->_full_name', '$jemaat->_gender', '$jemaat->_birthday', '$jemaat->_phone1', 
+            '$jemaat->_phone2', '$jemaat->_phone3', '$jemaat->_notes', '$jemaat->_married', '$jemaat->_status', '$now', '$now')";
+        $result = $crud->execute($query);
         return $result;
     }
 
-    public function update_data($crud, $jemaat){
+    /*public function update_data($crud, $jemaat){
         date_default_timezone_set('Asia/Jakarta');
         $now = date("Y-m-d H:i:s");
 
@@ -448,7 +422,7 @@ class Jemaat
 
     public function delete_data($crud, $id){
         return $crud->removeById($this->table, $id);
-    }
+    }*/
 //END FUNCTION FOR ADMIN PAGE
 }
 ?>
