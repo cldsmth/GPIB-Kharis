@@ -57,48 +57,48 @@ if(isset($_GET['action'])){//start gate
 	        	}
 	        	$result = $jemaat->get_all($crud, "", $_keyword, $_sector, $_pelkat, $_gender, $_married, $_status);
 				//var_dump($result);
-				if(hasProperty($result, "data")){
+				if(isset($result['data'])){
 					$num = 1;
-					foreach($result->data as $data){
+					foreach($result['data'] as $data){
 						//no
 						$jemaats[$num]['cells'][0]['value'] = $num;
 						$jemaats[$num]['cells'][0]['vAlign'] = "center";
 						$jemaats[$num]['cells'][0]['hAlign'] = "center";
 						$jemaats[$num]['cells'][0]['fontSize'] = 12;
 						//sector
-						$jemaats[$num]['cells'][1]['value'] = checkStatusText($data->status);
+						$jemaats[$num]['cells'][1]['value'] = checkStatusText($data['status']);
 						$jemaats[$num]['cells'][1]['vAlign'] = "center";
 						$jemaats[$num]['cells'][1]['hAlign'] = "center";
 						$jemaats[$num]['cells'][1]['fontSize'] = 12;
 						//full name
-						$jemaats[$num]['cells'][2]['value'] = $data->full_name;
+						$jemaats[$num]['cells'][2]['value'] = $data['full_name'];
 						$jemaats[$num]['cells'][2]['fontSize'] = 12;
 						//family name
-						$jemaats[$num]['cells'][3]['value'] = $data->keluarga->name;
+						$jemaats[$num]['cells'][3]['value'] = $data['keluarga']['name'];
 						$jemaats[$num]['cells'][3]['fontSize'] = 12;
 						//sector
-						$jemaats[$num]['cells'][4]['value'] = $data->keluarga->sector;
+						$jemaats[$num]['cells'][4]['value'] = $data['keluarga']['sector'];
 						$jemaats[$num]['cells'][4]['vAlign'] = "center";
 						$jemaats[$num]['cells'][4]['hAlign'] = "center";
 						$jemaats[$num]['cells'][4]['fontSize'] = 12;
 						//gender
-						$jemaats[$num]['cells'][5]['value'] = checkGender($data->gender);
+						$jemaats[$num]['cells'][5]['value'] = checkGender($data['gender']);
 						$jemaats[$num]['cells'][5]['fontSize'] = 12;
 						//phone
-						$jemaats[$num]['cells'][6]['value'] = checkPhone(array($data->phone1, $data->phone2, $data->phone3));
+						$jemaats[$num]['cells'][6]['value'] = checkPhone(array($data['phone1'], $data['phone2'], $data['phone3']));
 						$jemaats[$num]['cells'][6]['fontSize'] = 12;
 						//birthday
-						$jemaats[$num]['cells'][7]['value'] = $data->birthday != "0000-00-00" ? date("d-M-Y", strtotime($data->birthday)) : "-";
+						$jemaats[$num]['cells'][7]['value'] = $data['birthday'] != "0000-00-00" ? date("d-M-Y", strtotime($data['birthday'])) : "-";
 						$jemaats[$num]['cells'][7]['vAlign'] = "center";
 						$jemaats[$num]['cells'][7]['hAlign'] = "center";
 						$jemaats[$num]['cells'][7]['fontSize'] = 12;
 						//age
-						$jemaats[$num]['cells'][8]['value'] = (string) $data->age != null ? $data->age : "-";
+						$jemaats[$num]['cells'][8]['value'] = $data['birthday'] != "0000-00-00" ? $data['age'] : "-";
 						$jemaats[$num]['cells'][8]['vAlign'] = "center";
 						$jemaats[$num]['cells'][8]['hAlign'] = "center";
 						$jemaats[$num]['cells'][8]['fontSize'] = 12;
 						//married
-						$jemaats[$num]['cells'][9]['value'] = checkMarried($data->married);
+						$jemaats[$num]['cells'][9]['value'] = checkMarried($data['married']);
 						$jemaats[$num]['cells'][9]['vAlign'] = "center";
 						$jemaats[$num]['cells'][9]['hAlign'] = "center";
 						$jemaats[$num]['cells'][9]['fontSize'] = 12;

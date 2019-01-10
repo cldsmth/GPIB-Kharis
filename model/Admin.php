@@ -110,27 +110,16 @@ class Admin
             return false;
         }
         return is_array($result) ? true : false;
-    }
+    }*/
 
     public function check_code($crud, $id, $auth_code){
-        $filter = [
-            'id' => $id, 
-            'auth_code' => $auth_code
-        ];
-        $options = [
-            'projection' => [
-                '_id' => 0, 
-                'id' => 1
-            ],
-            'limit' => 1
-        ]; 
-        $query = new MongoDB\Driver\Query($filter, $options);
-        $result = $crud->find($this->table, $query);
+        $query = "SELECT id FROM $this->table WHERE id = '$id' AND auth_code = '$auth_code'";
+        $result = $crud->getData($query);
         if(!$result){
             return false;
         }
         return is_array($result) ? true : false;
-    }*/
+    }
 
     public function check_email($crud, $email){
         $query = "SELECT email FROM $this->table WHERE email = '$email'";

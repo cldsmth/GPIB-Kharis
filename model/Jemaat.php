@@ -164,21 +164,79 @@ class Jemaat
     }
 
     public function get_all($crud, $page=1, $keyword, $sector, $pelkat, $gender, $married, $status){
+        $condKeyword = "";
+        if($keyword != ""){
+            $keywords = explode(" ", $keyword);
+            if(is_array($keywords)){
+                $q_string = "";
+                $last_index = intval(count($keywords)) - 1;
+                for($i = 0; $i < count($keywords); $i++){
+                    $q_string = $q_string . "j.full_name LIKE '%".$keywords[$i]."%' OR
+                        k.name LIKE '%".$keywords[$i]."%' OR j.phone1 LIKE '%".$keywords[$i]."%' OR
+                        j.phone2 LIKE '%".$keywords[$i]."%' OR j.phone3 LIKE '%".$keywords[$i]."%' OR
+                        k.address LIKE '%".$keywords[$i]."%'";
+                    if($i != $last_index){
+                      $q_string = $q_string . " OR ";
+                    }
+                }
+                $condKeyword = "AND (".$q_string.")";
+            }
+        }
+        $condSector = "";
+        if($sector != ""){
+            $condSector = "AND k.sector = '$sector'";
+        }
+        $condPelkat = "";
+        if($pelkat != ""){
+            if($pelkat == "pa"){
+                $condPelkat = "HAVING age BETWEEN 0 AND 11 AND j.married = 0";
+            }else if($pelkat == "pt"){
+                $condPelkat = "HAVING age BETWEEN 12 AND 14 AND j.married = 0";
+            }else if($pelkat == "gp"){
+                $condPelkat = "HAVING age >= 15 AND j.married = 0";
+            }else if($pelkat == "pkp"){
+                $condPelkat = "HAVING age <= 59 AND j.gender = 'f' AND j.married = 1";
+            }else if($pelkat == "pkb"){
+                $condPelkat = "HAVING age <= 59 AND j.gender = 'm' AND j.married = 1";
+            }else if($pelkat == "pklu"){
+                $condPelkat = "HAVING age >= 60 AND j.married = 1";
+            }
+        }
+        $condGender = "";
+        if($gender != ""){
+            $condGender = "AND j.gender = '$gender'";
+        }
+        $condMarried = "";
+        if($married != ""){
+            $condMarried = "AND j.married = '$married'";
+        }
+        $condStatus = "";
+        if($status != ""){
+            $condStatus = "AND j.status = '$status'";
+        }
+
         //get total data
-        $query_total = "SELECT id FROM $this->table";
+        $query_total = "SELECT j.id, j.married, j.gender, j.status, TIMESTAMPDIFF(YEAR, j.birthday, CURDATE()) AS age 
+            FROM $this->table j $this->joinKeluarga WHERE j.id IS NOT NULL $condKeyword $condSector $condPelkat 
+            $condGender $condMarried $condStatus";
         $total_data = $crud->count($query_total);
 
         //get total page
-        $total_page  = ceil($total_data / $this->itemPerPageAdmin);
-        $limitBefore = $page <= 1 || $page == null ? 0 : ($page-1) * $this->itemPerPageAdmin;
+        if($page != ""){
+            $total_page  = ceil($total_data / $this->itemPerPageAdmin);
+            $limitBefore = $page <= 1 || $page == null ? 0 : ($page-1) * $this->itemPerPageAdmin;
+            $limit = "LIMIT $limitBefore, $this->itemPerPageAdmin";
+        }else{
+            $total_page = $total_data;
+            $limit = "";
+        }
 
         $query = "SELECT j.id, j.keluarga_id, j.full_name, j.gender, j.phone1, j.phone2, j.phone3, j.birthday, 
-            j.married, j.status, j.datetime, j.timestamp FROM $this->table j $this->joinKeluarga ORDER BY 
-            j.datetime DESC, k.name ASC LIMIT $limitBefore, $this->itemPerPageAdmin";
+            TIMESTAMPDIFF(YEAR, j.birthday, CURDATE()) AS age, j.married, j.status, j.datetime, j.timestamp 
+            FROM $this->table j $this->joinKeluarga WHERE j.id IS NOT NULL $condKeyword $condSector $condPelkat 
+            $condGender $condMarried $condStatus ORDER BY j.datetime DESC, k.name ASC $limit";
         $result = $crud->conn()->query($query);
-        if(!$result){
-            return false;
-        }else{
+        if($result->num_rows >= 1){
             $rows = array();
             $loop = 0;
             while($row = $result->fetch_assoc()){
@@ -199,91 +257,14 @@ class Jemaat
             $obj['total_data_all'] = $total_data;
             $obj['data'] = $rows;
             $result = $obj;
+        }else{
+            return false;
         }
+        //$result = $query;
         return $result;
     }
 
     /*public function get_all($crud, $page=1, $keyword, $sector, $pelkat, $gender, $married, $status){
-        $query = [];
-        if($keyword != ""){
-            $keywords = explode(" ", $keyword);
-            if(is_array($keywords)){
-                for($i = 0; $i < count($keywords); $i++){
-                    $like = [
-                        '$regex' => $keywords[$i],
-                        '$options' => "i"
-                    ];
-                    $query['$or'][] = [
-                        'full_name' => $like
-                    ];
-                    $query['$or'][] = [
-                        'keluarga.name' => $like
-                    ];
-                    $query['$or'][] = [
-                        'phone1' => $like
-                    ];
-                    $query['$or'][] = [
-                        'phone2' => $like
-                    ];
-                    $query['$or'][] = [
-                        'phone3' => $like
-                    ];
-                    $query['$or'][] = [
-                        'keluarga.address' => $like
-                    ];
-                }
-            }
-        }
-        if($sector != ""){
-            $query['keluarga.sector'] = (int) $sector;
-        }
-        if($pelkat != ""){
-            if($pelkat == "pa"){
-                $query['age'] = [
-                    '$gte' => 0,
-                    '$lte' => 11
-                ];
-                $query['married'] = 0;
-            }else if($pelkat == "pt"){
-                $query['age'] = [
-                    '$gte' => 12,
-                    '$lte' => 14
-                ];
-                $query['married'] = 0;
-            }else if($pelkat == "gp"){
-                $query['age'] = [
-                    '$gte' => 15
-                ];
-                $query['married'] = 0;
-            }else if($pelkat == "pkp"){
-                $query['gender'] = "f";
-                $query['married'] = 1;
-                $query['age'] = [
-                    '$lte' => 59
-                ];
-            }else if($pelkat == "pkb"){
-                $query['gender'] = "m";
-                $query['married'] = 1;
-                $query['age'] = [
-                    '$lte' => 59
-                ];
-            }else if($pelkat == "pklu"){
-                $query['age'] = [
-                    '$gte' => 60
-                ];
-                $query['married'] = 1;
-            }
-        }
-        if($gender != ""){
-            $query['gender'] = $gender;
-        }
-        if($married != ""){
-            $query['married'] = (int) $married;
-        }
-        if($status != ""){
-            $query['status'] = (int) $status;
-        }
-
         //get total data
         $result_total = $crud->aggregate(
             new MongoDB\Driver\Command([

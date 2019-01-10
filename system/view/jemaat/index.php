@@ -131,7 +131,7 @@
                           <td><?=checkGender($data['gender']);?></td>
                           <td><?=charLength(checkPhone(array($data['phone1'], $data['phone2'], $data['phone3'])), 20);?></td>
                           <td><?=($data['birthday'] != "0000-00-00" ? date("d-M-Y", strtotime($data['birthday'])) : "-");?></td>
-                          <td class="text-center"><?=($data['birthday'] != "0000-00-00" ? calculate_age($data['birthday']) : "-");?></td>
+                          <td class="text-center"><?=($data['birthday'] != "0000-00-00" ? $data['age'] : "-");?></td>
                           <td><?=checkMarried($data['married']);?></td>
                           <td><?=date("d-M-Y, H:i:s", strtotime($data['datetime']));?></td>
                           <td><?=($data['datetime'] != $data['timestamp'] ? time_ago($data['timestamp']) : "-");?></td>
@@ -269,8 +269,14 @@
     <script src="<?=$global['absolute-url-admin'];?>libraries/kendo-ui/2017.3.1026/js/kendo.all.min.js"></script>
     <script type="text/javascript">
       $(document).ready(function() {
-        clear();
-        change($("#input-pelkat").val());
+        var pelkat = $("#input-pelkat").val();
+        var gender = $("#input-gender").val();
+        if(pelkat != ""){
+          if(gender == ""){
+            clear();
+          }
+          change($("#input-pelkat").val());
+        }
       });
 
       <?php if($message != ""){?>
