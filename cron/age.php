@@ -10,8 +10,8 @@ include_once($root_url."model/Jemaat.php");
 $jemaat = new Jemaat();
 
 $datas = $jemaat->get_all($crud, "", "", "", "", "", "", "");
-//var_dump($datas);
-if(hasProperty($datas, "data")){
+var_dump($datas);
+/*if(hasProperty($datas, "data")){
     $message = "";
     $num = 1;
     foreach($datas->data as $data){
@@ -29,5 +29,5 @@ if(hasProperty($datas, "data")){
     }else{
         echo "Tidak ada perubahan umur";
     }
-}
+}*/
 ?>

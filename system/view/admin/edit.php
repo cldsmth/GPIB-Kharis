@@ -39,7 +39,7 @@
             <!-- start: PAGE CONTENT -->
             <div class="col-md-12">
               <div class="widget">
-                <?php if(isset($datas['id'])){?>
+                <?php if(is_array($datas)){?>
                 <header class="widget-header">
                   <div class="row">
                     <div class="col-sm-6">

@@ -65,27 +65,14 @@ class Keluarga
     }
     
 //START FUNCTION FOR ADMIN PAGE
-    /*public function get_list($crud){
-        $filter = [
-            'status' => 1
-        ];
-        $options = [
-            'projection' => [
-                '_id' => 0, 
-                'id' => 1, 
-                'name' => 1
-            ],
-            'sort' => [
-                'name' => 1
-            ]
-        ];
-        $query = new MongoDB\Driver\Query($filter, $options);
-        $result = $crud->find($this->table, $query);
+    public function get_list($crud){
+        $query = "SELECT id, name FROM $this->table WHERE status = 1 ORDER BY name ASC";
+        $result = $crud->getData($query);
         if(!$result){
             return false;
         }
         return $result;
-    }*/
+    }
 
     public function get_id_by_name($crud, $name){
         $query = "SELECT id FROM $this->table WHERE name = '$name'";

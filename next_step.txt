@@ -1,6 +1,4 @@
 task migrate php 7.2
--migrate php 7 for each modules:
-	-jemaat
 -migrate semua yang masih ada mongodb ke mysql
 -tambahin mysql real escape string yang ada di class crud di setiap method get/post
 

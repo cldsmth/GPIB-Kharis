@@ -100,7 +100,7 @@
                             <select id="input-keluarga" name="keluarga" class="form-control">
                               <option value="">Pilih Nama Keluarga</option>
                               <?php if(is_array($keluargas)){ foreach($keluargas as $keluarga){?>
-                              <option value="<?=$keluarga->id;?>"><?=$keluarga->name;?></option>
+                              <option value="<?=$keluarga['id'];?>"><?=$keluarga['name'];?></option>
                               <?php }}?>
                             </select>
                             <div id="error-keluarga" class="is-error"></div>
