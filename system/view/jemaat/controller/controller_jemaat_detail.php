@@ -9,7 +9,7 @@ include_once($global['root-url']."model/Keluarga.php");
 $keluarga = new Keluarga();
 
 if(!isset($_GET['action'])){
-	$_id = isset($_GET['id']) ? check_input($_GET['id']) : "";
+	$_id = isset($_GET['id']) ? $crud->escape_string(check_input($_GET['id'])) : "";
 	$keluargas = $keluarga->get_list($crud);
 	$datas = $jemaat->get_detail($crud, $_id);
 	//var_dump($datas);
@@ -18,23 +18,23 @@ if(!isset($_GET['action'])){
 	if(isset($_GET['action'])){
 
 	    if($_GET['action'] == "edit" && issetVar(array('id', 'first_name', 'last_name', 'keluarga', 'gender'))){
-	    	$jemaat->setId(check_input($_POST['id']));
-	    	$jemaat->setKeluargaId(check_input($_POST['keluarga']));
-			$jemaat->setFirstName(check_input($_POST['first_name']));
-			$jemaat->setMiddleName(check_input($_POST['middle_name']));
-			$jemaat->setLastName(check_input($_POST['last_name']));
+	    	$jemaat->setId($crud->escape_string(check_input($_POST['id'])));
+	    	$jemaat->setKeluargaId($crud->escape_string(check_input($_POST['keluarga'])));
+			$jemaat->setFirstName($crud->escape_string(check_input($_POST['first_name'])));
+			$jemaat->setMiddleName($crud->escape_string(check_input($_POST['middle_name'])));
+			$jemaat->setLastName($crud->escape_string(check_input($_POST['last_name'])));
 			$jemaat->setFullName(checkFullName($jemaat->getFirstName(), $jemaat->getMiddleName(), $jemaat->getLastName()));
-			$jemaat->setGender(check_input($_POST['gender']));
-			$jemaat->setBirthday(checkFormatDateValue(check_input($_POST['birthday'])));
+			$jemaat->setGender($crud->escape_string(check_input($_POST['gender'])));
+			$jemaat->setBirthday(checkFormatDateValue($crud->escape_string(check_input($_POST['birthday']))));
 			$jemaat->setAge(calculate_age($jemaat->getBirthday()));
-			$jemaat->setPhone1(check_input($_POST['phone1']));
-			$jemaat->setPhone2(check_input($_POST['phone2']));
-			$jemaat->setPhone3(check_input($_POST['phone3']));
-			$jemaat->setNotes(check_input(nl2br($_POST['notes'], false)));
-			$jemaat->setMarried(isset($_POST['married']) ? check_input($_POST['married']) : 0);
-			$jemaat->setStatus(isset($_POST['status']) ? check_input($_POST['status']) : 0);
-			$_old_name = check_input($_POST['old_name']);
-			$_url = check_input($_POST['url']);
+			$jemaat->setPhone1($crud->escape_string(check_input($_POST['phone1'])));
+			$jemaat->setPhone2($crud->escape_string(check_input($_POST['phone2'])));
+			$jemaat->setPhone3($crud->escape_string(check_input($_POST['phone3'])));
+			$jemaat->setNotes($crud->escape_string(check_input(nl2br($_POST['notes'], false))));
+			$jemaat->setMarried(isset($_POST['married']) ? $crud->escape_string(check_input($_POST['married'])) : 0);
+			$jemaat->setStatus(isset($_POST['status']) ? $crud->escape_string(check_input($_POST['status'])) : 0);
+			$_old_name = $crud->escape_string(check_input($_POST['old_name']));
+			$_url = $crud->escape_string(check_input($_POST['url']));
 
 			$check_name = $jemaat->getFullName() != $_old_name ? $jemaat->check_name($crud, $jemaat->getFullName()) : false;
 			if($check_name){

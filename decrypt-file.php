@@ -2,6 +2,9 @@
 include_once("helpers/config.php");
 include_once("helpers/functions.php");
 
+include_once($global['root-url']."class/Crud.php");
+$crud = new Crud();
+
 include_once($global['root-url']."class/Validation.php");
 $validation = new Validation();
 
@@ -9,9 +12,9 @@ include_once($global['root-url']."class/Encryption.php");
 $encrypt = new Encryption();
 
 if(issetVar(array('module', 'type', 'data'))){
-	$_module = check_input($_GET['module']);
-	$_type = check_input($_GET['type']);
-	$_data = check_input($_GET['data']);
+	$_module = $crud->escape_string(check_input($_GET['module']));
+	$_type = $crud->escape_string(check_input($_GET['type']));
+	$_data = $crud->escape_string(check_input($_GET['data']));
 	
 	if($validation->check_empty($_GET, array('module', 'type', 'data')) == null){
 		$thmb = $_type == "thmb" ? "thmb/" : "";

@@ -14,7 +14,7 @@ $jemaat = new Jemaat();
 if(!isset($_GET['action'])){
 	$filename = PHPFilename();
     if($filename == "index"){
-    	$_page = isset($_GET['page']) ? check_input($_GET['page']) : 1;
+    	$_page = isset($_GET['page']) ? $crud->escape_string(check_input($_GET['page'])) : 1;
         $datas = $keluarga->get_all($crud, $_page);
 	    //var_dump($datas);
 	    $total_page = isset($datas['data']) ? $datas['total_page'] : 0;
@@ -43,11 +43,11 @@ if(!isset($_GET['action'])){
 
 	    if($_GET['action'] == "add" && issetVar(array('name', 'sector'))){
 	    	$keluarga->setId($generator->generate(32));
-			$keluarga->setName(check_input($_POST['name']));
-			$keluarga->setSector(check_input($_POST['sector']));
-			$keluarga->setWeddingDate(checkFormatDateValue(check_input($_POST['wedding_date'])));
-			$keluarga->setAddress(check_input(nl2br($_POST['address'], false)));
-			$keluarga->setStatus(isset($_POST['status']) ? check_input($_POST['status']) : 0);
+			$keluarga->setName($crud->escape_string(check_input($_POST['name'])));
+			$keluarga->setSector($crud->escape_string(check_input($_POST['sector'])));
+			$keluarga->setWeddingDate(checkFormatDateValue($crud->escape_string(check_input($_POST['wedding_date']))));
+			$keluarga->setAddress($crud->escape_string(check_input(nl2br($_POST['address'], false))));
+			$keluarga->setStatus(isset($_POST['status']) ? $crud->escape_string(check_input($_POST['status'])) : 0);
 
 			$check_name = $keluarga->check_name($crud, $keluarga->getName());
 			if($check_name){
@@ -69,8 +69,8 @@ if(!isset($_GET['action'])){
 	        header("Location:".$path['keluarga']);
 	    
 	    } else if($_GET['action'] == "delete" && issetVar(array('id', 'name'))){
-            $_id = check_input($_GET['id']);
-            $_name = check_input($_GET['name']);
+            $_id = $crud->escape_string(check_input($_GET['id']));
+            $_name = $crud->escape_string(check_input($_GET['name']));
 
             if($jemaat->get_count_by_keluarga($crud, $_id) == 0){
             	$result = $keluarga->delete_data($crud, $_id);

@@ -9,8 +9,8 @@ include_once($global['root-url']."model/Admin.php");
 $admin = new Admin();
 
 if(!isset($_GET['action'])){
-	$_p1 = isset($_GET['p1']) ? check_input($_GET['p1']) : "";
-	$_p2 = isset($_GET['p2']) ? check_input($_GET['p2']) : "";
+	$_p1 = isset($_GET['p1']) ? $crud->escape_string(check_input($_GET['p1'])) : "";
+	$_p2 = isset($_GET['p2']) ? $crud->escape_string(check_input($_GET['p2'])) : "";
 	$_email = $encrypt->encrypt_decrypt("decrypt", $_p1);
     $_code = $encrypt->encrypt_decrypt("decrypt", $_p2);
 
@@ -40,11 +40,11 @@ if(!isset($_GET['action'])){
 	if(isset($_GET['action'])){
 
 	    if($_GET['action'] == 'reset' && issetVar(array('p1', 'p2', 'password', 'repassword'))){
-	    	$_p1 = check_input($_POST['p1']);
-	    	$_p2 = check_input($_POST['p2']);
-	    	$_password = check_input($_POST['password']);
-            $_repassword = check_input($_POST['repassword']);
-            $_url = check_input($_POST['url']);
+	    	$_p1 = $crud->escape_string(check_input($_POST['p1']));
+	    	$_p2 = $crud->escape_string(check_input($_POST['p2']));
+	    	$_password = $crud->escape_string(check_input($_POST['password']));
+            $_repassword = $crud->escape_string(check_input($_POST['repassword']));
+            $_url = $crud->escape_string(check_input($_POST['url']));
             $_email = $encrypt->encrypt_decrypt("decrypt", $_p1);
             $_code = $encrypt->encrypt_decrypt("decrypt", $_p2);
             $_salt = substr(md5(time()), 0, 5);

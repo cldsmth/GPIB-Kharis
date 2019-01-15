@@ -14,13 +14,13 @@ $keluarga = new Keluarga();
 if(!isset($_GET['action'])){
 	$filename = PHPFilename();
     if($filename == "index"){
-    	$_page = isset($_GET['page']) ? check_input($_GET['page']) : 1;
-		$_keyword = isset($_GET['keyword']) ? check_input($_GET['keyword']) : "";
-		$_sector = isset($_GET['sector']) ? check_input($_GET['sector']) : "";
-		$_pelkat = isset($_GET['pelkat']) ? check_input($_GET['pelkat']) : "";
-		$_gender = isset($_GET['gender']) ? check_input($_GET['gender']) : "";
-		$_married = isset($_GET['married']) ? check_input($_GET['married']) : "";
-		$_status = isset($_GET['status']) ? check_input($_GET['status']) : "";
+    	$_page = isset($_GET['page']) ? $crud->escape_string(check_input($_GET['page'])) : 1;
+		$_keyword = isset($_GET['keyword']) ? $crud->escape_string(check_input($_GET['keyword'])) : "";
+		$_sector = isset($_GET['sector']) ? $crud->escape_string(check_input($_GET['sector'])) : "";
+		$_pelkat = isset($_GET['pelkat']) ? $crud->escape_string(check_input($_GET['pelkat'])) : "";
+		$_gender = isset($_GET['gender']) ? $crud->escape_string(check_input($_GET['gender'])) : "";
+		$_married = isset($_GET['married']) ? $crud->escape_string(check_input($_GET['married'])) : "";
+		$_status = isset($_GET['status']) ? $crud->escape_string(check_input($_GET['status'])) : "";
         $datas = $jemaat->get_all($crud, $_page, $_keyword, $_sector, $_pelkat, $_gender, $_married, $_status);
 	    //var_dump($datas);
 	    $total_page = isset($datas['data']) ? $datas['total_page'] : 0;
@@ -66,20 +66,20 @@ if(!isset($_GET['action'])){
 
 	    if($_GET['action'] == "add" && issetVar(array('first_name', 'last_name', 'keluarga', 'gender'))){
 	    	$jemaat->setId($generator->generate(32));
-	    	$jemaat->setKeluargaId(check_input($_POST['keluarga']));
-			$jemaat->setFirstName(check_input($_POST['first_name']));
-			$jemaat->setMiddleName(check_input($_POST['middle_name']));
-			$jemaat->setLastName(check_input($_POST['last_name']));
+	    	$jemaat->setKeluargaId($crud->escape_string(check_input($_POST['keluarga'])));
+			$jemaat->setFirstName($crud->escape_string(check_input($_POST['first_name'])));
+			$jemaat->setMiddleName($crud->escape_string(check_input($_POST['middle_name'])));
+			$jemaat->setLastName($crud->escape_string(check_input($_POST['last_name'])));
 			$jemaat->setFullName(checkFullName($jemaat->getFirstName(), $jemaat->getMiddleName(), $jemaat->getLastName()));
-			$jemaat->setGender(check_input($_POST['gender']));
-			$jemaat->setBirthday(checkFormatDateValue(check_input($_POST['birthday'])));
+			$jemaat->setGender($crud->escape_string(check_input($_POST['gender'])));
+			$jemaat->setBirthday(checkFormatDateValue($crud->escape_string(check_input($_POST['birthday']))));
 			$jemaat->setAge(calculate_age($jemaat->getBirthday()));
-			$jemaat->setPhone1(check_input($_POST['phone1']));
-			$jemaat->setPhone2(check_input($_POST['phone2']));
-			$jemaat->setPhone3(check_input($_POST['phone3']));
-			$jemaat->setNotes(check_input(nl2br($_POST['notes'], false)));
-			$jemaat->setMarried(isset($_POST['married']) ? check_input($_POST['married']) : 0);
-			$jemaat->setStatus(isset($_POST['status']) ? check_input($_POST['status']) : 0);
+			$jemaat->setPhone1($crud->escape_string(check_input($_POST['phone1'])));
+			$jemaat->setPhone2($crud->escape_string(check_input($_POST['phone2'])));
+			$jemaat->setPhone3($crud->escape_string(check_input($_POST['phone3'])));
+			$jemaat->setNotes($crud->escape_string(check_input(nl2br($_POST['notes'], false))));
+			$jemaat->setMarried(isset($_POST['married']) ? $crud->escape_string(check_input($_POST['married'])) : 0);
+			$jemaat->setStatus(isset($_POST['status']) ? $crud->escape_string(check_input($_POST['status'])) : 0);
 
 			$check_name = $jemaat->check_name($crud, $jemaat->getFullName());
 			if($check_name){
@@ -101,8 +101,8 @@ if(!isset($_GET['action'])){
 	        header("Location:".$path['jemaat']);
 	    
 	    } else if($_GET['action'] == "delete" && issetVar(array('id', 'name'))){
-	    	$_id = check_input($_GET['id']);
-            $_name = check_input($_GET['name']);
+	    	$_id = $crud->escape_string(check_input($_GET['id']));
+            $_name = $crud->escape_string(check_input($_GET['name']));
 
             $result = $jemaat->delete_data($crud, $_id);
             if($result){
@@ -140,20 +140,20 @@ if(!isset($_GET['action'])){
                         if($index > 0){
                         	if($isFormat){
                         		if($Row[0] != ""){
-                        			$sector = check_input($Row[1]);
-                        			$first_name = check_input($Row[2]);
-	                        		$middle_name = check_input($Row[3]);
-	                        		$last_name = check_input($Row[4]);
+                        			$sector = $crud->escape_string(check_input($Row[1]));
+                        			$first_name = $crud->escape_string(check_input($Row[2]));
+	                        		$middle_name = $crud->escape_string(check_input($Row[3]));
+	                        		$last_name = $crud->escape_string(check_input($Row[4]));
 	                        		$full_name = checkFullName($first_name, $middle_name, $last_name);
-	                        		$keluarga_name = check_input($Row[5]);
-	                        		$gender = checkGenderValue(check_input($Row[6]));
-	                        		$phones = explode(" / ", check_input($Row[7]));
-	                        		$status = checkStatusValue(check_input($Row[8]));
-	                        		$married = checkMarriedValue(check_input($Row[9]));
-	                        		$notes = check_input($Row[10]);
-	                        		$birthday = checkFormatDateValue(check_input($Row[11]));
+	                        		$keluarga_name = $crud->escape_string(check_input($Row[5]));
+	                        		$gender = checkGenderValue($crud->escape_string(check_input($Row[6])));
+	                        		$phones = explode(" / ", $crud->escape_string(check_input($Row[7])));
+	                        		$status = checkStatusValue($crud->escape_string(check_input($Row[8])));
+	                        		$married = checkMarriedValue($crud->escape_string(check_input($Row[9])));
+	                        		$notes = $crud->escape_string(check_input($Row[10]));
+	                        		$birthday = checkFormatDateValue($crud->escape_string(check_input($Row[11])));
 	                        		$age = calculate_age($birthday);
-	                        		$address = check_input($Row[12]);
+	                        		$address = $crud->escape_string(check_input($Row[12]));
 	                        		//set array data
 	                        		$datas['data'][$num]['sector'] = $sector;
 	                        		$datas['data'][$num]['first_name'] = $first_name;

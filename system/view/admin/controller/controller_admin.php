@@ -17,7 +17,7 @@ $admin = new Admin();
 if(!isset($_GET['action'])){
 	$filename = PHPFilename();
     if($filename == "index"){
-    	$_page = isset($_GET['page']) ? check_input($_GET['page']) : 1;
+    	$_page = isset($_GET['page']) ? $crud->escape_string(check_input($_GET['page'])) : 1;
         $datas = $admin->get_all($crud, $_page);
 	    //var_dump($datas);
 	    $total_page = isset($datas['data']) ? $datas['total_page'] : 0;
@@ -46,11 +46,11 @@ if(!isset($_GET['action'])){
 
 	    if($_GET['action'] == "add" && issetVar(array('name', 'email', 'password', 'repassword'))){
 	    	$admin->setId($generator->generate(32));
-			$admin->setName(check_input($_POST['name']));
-			$admin->setEmail(check_input($_POST['email']));
-			$admin->setPassword(check_input($_POST['password']));
-			$admin->setRepassword(check_input($_POST['repassword']));
-			$admin->setStatus(isset($_POST['status']) ? check_input($_POST['status']) : 0);
+			$admin->setName($crud->escape_string(check_input($_POST['name'])));
+			$admin->setEmail($crud->escape_string(check_input($_POST['email'])));
+			$admin->setPassword($crud->escape_string(check_input($_POST['password'])));
+			$admin->setRepassword($crud->escape_string(check_input($_POST['repassword'])));
+			$admin->setStatus(isset($_POST['status']) ? $crud->escape_string(check_input($_POST['status'])) : 0);
 			$admin->setAuthCode(generate_code(32));
 			$admin->setSaltHash(substr(md5(time()), 0, 5));
             $password = substr(doHash($admin->getPassword(), $admin->getSaltHash()), 0, 64);
@@ -85,11 +85,11 @@ if(!isset($_GET['action'])){
 	        header("Location:".$path['admin']);
 	    
 	    } else if($_GET['action'] == "change_password" && issetVar(array('id', 'name', 'password', 'repassword'))){
-            $_id = check_input($_POST['id']);
-            $_name = check_input($_POST['name']);
-            $_password = check_input($_POST['password']);
-            $_repassword = check_input($_POST['repassword']);
-            $_url = check_input($_POST['url']);
+            $_id = $crud->escape_string(check_input($_POST['id']));
+            $_name = $crud->escape_string(check_input($_POST['name']));
+            $_password = $crud->escape_string(check_input($_POST['password']));
+            $_repassword = $crud->escape_string(check_input($_POST['repassword']));
+            $_url = $crud->escape_string(check_input($_POST['url']));
             $_salt = substr(md5(time()), 0, 5);
             $password = substr(doHash($_password, $_salt), 0, 64);
 
@@ -112,8 +112,8 @@ if(!isset($_GET['action'])){
 	        header("Location:".$_url);
 
         } else if($_GET['action'] == "delete" && issetVar(array('id', 'name'))){
-           	$_id = check_input($_GET['id']);
-            $_name = check_input($_GET['name']);
+           	$_id = $crud->escape_string(check_input($_GET['id']));
+            $_name = $crud->escape_string(check_input($_GET['name']));
             $_admin_id = $_SESSION['GpibKharis']['admin']['id'];
 
             if($_admin_id != $_id){

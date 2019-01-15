@@ -12,7 +12,7 @@ include_once($global['root-url']."model/Admin.php");
 $admin = new Admin();
 
 if(!isset($_GET['action'])){
-	$_id = isset($_GET['id']) ? check_input($_GET['id']) : "";
+	$_id = isset($_GET['id']) ? $crud->escape_string(check_input($_GET['id'])) : "";
 	$datas = $admin->get_detail($crud, $_id);
 	//var_dump($datas);
 }else{
@@ -20,12 +20,12 @@ if(!isset($_GET['action'])){
 	if(isset($_GET['action'])){
 
 	    if($_GET['action'] == "edit" && issetVar(array('id', 'name', 'new_email'))){
-	    	$admin->setId(check_input($_POST['id']));
-			$admin->setName(check_input($_POST['name']));
-			$admin->setEmail(check_input($_POST['new_email']));
-			$admin->setStatus(isset($_POST['status']) ? check_input($_POST['status']) : 0);
-			$_old_email = check_input($_POST['old_email']);
-			$_url = check_input($_POST['url']);
+	    	$admin->setId($crud->escape_string(check_input($_POST['id'])));
+			$admin->setName($crud->escape_string(check_input($_POST['name'])));
+			$admin->setEmail($crud->escape_string(check_input($_POST['new_email'])));
+			$admin->setStatus(isset($_POST['status']) ? $crud->escape_string(check_input($_POST['status'])) : 0);
+			$_old_email = $crud->escape_string(check_input($_POST['old_email']));
+			$_url = $crud->escape_string(check_input($_POST['url']));
 
 			$check_email = $admin->getEmail() != $_old_email ? $admin->check_email($crud, $admin->getEmail()) : false;
 			if($check_email){

@@ -31,11 +31,11 @@ if(!isset($_GET['action'])){
 	if(isset($_GET['action'])){
 
 	    if($_GET['action'] == "save" && issetVar(array('title'))){
-	    	$category->setId(check_input($_POST['id']));
-			$category->setTitle(check_input($_POST['title']));
+	    	$category->setId($crud->escape_string(check_input($_POST['id'])));
+			$category->setTitle($crud->escape_string(check_input($_POST['title'])));
 			$category->setSlug(encode($category->getTitle()));
 			$category->setType("article");
-			$category->setStatus(isset($_POST['status']) ? check_input($_POST['status']) : 0);
+			$category->setStatus(isset($_POST['status']) ? $crud->escape_string(check_input($_POST['status'])) : 0);
 
 			if($category->getId() != ""){
 				$result = $category->update_data($crud, $category);
@@ -63,8 +63,8 @@ if(!isset($_GET['action'])){
 	        header("Location:".$path['article-category']);
 	    
 	    } else if($_GET['action'] == "delete" && issetVar(array('id', 'title'))){
-            $_id = check_input($_GET['id']);
-            $_title = check_input($_GET['title']);
+            $_id = $crud->escape_string(check_input($_GET['id']));
+            $_title = $crud->escape_string(check_input($_GET['title']));
             
             $result = $category->delete_data($crud, $_id);
             if($result){

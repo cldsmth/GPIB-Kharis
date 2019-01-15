@@ -6,7 +6,7 @@ include_once($global['root-url']."model/Keluarga.php");
 $keluarga = new Keluarga();
 
 if(!isset($_GET['action'])){
-	$_id = isset($_GET['id']) ? check_input($_GET['id']) : "";
+	$_id = isset($_GET['id']) ? $crud->escape_string(check_input($_GET['id'])) : "";
 	$sectors = listSector();
 	$datas = $keluarga->get_detail($crud, $_id);
 	//var_dump($datas);
@@ -15,14 +15,14 @@ if(!isset($_GET['action'])){
 	if(isset($_GET['action'])){
 
 	    if($_GET['action'] == "edit" && issetVar(array('id', 'new_name', 'sector'))){
-	    	$keluarga->setId(check_input($_POST['id']));
-			$keluarga->setName(check_input($_POST['new_name']));
-			$keluarga->setSector(check_input($_POST['sector']));
-			$keluarga->setWeddingDate(checkFormatDateValue(check_input($_POST['wedding_date'])));
-			$keluarga->setAddress(check_input(nl2br($_POST['address'], false)));
-			$keluarga->setStatus(isset($_POST['status']) ? check_input($_POST['status']) : 0);
-			$_old_name = check_input($_POST['old_name']);
-			$_url = check_input($_POST['url']);
+	    	$keluarga->setId($crud->escape_string(check_input($_POST['id'])));
+			$keluarga->setName($crud->escape_string(check_input($_POST['new_name'])));
+			$keluarga->setSector($crud->escape_string(check_input($_POST['sector'])));
+			$keluarga->setWeddingDate(checkFormatDateValue($crud->escape_string(check_input($_POST['wedding_date']))));
+			$keluarga->setAddress($crud->escape_string(check_input(nl2br($_POST['address'], false))));
+			$keluarga->setStatus(isset($_POST['status']) ? $crud->escape_string(check_input($_POST['status'])) : 0);
+			$_old_name = $crud->escape_string(check_input($_POST['old_name']));
+			$_url = $crud->escape_string(check_input($_POST['url']));
 
 			$check_name = $keluarga->getName() != $_old_name ? $keluarga->check_name($crud, $keluarga->getName()) : false;
 			if($check_name){

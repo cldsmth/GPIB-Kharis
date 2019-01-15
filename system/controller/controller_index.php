@@ -36,9 +36,9 @@ if(!isset($_GET['action'])){
 	if(isset($_GET['action'])){
 
 	    if($_GET['action'] == 'login' && issetVar(array('email', 'password'))){
-	        $_email = check_input($_POST['email']);
-	        $_password = check_input($_POST['password']);
-        	$_remember_me = isset($_POST['remember_me']) ? check_input($_POST['remember_me']) : "no";
+	        $_email = $crud->escape_string(check_input($_POST['email']));
+	        $_password = $crud->escape_string(check_input($_POST['password']));
+        	$_remember_me = isset($_POST['remember_me']) ? $crud->escape_string(check_input($_POST['remember_me'])) : "no";
         	$salt = $admin->get_salt($crud, $_email);
         	$password = substr(doHash($_password, $salt), 0, 64);
 
@@ -64,7 +64,7 @@ if(!isset($_GET['action'])){
 	        header("Location:".$page);
 	    
 	    } else if($_GET['action'] == 'forgot' && issetVar(array('email'))){
-	        $_email = check_input($_POST['email']);
+	        $_email = $crud->escape_string(check_input($_POST['email']));
 	        $_code = generate_code(8);
 
         	$result = $admin->check_email($crud, $_email);

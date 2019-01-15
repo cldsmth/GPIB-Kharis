@@ -17,14 +17,14 @@ if(isset($_GET['action'])){//start gate
 	//===================================== export ========================================
 	if($_GET['action'] == 'export' && issetVar(array('admin_id', 'auth_code'))){
 		$_message = array("status" => "400", "message" => "No Data");
-		$_admin_id = check_input($_POST['admin_id']);
-		$_auth_code = check_input($_POST['auth_code']);
-		$_keyword = isset($_POST['keyword']) ? check_input($_POST['keyword']) : "";
-		$_sector = isset($_POST['sector']) ? check_input($_POST['sector']) : "";
-		$_pelkat = isset($_POST['pelkat']) ? check_input($_POST['pelkat']) : "";
-		$_gender = isset($_POST['gender']) ? check_input($_POST['gender']) : "";
-		$_married = isset($_POST['married']) ? check_input($_POST['married']) : "";
-		$_status = isset($_POST['status']) ? check_input($_POST['status']) : "";
+		$_admin_id = $crud->escape_string(check_input($_POST['admin_id']));
+		$_auth_code = $crud->escape_string(check_input($_POST['auth_code']));
+		$_keyword = isset($_POST['keyword']) ? $crud->escape_string(check_input($_POST['keyword'])) : "";
+		$_sector = isset($_POST['sector']) ? $crud->escape_string(check_input($_POST['sector'])) : "";
+		$_pelkat = isset($_POST['pelkat']) ? $crud->escape_string(check_input($_POST['pelkat'])) : "";
+		$_gender = isset($_POST['gender']) ? $crud->escape_string(check_input($_POST['gender'])) : "";
+		$_married = isset($_POST['married']) ? $crud->escape_string(check_input($_POST['married'])) : "";
+		$_status = isset($_POST['status']) ? $crud->escape_string(check_input($_POST['status'])) : "";
 
 		if($admin->check_code($crud, $_admin_id, $_auth_code)){
 			$columns = array(0 => array('value' => "No", 'vAlign' => "center", 'hAlign' => "center"),
