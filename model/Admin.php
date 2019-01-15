@@ -92,25 +92,14 @@ class Admin
     }
     
 //START FUNCTION FOR ADMIN PAGE
-    /*public function check_reset_code($crud, $email, $reset_code){
-        $filter = [
-            'email' => $email, 
-            'reset_code' => $reset_code
-        ];
-        $options = [
-            'projection' => [
-                '_id' => 0, 
-                'id' => 1
-            ],
-            'limit' => 1
-        ]; 
-        $query = new MongoDB\Driver\Query($filter, $options);
-        $result = $crud->find($this->table, $query);
+    public function check_reset_code($crud, $email, $reset_code){
+        $query = "SELECT id FROM $this->table WHERE email = '$email' AND reset_code = '$reset_code'";
+        $result = $crud->getData($query);
         if(!$result){
             return false;
         }
         return is_array($result) ? true : false;
-    }*/
+    }
 
     public function check_code($crud, $id, $auth_code){
         $query = "SELECT id FROM $this->table WHERE id = '$id' AND auth_code = '$auth_code'";
@@ -208,25 +197,15 @@ class Admin
         return $result;
     }
 
-    /*public function update_reset_code($crud, $email, $reset_code){
+    public function update_reset_code($crud, $email, $reset_code){
         date_default_timezone_set('Asia/Jakarta');
         $now = date("Y-m-d H:i:s");
 
-        $bulk = new MongoDB\Driver\BulkWrite;
-        $bulk->update(
-            [
-                'email' => $email
-            ], 
-            [
-                '$set' => [
-                    'reset_code' => $reset_code, 
-                    'timestamp' => $now
-                ]
-            ]
-        );
-        $result = $crud->put($this->table, $bulk);
+        $query = "UPDATE $this->table SET reset_code = '$reset_code', 
+            timestamp = '$now' WHERE email = '$email'";
+        $result = $crud->execute($query);
         return $result;
-    }*/
+    }
 
     public function change_password($crud, $id, $password, $salt_hash){
         date_default_timezone_set('Asia/Jakarta');
@@ -238,28 +217,15 @@ class Admin
         return $result;
     }
 
-    /*public function reset_password($crud, $email, $reset_code, $password, $salt_hash){
+    public function reset_password($crud, $email, $reset_code, $password, $salt_hash){
         date_default_timezone_set('Asia/Jakarta');
         $now = date("Y-m-d H:i:s");
 
-        $bulk = new MongoDB\Driver\BulkWrite;
-        $bulk->update(
-            [
-                'email' => $email, 
-                'reset_code' => $reset_code
-            ], 
-            [
-                '$set' => [
-                    'password' => $password, 
-                    'salt_hash' => $salt_hash, 
-                    'reset_code' => "", 
-                    'timestamp' => $now
-                ]
-            ]
-        );
-        $result = $crud->put($this->table, $bulk);
+        $query = "UPDATE $this->table SET password = '$password', salt_hash = '$salt_hash', 
+            reset_code = '', timestamp = '$now' WHERE email = '$email' AND reset_code = '$reset_code'";
+        $result = $crud->execute($query);
         return $result;
-    }*/
+    }
 
     public function delete_data($crud, $id, $encrypt, $path){
         $this->remove_image($crud, $id, $encrypt, $path);

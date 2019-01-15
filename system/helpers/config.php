@@ -21,9 +21,9 @@ $seo = array(
 $smtp = array(
 	'url' => "www.eannovate.com",
 	'to' => "dean11.cliff@gmail.com",
-	'from' => "cliff.dean@eannovate.com",
+	'from' => "smtp-mail@eannovate.com",
 	'from-name' => "Developer",
-	'password' => "Cliff123"
+	'password' => "developer123"
 );
 
 $path = array(
