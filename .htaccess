@@ -239,6 +239,9 @@ RewriteRule ^api/jemaat/export/$ api/api_jemaat.php?action=export
 #code to redirect api admin
 RewriteRule ^api/admin/check-email/$ api/api_admin.php?action=check_email
 
+#code to redirect api keluarga
+RewriteRule ^api/keluarga/check-name/$ api/api_keluarga.php?action=check_name
+
 #code to redirect system
 RewriteRule ^system/reset-password/$ system/reset-password.php
 

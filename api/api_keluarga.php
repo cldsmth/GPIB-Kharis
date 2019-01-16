@@ -11,18 +11,21 @@ if(isset($_GET['action'])){//start gate
 	include_once($global['root-url']."model/Admin.php");
 	$admin = new Admin();
 
-	//===================================== check email ========================================
-	if($_GET['action'] == 'check_email' && issetVar(array('admin_id', 'auth_code', 'email'))){
+	include_once($global['root-url']."model/Keluarga.php");
+	$keluarga = new Keluarga();
+
+	//===================================== check name ========================================
+	if($_GET['action'] == 'check_name' && issetVar(array('admin_id', 'auth_code', 'name'))){
 		$_admin_id = $crud->escape_string(check_input($_POST['admin_id']));
 		$_auth_code = $crud->escape_string(check_input($_POST['auth_code']));
-		$_email = $crud->escape_string(check_input($_POST['email']));
+		$_name = $crud->escape_string(check_input($_POST['name']));
 		
 		if($admin->check_code($crud, $_admin_id, $_auth_code)){
-			$result = $admin->check_email($crud, $_email);
+			$result = $keluarga->check_name($crud, $_name);
 			if($result){
-				$_message = array("status" => "400", "message" => "E-mail ".$_email." already exist");
+				$_message = array("status" => "400", "message" => "Name ".$_name." already exist");
 			}else{
-				$_message = array("status" => "200", "message" => "E-mail ".$_email." available");
+				$_message = array("status" => "200", "message" => "Name ".$_name." available");
 			}
 		}else{
 			$_message = array("status" => "401", "message" => "Unauthorized");
