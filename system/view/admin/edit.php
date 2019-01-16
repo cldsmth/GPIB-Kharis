@@ -70,8 +70,9 @@
                         <div class="row">
                           <div class="col-sm-4 col-xs-12 up1 form-label"><strong>E-mail <span class="symbol-required">*</span></strong> :</div>
                           <div class="col-sm-5 col-xs-12 up1">
-                            <input name="old_email" type="hidden" value="<?=$datas['email'];?>">
                             <input id="input-email" name="new_email" type="text" class="form-control input-style" placeholder="E-mail" maxlength="100" value="<?=$datas['email'];?>">
+                            <input id="old-email" name="old_email" type="hidden" value="<?=$datas['email'];?>">
+                            <input id="check-email" type="hidden" value="1">
                             <div id="error-email" class="is-error"></div>
                           </div>
                         </div>
@@ -176,13 +177,66 @@
         });
       });
 
+      var timeout = null;
+      $("#input-email").keyup(function() {
+        var email = this.value;
+        var old_email = $("#old-email").val();
+        clearTimeout(timeout);
+        timeout = setTimeout(function () {
+          if(email.length >= 3){
+            if(email != old_email){
+              checkEmail(email);
+            }else{
+              $("#check-email").val(1);
+              $("#error-email").html("");
+              $("#error-email").hide();
+              $("#input-email").removeClass("input-error");
+            }
+          }
+        }, 800);
+      });
+
       $('#input-image').bind('change', function() {
         $("#input-image-size").val(sizeFile(this));
       });
 
+      function checkEmail(email){
+        var admin_id = "<?=$_SESSION['GpibKharis']['admin']['id'];?>";
+        var auth_code = "<?=$_SESSION['GpibKharis']['admin']['auth_code'];?>";
+        var url = "<?=$global['api'];?>admin/check-email/";
+
+        //form data
+        var data = new FormData();
+        data.append('admin_id', admin_id);
+        data.append('auth_code', auth_code);
+        data.append('email', email);
+
+        $.ajax({
+          url: url, 
+          data: data, 
+          processData: false,
+          contentType: false,
+          type: 'POST', 
+          success:function(result){
+          var status = result.status;
+          if(status != 400){
+            $("#check-email").val(1);
+            $("#error-email").html("");
+            $("#error-email").hide();
+            $("#input-email").removeClass("input-error");
+          }else{
+            $("#check-email").val(0);
+            $("#error-email").show();
+            $("#error-email").html("<i class='fa fa-warning'></i> E-mail "+email+" already exist.");
+            $("#input-email").addClass("input-error");
+          }
+        }});
+      }
+
       function validateForm(){
         var name = $("#input-name").val();
         var email = $("#input-email").val();
+        var check_email = $("#check-email").val();
         var image = $("#input-image").val();
         var image_size = $("#input-image-size").val();
         var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -200,9 +254,17 @@
         }
         if(email != ""){
           if(email.match(mailformat)){
-            $("#error-email").html("");
-            $("#error-email").hide();
-            $("#input-email").removeClass("input-error");
+            if(check_email == 1){
+              $("#error-email").html("");
+              $("#error-email").hide();
+              $("#input-email").removeClass("input-error");
+            }else{
+              $("#error-email").show();
+              $("#error-email").html("<i class='fa fa-warning'></i> E-mail "+email+" already exist.");
+              $("#input-email").addClass("input-error");
+              $("#input-email").focus();
+              return false;
+            }
           } else {
             $("#error-email").show();
             $("#error-email").html("<i class='fa fa-warning'></i> Invalid e-mail format.");
