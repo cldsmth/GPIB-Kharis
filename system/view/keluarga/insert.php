@@ -53,6 +53,7 @@
                           <div class="col-sm-4 col-xs-12 form-label"><strong>Nama Keluarga <span class="symbol-required">*</span></strong> :</div>
                           <div class="col-sm-5 col-xs-12">
                             <input id="input-name" name="name" type="text" class="form-control input-style" placeholder="Nama Keluarga" maxlength="100">
+                            <input id="check-name" type="hidden" value="1">
                             <div id="error-name" class="is-error"></div>
                           </div>
                         </div>
@@ -150,15 +151,68 @@
     </main>
   	<?php include("../../parts/part-footer-js.php");?>
     <script type="text/javascript">
+      var timeout = null;
+      $("#input-name").keyup(function() {
+        var name = this.value;
+        clearTimeout(timeout);
+        timeout = setTimeout(function () {
+          if(name.length >= 3){
+            checkName(name);
+          }
+        }, 800);
+      });
+
+      function checkName(name){
+        var admin_id = "<?=$_SESSION['GpibKharis']['admin']['id'];?>";
+        var auth_code = "<?=$_SESSION['GpibKharis']['admin']['auth_code'];?>";
+        var url = "<?=$global['api'];?>keluarga/check-name/";
+
+        //form data
+        var data = new FormData();
+        data.append('admin_id', admin_id);
+        data.append('auth_code', auth_code);
+        data.append('name', name);
+
+        $.ajax({
+          url: url, 
+          data: data, 
+          processData: false,
+          contentType: false,
+          type: 'POST', 
+          success:function(result){
+          var status = result.status;
+          if(status != 400){
+            $("#check-name").val(1);
+            $("#error-name").html("");
+            $("#error-name").hide();
+            $("#input-name").removeClass("input-error");
+          }else{
+            $("#check-name").val(0);
+            $("#error-name").show();
+            $("#error-name").html("<i class='fa fa-warning'></i> Name "+name+" already exist.");
+            $("#input-name").addClass("input-error");
+          }
+        }});
+      }
+
       function validateForm(){
         var name = $("#input-name").val();
+        var check_name = $("#check-name").val();
         var sector = $("#input-sector").val();
         var wedding_date = $("#input-wedding-date").val();
         
         if(name != ""){
-          $("#error-name").html("");
-          $("#error-name").hide();
-          $("#input-name").removeClass("input-error");
+          if(check_name == 1){
+            $("#error-name").html("");
+            $("#error-name").hide();
+            $("#input-name").removeClass("input-error");
+          }else{
+            $("#error-name").show();
+            $("#error-name").html("<i class='fa fa-warning'></i> Name "+name+" already exist.");
+            $("#input-name").addClass("input-error");
+            $("#input-name").focus();
+            return false;
+          }
         } else {
           $("#error-name").show();
           $("#error-name").html("<i class='fa fa-warning'></i> This field is required.");
