@@ -236,6 +236,9 @@ ErrorDocument 404 "<H1>Page not found</H1>"
 #code to redirect api jemaat
 RewriteRule ^api/jemaat/export/$ api/api_jemaat.php?action=export
 
+#code to redirect api admin
+RewriteRule ^api/admin/check-email/$ api/api_admin.php?action=check_email
+
 #code to redirect system
 RewriteRule ^system/reset-password/$ system/reset-password.php
 
