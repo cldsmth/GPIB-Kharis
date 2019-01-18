@@ -12,8 +12,8 @@
                 </div>
                 <div class="col-sm-6 col-7">
                     <div class="top_btn d-flex justify-content-end">
-                        <a href="#">My Account</a>
-                        <a href="#">Donate Now</a>
+                        <a href="#">Tata Ibadah</a>
+                        <a href="#">Warta Jemaat</a>
                     </div>
                 </div>
             </div>
@@ -22,7 +22,7 @@
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
-            <a class="navbar-brand logo_h" href="index.html"><img src="assets/image/Logo.png" alt=""></a>
+            <a class="navbar-brand logo_h" href="<?=$path['home'];?>"><img src="<?=$global['absolute-url'];?>assets/image/Logo.png" alt=""></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -31,7 +31,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                 <ul class="nav navbar-nav menu_nav ml-auto">
-                    <li class="nav-item active"><a class="nav-link" href="index.html">Home</a></li> 
+                    <li class="nav-item active"><a class="nav-link" href="<?=$path['home'];?>">Home</a></li> 
                     <li class="nav-item"><a class="nav-link" href="ministries.html">Minisrtries</a></li>
                     <li class="nav-item"><a class="nav-link" href="sermons.html">Sermons</a></li>
                     <li class="nav-item submenu dropdown">

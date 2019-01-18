@@ -1,9 +1,12 @@
+<?php
+    include("helpers/require.php");
+?>
 <!doctype html>
 <html lang="en">
     <head>
-        <title></title>
-        <meta name="keywords" content="">
-        <meta name="description" content="">
+        <title><?=$seo['home-title'];?></title>
+        <meta name="keywords" content="<?=$seo['home-keyword'];?>">
+        <meta name="description" content="<?=$seo['home-desc'];?>">
         <?php include("parts/part-head.php");?>
     </head>
     <body>

@@ -9,11 +9,19 @@ $global = array(
 	'absolute-url-admin' => ADMIN,
 	'root-url' => ROOT."gpib/",
 	'api' => PATH."api/",
-	'favicon' => ADMIN."assets/images/logo.png"
+	'favicon' => PATH."assets/image/favicon.png"
 );
 
 $seo = array(
 	'company-name' => NAME,
-	'copyright' => "Copyright ".NAME." ".date('Y')." &copy;"
+	'copyright' => "Copyright ".NAME." ".date('Y')." &copy;",
+	'home-title' => NAME." | Homepage",
+	'home-keyword' => "",
+	'home-desc' => ""
 );
+
+$path = array(
+	'home' => PATH,
+);
+
 ?>
