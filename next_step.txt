@@ -1,5 +1,5 @@
 next step
--cari template untuk bagian front-end nya
+-folder img nanti file-file nya di group-in, untuk image placeholder di bikin di folder placeholder
 -create module
 	-event
 	-news
