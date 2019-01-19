@@ -12,6 +12,7 @@
                 </div>
                 <div class="col-sm-6 col-7">
                     <div class="top_btn d-flex justify-content-end">
+                        <a href="#">Gallery</a>
                         <a href="#">Tata Ibadah</a>
                         <a href="#">Warta Jemaat</a>
                     </div>
@@ -31,34 +32,21 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                 <ul class="nav navbar-nav menu_nav ml-auto">
-                    <li class="nav-item active"><a class="nav-link" href="<?=$path['home'];?>">Home</a></li> 
-                    <li class="nav-item"><a class="nav-link" href="ministries.html">Minisrtries</a></li>
-                    <li class="nav-item"><a class="nav-link" href="sermons.html">Sermons</a></li>
-                    <li class="nav-item submenu dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Event</a>
-                        <ul class="dropdown-menu">
-                            <li class="nav-item"><a class="nav-link" href="event.html">Event</a></li>
-                            <li class="nav-item"><a class="nav-link" href="event-details.html">Event Details</a></li>
-                        </ul>
-                    </li> 
-                    <li class="nav-item submenu dropdown">
+                    <li class="nav-item <?=($curpage == "home" ? "active" : "");?>"><a class="nav-link" href="<?=$path['home'];?>">Home</a></li> 
+                    <!--<li class="nav-item"><a class="nav-link" href="ministries.html">Minisrtries</a></li>
+                    <li class="nav-item"><a class="nav-link" href="sermons.html">Sermons</a></li>!-->
+                    <li class="nav-item <?=($curpage == "event" ? "active" : "");?>"><a class="nav-link" href="#">Event</a></li>
+                    <li class="nav-item <?=($curpage == "blog" ? "active" : "");?>"><a class="nav-link" href="#">Blog</a></li>
+                    <li class="nav-item submenu dropdown <?=($curpage == "pages" ? "active" : "");?>">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
                         <ul class="dropdown-menu">
-                            <li class="nav-item"><a class="nav-link" href="about-us.html">About</a></li>
-                            <li class="nav-item"><a class="nav-link" href="donation.html">Donation</a></li>
-                            <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
-                            <li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Gallery</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Tata Ibadah</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Warta Jemaat</a></li>
                         </ul>
-                    </li> 
-                    <li class="nav-item submenu dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
-                        <ul class="dropdown-menu">
-                            <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-                            <li class="nav-item"><a class="nav-link" href="blog-single.html">Blog Details</a></li>
-                        </ul>
-                    </li> 
-                    
-                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    </li>
+                    <li class="nav-item <?=($curpage == "about" ? "active" : "");?>"><a class="nav-link" href="<?=$path['about-us'];?>">About Us</a></li>
+                    <li class="nav-item <?=($curpage == "contact" ? "active" : "");?>"><a class="nav-link" href="<?=$path['contact-us'];?>">Contact Us</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="nav-item"><a href="#" class="search"><i class="lnr lnr-magnifier"></i></a></li>

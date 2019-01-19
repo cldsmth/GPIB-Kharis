@@ -1,5 +1,6 @@
 <?php
     include("helpers/require.php");
+    $curpage = "about";
 ?>
 <!doctype html>
 <html lang="en">
@@ -21,7 +22,7 @@
                     <h2 class="page-cover-tittle">About Us</h2>
                     <ol class="breadcrumb">
                         <li><a href="<?=$path['home'];?>">Home</a></li>
-                        <li class="active">About</li>
+                        <li class="active">About Us</li>
                     </ol>
                 </div>
             </div>

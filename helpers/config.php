@@ -20,10 +20,15 @@ $seo = array(
 	'home-desc' => "",
 	'about-us-title' => NAME." | About Us",
 	'about-us-keyword' => "",
-	'about-us-desc' => ""
+	'about-us-desc' => "",
+	'contact-us-title' => NAME." | Contact Us",
+	'contact-us-keyword' => "",
+	'contact-us-desc' => ""
 );
 
 $path = array(
 	'home' => PATH,
+	'about-us' => PATH."about-us.php",
+	'contact-us' => PATH."contact-us.php",
 );
 ?>

@@ -1,14 +1,16 @@
 next step
 -lanjutin init front-end files
-	-contact.html
 	-blog.html
 	-blog-single.html
 	-event.html
 	-event-details.html
+	-gallery.php (ambil kayak category nya blog)
+	-gallery.html (untuk gallery detail nya, namanya gallery-detail.php)
 -folder img nanti file-file nya di group-in, untuk image placeholder di bikin di folder placeholder
 -create module
 	-event
-	-news
+	-news (nanti semua nama news bakal di ganti jadi blog, termasuk category maupun database)
+	-gallery
 -lanjutin module-module sisa yang dicomment dimenu sidebar
 -kalau sudah ada module event/article, di module category event/article di tambahkan kolom counter dan ada validasi 
  kalau yang bisa di hapus cuma counter == 0, yang sudah terisi tidak bisa di hapus (seperti module keluarga)

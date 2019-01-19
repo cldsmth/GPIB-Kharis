@@ -1,5 +1,6 @@
 <?php
     include("helpers/require.php");
+    $curpage = "home";
 ?>
 <!doctype html>
 <html lang="en">
