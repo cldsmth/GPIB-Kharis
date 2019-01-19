@@ -17,11 +17,13 @@ $seo = array(
 	'copyright' => "Copyright ".NAME." ".date('Y')." &copy;",
 	'home-title' => NAME." | Homepage",
 	'home-keyword' => "",
-	'home-desc' => ""
+	'home-desc' => "",
+	'about-us-title' => NAME." | About Us",
+	'about-us-keyword' => "",
+	'about-us-desc' => ""
 );
 
 $path = array(
 	'home' => PATH,
 );
-
 ?>

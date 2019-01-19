@@ -1,4 +1,10 @@
 next step
+-lanjutin init front-end files
+	-contact.html
+	-blog.html
+	-blog-single.html
+	-event.html
+	-event-details.html
 -folder img nanti file-file nya di group-in, untuk image placeholder di bikin di folder placeholder
 -create module
 	-event
