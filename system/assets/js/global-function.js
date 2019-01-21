@@ -53,14 +53,14 @@ function getUploadFile(url, module, thmb, data){
         result = url+"uploads/admin/"+thmb+data;
       break;
       default:
-        result = url+"img/placeholder-image.png";
+        result = url+"img/placeholder/image.png";
       break;
     }
   }else{
     if(module == "admin"){
-      result = url+"img/placeholder-anonymous.jpg";
+      result = url+"img/placeholder/anonymous.jpg";
     }else{
-      result = url+"img/placeholder-image.png";
+      result = url+"img/placeholder/image.png";
     }
   }
   return result;

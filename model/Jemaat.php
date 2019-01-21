@@ -243,10 +243,10 @@ class Jemaat
                 $rows[$loop] = $row;
 
                 //query keluarga
-                $query_detail = "SELECT id, name, sector FROM keluarga WHERE id = '{$row['keluarga_id']}'";
-                $result_detail = $crud->getById($query_detail);
-                if($result_detail){
-                    $rows[$loop]['keluarga'] = $result_detail;
+                $query_keluarga = "SELECT id, name, sector FROM keluarga WHERE id = '{$row['keluarga_id']}'";
+                $result_keluarga = $crud->getById($query_keluarga);
+                if($result_keluarga){
+                    $rows[$loop]['keluarga'] = $result_keluarga;
                 }
                 unset($rows[$loop]['keluarga_id']);
                 $loop++;

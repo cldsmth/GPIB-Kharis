@@ -6,7 +6,6 @@ next step
 	-event-details.html
 	-gallery.php (ambil kayak category nya blog)
 	-gallery.html (untuk gallery detail nya, namanya gallery-detail.php)
--folder img nanti file-file nya di group-in, untuk image placeholder di bikin di folder placeholder
 -create module
 	-event
 	-news (nanti semua nama news bakal di ganti jadi blog, termasuk category maupun database)
