@@ -36,11 +36,11 @@
                     <!--<li class="nav-item"><a class="nav-link" href="ministries.html">Minisrtries</a></li>
                     <li class="nav-item"><a class="nav-link" href="sermons.html">Sermons</a></li>!-->
                     <li class="nav-item <?=($curpage == "event" ? "active" : "");?>"><a class="nav-link" href="#">Event</a></li>
-                    <li class="nav-item <?=($curpage == "blog" ? "active" : "");?>"><a class="nav-link" href="#">Blog</a></li>
+                    <li class="nav-item <?=($curpage == "blog" ? "active" : "");?>"><a class="nav-link" href="<?=$path['blog'];?>">Blog</a></li>
                     <li class="nav-item submenu dropdown <?=($curpage == "pages" ? "active" : "");?>">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
                         <ul class="dropdown-menu">
-                            <li class="nav-item"><a class="nav-link" href="#">Gallery</a></li>
+                            <li class="nav-item"><a class="nav-link" href="<?=$path['gallery'];?>">Gallery</a></li>
                             <li class="nav-item"><a class="nav-link" href="#">Tata Ibadah</a></li>
                             <li class="nav-item"><a class="nav-link" href="#">Warta Jemaat</a></li>
                         </ul>

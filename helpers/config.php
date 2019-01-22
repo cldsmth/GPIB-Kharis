@@ -23,12 +23,21 @@ $seo = array(
 	'about-us-desc' => "",
 	'contact-us-title' => NAME." | Contact Us",
 	'contact-us-keyword' => "",
-	'contact-us-desc' => ""
+	'contact-us-desc' => "",
+	'blog-title' => NAME." | Blog",
+	'blog-keyword' => "",
+	'blog-desc' => "",
+	'gallery-title' => NAME." | Gallery",
+	'gallery-keyword' => "",
+	'gallery-desc' => ""
 );
 
 $path = array(
 	'home' => PATH,
 	'about-us' => PATH."about-us.php",
 	'contact-us' => PATH."contact-us.php",
+	'blog' => PATH."blog.php",
+	'blog-detail' => PATH."blog-detail.php",
+	'gallery' => PATH."gallery.php"
 );
 ?>
