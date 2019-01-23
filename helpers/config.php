@@ -29,7 +29,10 @@ $seo = array(
 	'blog-desc' => "",
 	'gallery-title' => NAME." | Gallery",
 	'gallery-keyword' => "",
-	'gallery-desc' => ""
+	'gallery-desc' => "",
+	'event-title' => NAME." | Event",
+	'event-keyword' => "",
+	'event-desc' => ""
 );
 
 $path = array(
@@ -38,6 +41,8 @@ $path = array(
 	'contact-us' => PATH."contact-us.php",
 	'blog' => PATH."blog.php",
 	'blog-detail' => PATH."blog-detail.php",
-	'gallery' => PATH."gallery.php"
+	'gallery' => PATH."gallery.php",
+	'event' => PATH."event.php",
+	'event-detail' => PATH."event-detail.php",
 );
 ?>

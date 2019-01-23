@@ -207,28 +207,28 @@
                                 <div class="media post_item">
                                     <img src="assets/image/blog/post1.jpg" alt="post">
                                     <div class="media-body">
-                                        <a href="blog-details.html"><h3>Space The Final Frontier</h3></a>
+                                        <a href="<?=$path['blog-detail'];?>"><h3>Space The Final Frontier</h3></a>
                                         <p>02 Hours ago</p>
                                     </div>
                                 </div>
                                 <div class="media post_item">
                                     <img src="assets/image/blog/post2.jpg" alt="post">
                                     <div class="media-body">
-                                        <a href="blog-details.html"><h3>The Amazing Hubble</h3></a>
+                                        <a href="<?=$path['blog-detail'];?>"><h3>The Amazing Hubble</h3></a>
                                         <p>02 Hours ago</p>
                                     </div>
                                 </div>
                                 <div class="media post_item">
                                     <img src="assets/image/blog/post3.jpg" alt="post">
                                     <div class="media-body">
-                                        <a href="blog-details.html"><h3>Astronomy Or Astrology</h3></a>
+                                        <a href="<?=$path['blog-detail'];?>"><h3>Astronomy Or Astrology</h3></a>
                                         <p>03 Hours ago</p>
                                     </div>
                                 </div>
                                 <div class="media post_item">
                                     <img src="assets/image/blog/post4.jpg" alt="post">
                                     <div class="media-body">
-                                        <a href="blog-details.html"><h3>Asteroids telescope</h3></a>
+                                        <a href="<?=$path['blog-detail'];?>"><h3>Asteroids telescope</h3></a>
                                         <p>01 Hours ago</p>
                                     </div>
                                 </div>

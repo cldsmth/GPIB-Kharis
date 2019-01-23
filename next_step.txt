@@ -1,9 +1,8 @@
 next step
 -lanjutin init front-end files
-	-event.html
-	-event-details.html
 	-gallery.html (untuk gallery detail nya, namanya gallery-detail.php)
 	-implement hidden-xs, visible-xs untuk dibagian gallery.php
+	-yang tag <br> nanti diganti pakai row up1, up2, dll
 -create module
 	-event
 	-news (nanti semua nama news bakal di ganti jadi blog, termasuk category maupun database)

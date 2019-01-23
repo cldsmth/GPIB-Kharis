@@ -35,7 +35,7 @@
                     <li class="nav-item <?=($curpage == "home" ? "active" : "");?>"><a class="nav-link" href="<?=$path['home'];?>">Home</a></li> 
                     <!--<li class="nav-item"><a class="nav-link" href="ministries.html">Minisrtries</a></li>
                     <li class="nav-item"><a class="nav-link" href="sermons.html">Sermons</a></li>!-->
-                    <li class="nav-item <?=($curpage == "event" ? "active" : "");?>"><a class="nav-link" href="#">Event</a></li>
+                    <li class="nav-item <?=($curpage == "event" ? "active" : "");?>"><a class="nav-link" href="<?=$path['event'];?>">Event</a></li>
                     <li class="nav-item <?=($curpage == "blog" ? "active" : "");?>"><a class="nav-link" href="<?=$path['blog'];?>">Blog</a></li>
                     <li class="nav-item submenu dropdown <?=($curpage == "pages" ? "active" : "");?>">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
