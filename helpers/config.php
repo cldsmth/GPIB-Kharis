@@ -42,6 +42,7 @@ $path = array(
 	'blog' => PATH."blog.php",
 	'blog-detail' => PATH."blog-detail.php",
 	'gallery' => PATH."gallery.php",
+	'gallery-detail' => PATH."gallery-detail.php",
 	'event' => PATH."event.php",
 	'event-detail' => PATH."event-detail.php",
 );
