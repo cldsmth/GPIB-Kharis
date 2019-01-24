@@ -12,3 +12,5 @@
 <!-- main css -->
 <link rel="stylesheet" href="<?=$global['absolute-url'];?>assets/css/style.css">
 <link rel="stylesheet" href="<?=$global['absolute-url'];?>assets/css/responsive.css">
+<link rel="stylesheet" href="<?=$global['absolute-url'];?>assets/stylesheets/global-style.css?<?=mt_rand();?>">
+<link rel="stylesheet" href="<?=$global['absolute-url'];?>assets/stylesheets/libcvm.css?<?=mt_rand();?>">
