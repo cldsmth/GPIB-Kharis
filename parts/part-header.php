@@ -12,9 +12,9 @@
                 </div>
                 <div class="col-sm-6 col-7">
                     <div class="top_btn d-flex justify-content-end">
-                        <a href="#">Gallery</a>
-                        <a href="#">Tata Ibadah</a>
-                        <a href="#">Warta Jemaat</a>
+                        <a href="<?=$path['gallery'];?>">Gallery</a>
+                        <a href="<?=$path['tata-ibadah'];?>">Tata Ibadah</a>
+                        <a href="<?=$path['warta-jemaat'];?>">Warta Jemaat</a>
                     </div>
                 </div>
             </div>
@@ -41,8 +41,8 @@
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
                         <ul class="dropdown-menu">
                             <li class="nav-item"><a class="nav-link" href="<?=$path['gallery'];?>">Gallery</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Tata Ibadah</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Warta Jemaat</a></li>
+                            <li class="nav-item"><a class="nav-link" href="<?=$path['tata-ibadah'];?>">Tata Ibadah</a></li>
+                            <li class="nav-item"><a class="nav-link" href="<?=$path['warta-jemaat'];?>">Warta Jemaat</a></li>
                         </ul>
                     </li>
                     <li class="nav-item <?=($curpage == "about" ? "active" : "");?>"><a class="nav-link" href="<?=$path['about-us'];?>">About Us</a></li>

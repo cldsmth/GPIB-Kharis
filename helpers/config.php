@@ -32,7 +32,13 @@ $seo = array(
 	'gallery-desc' => "",
 	'event-title' => NAME." | Event",
 	'event-keyword' => "",
-	'event-desc' => ""
+	'event-desc' => "",
+	'tata-ibadah-title' => NAME." | Tata Ibadah",
+	'tata-ibadah-keyword' => "",
+	'tata-ibadah-desc' => "",
+	'warta-jemaat-title' => NAME." | Warta Jemaat",
+	'warta-jemaat-keyword' => "",
+	'warta-jemaat-desc' => ""
 );
 
 $path = array(
@@ -45,5 +51,7 @@ $path = array(
 	'gallery-detail' => PATH."gallery-detail.php",
 	'event' => PATH."event.php",
 	'event-detail' => PATH."event-detail.php",
+	'tata-ibadah' => PATH."tata-ibadah.php",
+	'warta-jemaat' => PATH."warta-jemaat.php"
 );
 ?>
