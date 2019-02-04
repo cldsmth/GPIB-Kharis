@@ -1,7 +1,7 @@
 <?php
-define('PATH', "http://".$_SERVER['HTTP_HOST']."/gpib/");
+define('PATH', "http://".$_SERVER['HTTP_HOST']."/project/gpib/");
 define('ADMIN', PATH."system/");
-define('ROOT', $_SERVER['DOCUMENT_ROOT']."/");
+define('ROOT', $_SERVER['DOCUMENT_ROOT']."/project/");
 define('NAME', "GPIB Kharis");
 
 $global = array(

@@ -1,5 +1,5 @@
 var pathArray = window.location.pathname.split("/");
-var PATH = pathArray[5] != "" ? "../../../" : "../../";
+var PATH = pathArray[6] != "" ? "../../../" : "../../";
 var LIBS = {
 	// Chart libraries
 	plot: [
