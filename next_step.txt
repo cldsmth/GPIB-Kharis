@@ -1,5 +1,4 @@
 next step
--lanjutin init front-end files untuk warta jemaat, tata ibadah
 -create module
 	-event
 	-news (nanti semua nama news bakal di ganti jadi blog, termasuk category maupun database)

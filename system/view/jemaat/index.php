@@ -241,8 +241,8 @@
                     </div>
                     <div class="modal-footer f5-bg">
                       <div class="btn-group">
-                        <button type="reset" class="btn btn-default" data-dismiss="modal"><i class='fa fa-times'></i> Cancel</button>
-                        <button type="submit" class="btn btn-primary btn-md"><i class="fa fa-check"></i> Submit</button>
+                        <button type="reset" class="btn btn-default" data-dismiss="modal"><i class='fa fa-times'></i> Close</button>
+                        <button type="submit" class="btn btn-primary btn-md"><i class="fa fa-search"></i> Search</button>
                       </div>
                     </div>
                   </form>
